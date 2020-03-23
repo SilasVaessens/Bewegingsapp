@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Bewegingsapp.InstellingenMenu"
+             Title="Instellingen">
+    
+    <ContentPage.Content>
+        <Grid RowSpacing="0" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="1"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="Oefeningen_Instellingen" Grid.Row="0" Text="Instellingen oefeningen" FontSize="57" FontAttributes="Bold"
+                    TextColor="Black" BackgroundColor="Yellow" Clicked="Oefeningen_Instellingen_Clicked"/>
+            <Button x:Name="Route_Instellingen" Grid.Row="2" Text="Instellingen route" FontSize="57" FontAttributes="Bold"
+                    TextColor="Black" BackgroundColor="WhiteSmoke" Clicked="Route_Instellingen_Clicked"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

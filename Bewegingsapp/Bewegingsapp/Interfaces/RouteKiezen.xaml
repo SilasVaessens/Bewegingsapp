@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Bewegingsapp.RouteKiezen"
+             NavigationPage.HasNavigationBar="false">
+    
+    <ContentPage.Content>
+        <Grid RowSpacing="0" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="70*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Kies route" FontSize="57" FontAttributes="Bold"
+                   TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
+            <Label Grid.Row="2" Text="Lijst routes" FontSize="57" FontAttributes="Bold"
+                   TextColor="Black" HorizontalTextAlignment="Center" BackgroundColor="WhiteSmoke"/>
+            <Button x:Name="OK_Route_Kiezen" Grid.Row="4" Text="ok" FontSize="57" FontAttributes="Bold"
+                   TextColor="Black" BackgroundColor="Yellow" Clicked="OK_Route_Kiezen_Clicked"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

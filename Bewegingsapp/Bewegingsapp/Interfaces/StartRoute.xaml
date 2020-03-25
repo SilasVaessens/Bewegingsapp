@@ -8,10 +8,20 @@
              NavigationPage.HasNavigationBar="false">
     
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Deze functionaliteit bestaat momenteel nog niet en zal later toegevoegd worden."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid RowSpacing="0" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="70*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Routebeschrijving" FontSize="38" FontAttributes="Bold"
+                   TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
+            <Label Text="Hier komt later een Maps-achtige functionaliteit te staan, maar deze functionaliteit moet eerst nog verder onderzocht worden omdat hieraan mogelijk kosten verbonden zijn"
+                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Button x:Name="Start_Route" Grid.Row="4" Text="Start" FontSize="57" FontAttributes="Bold"
+                   TextColor="Black" BackgroundColor="Yellow" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

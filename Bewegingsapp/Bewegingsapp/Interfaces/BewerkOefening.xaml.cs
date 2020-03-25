@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bewegingsapp.Model;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,9 +19,30 @@ namespace Bewegingsapp
 
         private async void Oefening_update_Clicked(object sender, EventArgs e)
         {
-            var oefening = (Oefening)BindingContext;
-            await App.Database.UpdateOefening(oefening);
-            await Navigation.PopAsync();
+            if (String.IsNullOrEmpty(BewerkNaam.Text) & String.IsNullOrEmpty(BewerkOmschrijving.Text))
+            {
+                await DisplayAlert("Niks ingevuld", "De oefening heeft geen naam en omschrijving meer", "OK");
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(BewerkNaam.Text))
+                {
+                    await DisplayAlert("Geen naam", "De oefening heeft geen naam meer", "OK");
+                }
+                else
+                {
+                    if (String.IsNullOrEmpty(BewerkOmschrijving.Text))
+                    {
+                        await DisplayAlert("Geen omschrijvijng", "De oefening heeft geen naam meer", "OK");
+                    }
+                }
+            }
+            if (String.IsNullOrEmpty(BewerkNaam.Text) == false & String.IsNullOrEmpty(BewerkOmschrijving.Text) == false)
+            {
+                var oefening = (Oefening)BindingContext;
+                await App.Database.UpdateOefening(oefening);
+                await Navigation.PopAsync();
+            }
         }
 
         private async void Oefening_verwijder_Clicked(object sender, EventArgs e)

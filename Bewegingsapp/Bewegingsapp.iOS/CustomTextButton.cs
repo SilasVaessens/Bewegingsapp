@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Foundation;
+using UIKit;
+using Bewegingsapp.iOS;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
+
+[assembly: ExportRenderer(typeof(Button), typeof(CustomTextButton))]
+namespace Bewegingsapp.iOS
+{
+    public class CustomTextButton :ButtonRenderer
+    {
+        protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
+        {
+            base.OnElementChanged(e);
+            if (Control != null)
+                Control.TitleLabel.LineBreakMode = UILineBreakMode.WordWrap;
+        }
+    }
+}

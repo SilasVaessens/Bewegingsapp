@@ -8,7 +8,7 @@
              Title="Routes">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="Add" IconImageSource="add.png" Order="Primary" Clicked="Add_Clicked"/>
+        <ToolbarItem x:Name="Add" IconImageSource="add2.png" Order="Primary" Clicked="Add_Clicked"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>

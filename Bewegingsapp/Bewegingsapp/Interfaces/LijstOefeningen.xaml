@@ -8,7 +8,7 @@
              Title="Oefeningen">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="Add"  IconImageSource="add.png" Order="Primary" Clicked="Add_Clicked"/>
+        <ToolbarItem x:Name="Add" Order="Primary" IconImageSource="add2.png" Clicked="Add_Clicked"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="Bewegingsapp.StartRoute"
              NavigationPage.HasNavigationBar="false">
     
@@ -18,8 +19,7 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Text="Routebeschrijving" FontSize="38" FontAttributes="Bold"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
-            <Label Text="Hier komt later een Maps-achtige functionaliteit te staan, maar deze functionaliteit moet eerst nog verder onderzocht worden omdat hieraan mogelijk kosten verbonden zijn"
-                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <maps:Map Grid.Row="2" IsShowingUser="True" />
             <Button x:Name="Start_Route" Grid.Row="4" Text="Start" FontSize="57" FontAttributes="Bold"
                    TextColor="Black" BackgroundColor="Yellow" />
         </Grid>

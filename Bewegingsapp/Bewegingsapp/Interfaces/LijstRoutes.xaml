@@ -12,11 +12,12 @@
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Deze functionaliteit bestaat momenteel nog niet en zal later toegevoegd worden."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-
+        <ListView x:Name="Routes" Grid.Row="0" BackgroundColor="GhostWhite" ItemSelected="Routes_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding NaamRoute}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

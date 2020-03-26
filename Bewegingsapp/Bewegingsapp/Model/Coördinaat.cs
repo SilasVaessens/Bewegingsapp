@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Bewegingsapp.Model
 {
-    class Coördinaat
+    public class Coördinaat
     {
     }
 }

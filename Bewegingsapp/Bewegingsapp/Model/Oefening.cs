@@ -9,8 +9,8 @@ namespace Bewegingsapp.Model
     public class Oefening
     {
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
-        public string Naam { get; set; }
-        public string Omschrijving { get; set; }
+        public int IDOefening { get; set; }
+        public string NaamOefening { get; set; }
+        public string OmschrijvingOefening { get; set; }
     }
 }

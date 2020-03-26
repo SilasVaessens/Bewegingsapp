@@ -15,20 +15,14 @@ namespace Bewegingsapp.Data
         {
             sqlite_database = new SQLiteAsyncConnection(dbPath);
             sqlite_database.CreateTableAsync<Oefening>().Wait();
-            //sqlite_database.CreateTableAsync<Routes>().Wait();
+            sqlite_database.CreateTableAsync<Route>().Wait();
             //sqlite_database.CreateTableAsync<Coördinaten>().Wait();
         }
 
+        //alle methodes voor oefeningen
         public Task<List<Oefening>> LijstOefeningen()
         {
             return sqlite_database.Table<Oefening>().ToListAsync();
-        }
-
-        public Task<Oefening> DetailOefening(int id)
-        {
-            return sqlite_database.Table<Oefening>()
-                                  .Where(i => i.ID == id)
-                                  .FirstOrDefaultAsync();
         }
 
         public Task<int> VerwijderOefening(Oefening oefening)
@@ -44,6 +38,27 @@ namespace Bewegingsapp.Data
         public Task<int> UpdateOefening(Oefening oefening)
         {
             return sqlite_database.UpdateAsync(oefening);
+        }
+
+        // alle methodes voor routes
+        public Task<List<Route>> LijstRoutes()
+        {
+            return sqlite_database.Table<Route>().ToListAsync();
+        }
+
+        public Task<int> VerwijderRoute(Route route)
+        {
+            return sqlite_database.DeleteAsync(route);
+        }
+
+        public Task<int> ToevoegenRoute(Route route)
+        {
+            return sqlite_database.InsertAsync(route);
+        }
+
+        public Task<int> UpdateRoute(Route route)
+        {
+            return sqlite_database.UpdateAsync(route);
         }
     }
 }

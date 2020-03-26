@@ -41,8 +41,8 @@ namespace Bewegingsapp
             {
                 Oefening oefening = new Oefening()
                 {
-                    Naam = NaamEditor.Text,
-                    Omschrijving = OmschrijvingEditor.Text
+                    NaamOefening = NaamEditor.Text,
+                    OmschrijvingOefening = OmschrijvingEditor.Text
                 };
                 await App.Database.ToevoegenOefening(oefening);
                 await Navigation.PopAsync();

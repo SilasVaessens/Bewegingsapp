@@ -23,11 +23,6 @@ namespace Bewegingsapp
             Oefeningen.ItemsSource = await App.Database.LijstOefeningen();
         }
 
-        private async void Bewerk_Oefening_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new BewerkOefening());
-        }
-
         private async void Add_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new OefeningToevoegen());

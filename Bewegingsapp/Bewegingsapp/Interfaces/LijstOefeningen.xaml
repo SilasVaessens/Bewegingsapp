@@ -12,18 +12,12 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="Black">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <ListView x:Name="Oefeningen" Grid.Row="0" BackgroundColor="GhostWhite" 
-                      ItemSelected="Oefeningen_ItemSelected">
+        <ListView x:Name="Oefeningen" Grid.Row="0" BackgroundColor="GhostWhite" ItemSelected="Oefeningen_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Naam}"/>
+                        <TextCell Text="{Binding NaamOefening}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

@@ -11,13 +11,19 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportRenderer(typeof(Button), typeof(CustomTextButton))]
 namespace Bewegingsapp.iOS
 {
-    public class CustomTextButton :ButtonRenderer
+    public class CustomTextButton : ButtonRenderer
     {
-        protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
+        public CustomTextButton()
+        {
+
+        }
+        
+        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Button> e)
         {
             base.OnElementChanged(e);
             if (Control != null)
                 Control.TitleLabel.LineBreakMode = UILineBreakMode.WordWrap;
+                Control.TitleLabel.TextAlignment = UITextAlignment.Center;
         }
     }
 }

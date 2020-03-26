@@ -18,13 +18,15 @@ namespace Bewegingsapp.iOS
         {
 
         }
-        
+
         protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Button> e)
         {
             base.OnElementChanged(e);
             if (Control != null)
+            {
                 Control.TitleLabel.LineBreakMode = UILineBreakMode.WordWrap;
                 Control.TitleLabel.TextAlignment = UITextAlignment.Center;
+            }
         }
     }
 }

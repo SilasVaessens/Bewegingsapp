@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using Foundation;
 using UIKit;
+using Bewegingsapp.Model;
 using Bewegingsapp.iOS;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(Button), typeof(CustomTextButton))]
+[assembly: ExportRenderer(typeof(CustomButton), typeof(CustomTextButton))]
 namespace Bewegingsapp.iOS
 {
     public class CustomTextButton : ButtonRenderer

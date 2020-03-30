@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Bewegingsapp.Model;
+using Xamarin.Forms.Maps;
 
 namespace Bewegingsapp
 {
@@ -31,5 +32,27 @@ namespace Bewegingsapp
         {
             
         }
+
+        private void Map_Route_Toevoegen_MapClicked(object sender, Xamarin.Forms.Maps.MapClickedEventArgs e)
+        {
+            var location1 = e.Position.Latitude;
+            var location2 = e.Position.Longitude;
+
+            Pin pin = new Pin
+            {
+                Label = "test label",
+                Address = "test adress",
+                Type = PinType.Place,
+                Position = new Position(location1, location2)
+            };
+
+            Map_Route_Toevoegen.Pins.Add(pin);
+            pin.MarkerClicked += (s, args) =>
+            {
+                args.HideInfoWindow = true;
+            };
+        }
+
+        
     }
 }

@@ -27,10 +27,10 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Text="Naam:" Grid.ColumnSpan="3" FontSize="46" FontAttributes="Bold"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
-            <Editor x:Name="BewerkNaam" Grid.ColumnSpan="3" Placeholder="Naam van de oefening" BackgroundColor="WhiteSmoke" Grid.Row="2" Text="{Binding Naam}"/>
+            <Editor x:Name="BewerkNaam" Grid.ColumnSpan="3" Placeholder="Naam van de oefening" BackgroundColor="WhiteSmoke" Grid.Row="2" Text="{Binding NaamOefening}"/>
             <Label Grid.Row="4" Grid.ColumnSpan="3" Text="Omschrijving:" FontSize="46" FontAttributes="Bold"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
-            <Editor x:Name="BewerkOmschrijving" Grid.ColumnSpan="3" Placeholder="Beschrijf hier wat er moet gebeuren tijdens de oefening" BackgroundColor="WhiteSmoke" Grid.Row="6" Text="{Binding Omschrijving}"/>
+            <Editor x:Name="BewerkOmschrijving" Grid.ColumnSpan="3" Placeholder="Beschrijf hier wat er moet gebeuren tijdens de oefening" BackgroundColor="WhiteSmoke" Grid.Row="6" Text="{Binding OmschrijvingOefening}"/>
             <Button x:Name="Oefening_update" Grid.Row="8" Grid.Column="0" Text="Update oefening" FontSize="33" FontAttributes="Bold"
                    TextColor="Black" BackgroundColor="Yellow" Clicked="Oefening_update_Clicked"/>
             <Button x:Name="Oefening_verwijder" Grid.Row="8" Grid.Column="2" Text="Verwijder oefening" FontSize="33" FontAttributes="Bold"

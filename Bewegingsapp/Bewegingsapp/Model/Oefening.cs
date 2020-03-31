@@ -8,7 +8,7 @@ namespace Bewegingsapp.Model
     [Table("Oefening")]
     public class Oefening
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement, Column("ID")]
         public int IDOefening { get; set; }
         public string NaamOefening { get; set; }
         public string OmschrijvingOefening { get; set; }

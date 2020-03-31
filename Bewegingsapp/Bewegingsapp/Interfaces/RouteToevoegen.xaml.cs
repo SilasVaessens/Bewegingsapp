@@ -14,6 +14,7 @@ namespace Bewegingsapp
     public partial class RouteToevoegen : ContentPage
     {
         List<Coördinaat> CoördinatenRoute = new List<Coördinaat>();
+        Route route;
 
         public RouteToevoegen()
         {
@@ -23,8 +24,17 @@ namespace Bewegingsapp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            Route route = new Route() { };
+            route = new Route() { };
             await App.Database.ToevoegenRoute(route);
+        }
+
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (CoördinatenRoute.Count == 0 || string.IsNullOrEmpty(Naam_Route_toevoegen.Text))
+            {
+                await App.Database.VerwijderRoute(route);
+            }
         }
 
         private async void Route_opslaan_Clicked(object sender, EventArgs e)
@@ -62,12 +72,24 @@ namespace Bewegingsapp
                 IDRoute = await App.Database.KrijgRouteID()
             };
 
-            Console.WriteLine(coördinaat.locatie1);
-            Console.WriteLine(coördinaat.locatie2);
-            Console.WriteLine(coördinaat.IDRoute);
-
-
+            CoördinatenRoute.Add(coördinaat);
             Map_Route_Toevoegen.Pins.Add(pin);
+
+            if (CoördinatenRoute.Count >= 2)
+            {
+                Polyline polyline = new Polyline
+                {
+                    StrokeColor = Color.Blue,
+                    StrokeWidth = 10,
+                    Geopath =
+                    {
+                        new Position(CoördinatenRoute[CoördinatenRoute.Count - 2].locatie1, CoördinatenRoute[CoördinatenRoute.Count -2].locatie2),
+                        new Position(CoördinatenRoute.Last().locatie1, CoördinatenRoute.Last().locatie2)
+                    }
+                };
+                Map_Route_Toevoegen.MapElements.Add(polyline);
+            }
+
             pin.MarkerClicked += async (s, args) =>
             {
                 args.HideInfoWindow = true;
@@ -78,7 +100,5 @@ namespace Bewegingsapp
                 }
             };
         }
-
-        
     }
 }

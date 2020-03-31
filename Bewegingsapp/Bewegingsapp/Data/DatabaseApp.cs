@@ -81,5 +81,11 @@ namespace Bewegingsapp.Data
         {
             return sqlite_database.UpdateAsync(coördinaat);
         }
+
+        public async Task<int> KrijgRouteID()
+        {
+            int routeID = await sqlite_database.Table<Route>().CountAsync();
+            return routeID;
+        }
     }
 }

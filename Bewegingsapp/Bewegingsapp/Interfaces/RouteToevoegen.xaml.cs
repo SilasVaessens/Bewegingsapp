@@ -15,7 +15,11 @@ namespace Bewegingsapp
     {
         List<Coördinaat> CoördinatenRoute = new List<Coördinaat>(); // lijst met alle aangemaakte coördinaten, nodig voor het maken van polylines en het opslaan in de database van de coördinaten
         Route route; // niet verwijderen, dit zorgt ervoor dat alle functies die een route het hebben over hetzelfde route object, 
-                     // als het route object in iedere functie zelf wordt aangemaakt, dan crasht deze pagina bij het verlaten van deze pagina
+        Pin pin;
+        Polyline polyline;
+        Coördinaat coördinaat;
+
+                    // als het route object in iedere functie zelf wordt aangemaakt, dan crasht deze pagina bij het verlaten van deze pagina
         bool opgeslagen = false; // controle of de bestaande route al eens opgeslagen is na het aanmaken van de route
 
         public RouteToevoegen()
@@ -56,9 +60,15 @@ namespace Bewegingsapp
         }
 
         //nutteloos, RoeteToevoegen.xaml moet nog aangepast worden zodat deze eruit gegooid kan worden
-        private void Route_Punt_Verwijderen_Clicked(object sender, EventArgs e)
+        private async void Route_Punt_Verwijderen_Clicked(object sender, EventArgs e)
         {
-            
+            bool verwijder = await DisplayAlert("Route punt verwijderen", "Weet u zeker of u dit route punt wilt verwijderen?", "ja", "nee");
+            if (verwijder == true)
+            {
+                    Map_Route_Toevoegen.Pins.Remove(pin); // verwijdert de aangetikte pin
+                    Map_Route_Toevoegen.MapElements.Remove(polyline);
+                    CoördinatenRoute.Remove(CoördinatenRoute.Last());
+            }
         }
 
         // dit event bevat alle handelingen die kunnen gebeuren als er op de map geklikt wordt
@@ -69,7 +79,7 @@ namespace Bewegingsapp
             var location2 = e.Position.Longitude;
 
             //maak nieuwe pin aan op aangeklikte plek op de map
-            Pin pin = new Pin
+            pin = new Pin
             {
                 Label = "label",
                 Type = PinType.Place,
@@ -78,7 +88,7 @@ namespace Bewegingsapp
             Map_Route_Toevoegen.Pins.Add(pin);
 
             //maak object van class Coördinaat aan die bij de nieuwe route hoort
-            Coördinaat coördinaat = new Coördinaat
+            coördinaat = new Coördinaat
             {
                 locatie1 = location1,
                 locatie2 = location2,
@@ -91,7 +101,7 @@ namespace Bewegingsapp
             //zodra er 2 of meer objecten in de eerder genoemde list zijn, wordt er een polyline getrokken tussen de laatste 2 Coördinaten / pins op de map
             if (CoördinatenRoute.Count >= 2)
             {
-                Polyline polyline = new Polyline
+                polyline = new Polyline
                 {
                     StrokeColor = Color.Blue,
                     StrokeWidth = 10,
@@ -105,16 +115,6 @@ namespace Bewegingsapp
                 Map_Route_Toevoegen.MapElements.Add(polyline);
             }
 
-            //event dat gebeurd als je op een al bestaande pin klikt
-            pin.MarkerClicked += async (s, args) =>
-            {
-                args.HideInfoWindow = true; // zorgt ervoor dat het popup-window met label en adres niet verschijnt
-                bool verwijder = await DisplayAlert("Route punt verwijderen", "Weet u zeker of u dit route punt wilt verwijderen?", "ja", "nee");
-                if (verwijder == true)
-                {
-                    Map_Route_Toevoegen.Pins.Remove(pin); // verwijdert de aangetikte pin
-                }
-            };
         }
     }
 }

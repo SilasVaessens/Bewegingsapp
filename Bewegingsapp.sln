@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bewegingsapp.Android", "Bew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bewegingsapp.iOS", "Bewegingsapp\Bewegingsapp.iOS\Bewegingsapp.iOS.csproj", "{6AE9FE9E-6818-4A2A-BCC2-81D2AC965457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bewegingsapp", "Bewegingsapp\Bewegingsapp\Bewegingsapp.csproj", "{82F57B94-5161-46C3-89C4-6741DB08753F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bewegingsapp", "Bewegingsapp\Bewegingsapp\Bewegingsapp.csproj", "{82F57B94-5161-46C3-89C4-6741DB08753F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,9 +37,9 @@ Global
 		{54AF07E3-5E24-40AB-8CCF-6A54211FCCBA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{54AF07E3-5E24-40AB-8CCF-6A54211FCCBA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{54AF07E3-5E24-40AB-8CCF-6A54211FCCBA}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
-		{6AE9FE9E-6818-4A2A-BCC2-81D2AC965457}.Debug|Any CPU.ActiveCfg = Debug|iPhone
-		{6AE9FE9E-6818-4A2A-BCC2-81D2AC965457}.Debug|Any CPU.Build.0 = Debug|iPhone
-		{6AE9FE9E-6818-4A2A-BCC2-81D2AC965457}.Debug|Any CPU.Deploy.0 = Debug|iPhone
+		{6AE9FE9E-6818-4A2A-BCC2-81D2AC965457}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{6AE9FE9E-6818-4A2A-BCC2-81D2AC965457}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{6AE9FE9E-6818-4A2A-BCC2-81D2AC965457}.Debug|Any CPU.Deploy.0 = Debug|iPhoneSimulator
 		{6AE9FE9E-6818-4A2A-BCC2-81D2AC965457}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{6AE9FE9E-6818-4A2A-BCC2-81D2AC965457}.Debug|iPhone.Build.0 = Debug|iPhone
 		{6AE9FE9E-6818-4A2A-BCC2-81D2AC965457}.Debug|iPhone.Deploy.0 = Debug|iPhone

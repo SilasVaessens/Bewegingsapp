@@ -14,7 +14,7 @@ namespace Bewegingsapp.iOS
 
         }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Button> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Button> e) //zet de tekst centraal en zet woorden onderelkaar indien deze niet passen
         {
             base.OnElementChanged(e);
             if (Control != null)

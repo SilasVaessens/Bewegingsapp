@@ -15,25 +15,25 @@ namespace Bewegingsapp
 
         private async void Oefening_opslaan_Clicked(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(NaamEditor.Text) & String.IsNullOrEmpty(OmschrijvingEditor.Text))
+            if (String.IsNullOrEmpty(NaamEditor.Text) & String.IsNullOrEmpty(OmschrijvingEditor.Text)) //oefening heeft geen naam en omschrijving, wordt niet toegevoegd
             {
                 await DisplayAlert("Niks ingevuld", "U heeft de oefening geen naam en geen omschrijving gegeven", "OK");
             }
             else
             {
-                if (String.IsNullOrEmpty(NaamEditor.Text))
+                if (String.IsNullOrEmpty(NaamEditor.Text)) //oefening heeft geen naam, wordt niet toegevoegd
                 {
                     await DisplayAlert("Geen naam", "U heeft de oefening geen naam gegeven", "OK");
                 }
                 else
                 {
-                    if (String.IsNullOrEmpty(OmschrijvingEditor.Text))
+                    if (String.IsNullOrEmpty(OmschrijvingEditor.Text)) //oefening heeft geen omschrijving, wordt niet toegevoegd
                     {
                         await DisplayAlert("Geen omschrijvijng", "U heeft de oefening geen omschrijving gegeven", "OK");
                     }
                 }
             }
-            if (String.IsNullOrEmpty(NaamEditor.Text) == false & String.IsNullOrEmpty(OmschrijvingEditor.Text) == false)
+            if (String.IsNullOrEmpty(NaamEditor.Text) == false & String.IsNullOrEmpty(OmschrijvingEditor.Text) == false) //oefening met naam en omschrijving wordt toegevoegd
             {
                 Oefening oefening = new Oefening()
                 {

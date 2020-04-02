@@ -5,6 +5,7 @@ using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace Bewegingsapp
 {
@@ -12,9 +13,9 @@ namespace Bewegingsapp
     public partial class RouteToevoegen : ContentPage
     {
         public List<Coördinaat> CoördinatenRoute = new List<Coördinaat>(); // lijst met alle aangemaakte coördinaten, nodig voor het maken van polylines en het opslaan in de database van de coördinaten
-        Route route; // niet verwijderen, dit zorgt ervoor dat alle functies die een route het hebben over hetzelfde route object, 
-                     // als het route object in iedere functie zelf wordt aangemaakt, dan crasht deze pagina bij het verlaten van deze pagina
-        bool opgeslagen = false; // controle of de bestaande route al eens opgeslagen is na het aanmaken van de route
+        Route route;                            // niet verwijderen, dit zorgt ervoor dat alle functies die een route het hebben over hetzelfde route object, 
+                                                // als het route object in iedere functie zelf wordt aangemaakt, dan crasht deze pagina bij het verlaten van deze pagina
+        bool opgeslagen = false;                // controle of de bestaande route al eens opgeslagen is na het aanmaken van de route
 
         public List<Pin> PinsLijst = new List<Pin>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van pins op de map
         public List<Polyline> PolylinesLijst = new List<Polyline>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van polylines op de map 
@@ -34,6 +35,35 @@ namespace Bewegingsapp
             await App.Database.ToevoegenRoute(route);
             Route_Punt_Verwijderen.IsEnabled = false; // voorkomt een out of index error als de gebruiker op de knop drukt terwijl er niks is om te verwijderen
 
+            //start locatie aanpassen aan de locatie van de gebruiker
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.High);
+                var location = await Geolocation.GetLocationAsync(request); //longitude, latitude en altitude van de gebruiker wordt hier opgevraagd
+
+                if (location != null)
+                {
+                    Map_Route_Toevoegen.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromKilometers(0.5))); //startpunt, locatie van gebruiker
+                }
+            }
+            catch (FeatureNotSupportedException NotSupported)
+            {
+                // Verwerkt not supported on device exception
+            }
+            catch (FeatureNotEnabledException NotEnabled)
+            {
+                // Verwerkt not enabled on device exception
+            }
+            catch (PermissionException NotAllowed)
+            {
+                // Verwerkt permission exception
+            }
+            catch (Exception NoLocation)
+            {
+                // Locatie is niet verkregen
+            }
+
+
         }
 
         // zorgt ervoor dat er geen lege routes in de database terecht komen, verwijdert de eerder aangemaakte lege route
@@ -50,6 +80,20 @@ namespace Bewegingsapp
         //moet nog vervangen worden door App.Database.UpdateRoute want de te maken route bestaat al in de database
         private async void Route_opslaan_Clicked(object sender, EventArgs e)
         {
+            if (CoördinatenRoute.Count >= 2)
+            {
+                Polyline polyline = new Polyline
+                {
+                    StrokeColor = Color.Blue,
+                    StrokeWidth = 10,
+                    Geopath =
+                    {
+                        new Position(CoördinatenRoute[1].locatie1, CoördinatenRoute[1].locatie2), // pakt longitude en latitude van het eerste item in de list
+                        new Position(CoördinatenRoute.Last().locatie1, CoördinatenRoute.Last().locatie2) // pakt longitude en latitude van laatste item in de list
+                    
+                    }
+                };
+            }
             opgeslagen = true; // zorgt ervoor dat de bestaande route niet verwijdert wordt na de pagina te verlaten en opgeslagen te hebben
             foreach (Coördinaat coördinaat in CoördinatenRoute)
             {
@@ -122,6 +166,7 @@ namespace Bewegingsapp
                     {
                         new Position(CoördinatenRoute[CoördinatenRoute.Count - 2].locatie1, CoördinatenRoute[CoördinatenRoute.Count -2].locatie2), // pakt longitude en latitude van voorlaatste item in de list
                         new Position(CoördinatenRoute.Last().locatie1, CoördinatenRoute.Last().locatie2) // pakt longitude en latitude van laatste item in de list
+                    
                     }
                 };
                 //voegt de net gemaakte polyline toe aan de map

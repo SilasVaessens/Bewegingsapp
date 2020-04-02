@@ -17,23 +17,23 @@ namespace Bewegingsapp
         {
             if (String.IsNullOrEmpty(BewerkNaam.Text) & String.IsNullOrEmpty(BewerkOmschrijving.Text))
             {
-                await DisplayAlert("Niks ingevuld", "De oefening heeft geen naam en omschrijving meer", "OK");
+                await DisplayAlert("Niks ingevuld", "De oefening heeft geen naam en omschrijving meer", "OK"); //oefening heeft geen naam en omschrijving, wordt niet aangepast
             }
             else
             {
-                if (String.IsNullOrEmpty(BewerkNaam.Text))
+                if (String.IsNullOrEmpty(BewerkNaam.Text))  //oefening heeft geen naam, wordt niet aangepast
                 {
                     await DisplayAlert("Geen naam", "De oefening heeft geen naam meer", "OK");
                 }
                 else
                 {
-                    if (String.IsNullOrEmpty(BewerkOmschrijving.Text))
+                    if (String.IsNullOrEmpty(BewerkOmschrijving.Text)) //oefening heeft geen omschrijving, wordt niet aangepast
                     {
-                        await DisplayAlert("Geen omschrijvijng", "De oefening heeft geen naam meer", "OK");
+                        await DisplayAlert("Geen omschrijvijng", "De oefening heeft geen naam meer", "OK"); 
                     }
                 }
             }
-            if (String.IsNullOrEmpty(BewerkNaam.Text) == false & String.IsNullOrEmpty(BewerkOmschrijving.Text) == false)
+            if (String.IsNullOrEmpty(BewerkNaam.Text) == false & String.IsNullOrEmpty(BewerkOmschrijving.Text) == false) //oefening met naam en omschrijving wordt aangepast
             {
                 var oefening = (Oefening)BindingContext;
                 await App.Database.UpdateOefening(oefening);
@@ -43,7 +43,7 @@ namespace Bewegingsapp
 
         private async void Oefening_verwijder_Clicked(object sender, EventArgs e)
         {
-            bool answer = await DisplayAlert("Definitief verwijderen?", "Weet u zeker dat u deze oefening wilt verwijderen?", "ja", "nee");
+            bool answer = await DisplayAlert("Definitief verwijderen?", "Weet u zeker dat u deze oefening wilt verwijderen?", "ja", "nee"); //oefening verijderen
             if (answer == true)
             {
                 var oefening = (Oefening)BindingContext;

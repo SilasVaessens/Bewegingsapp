@@ -4,8 +4,6 @@ using Xamarin.Forms;
 
 namespace Bewegingsapp
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
@@ -14,12 +12,12 @@ namespace Bewegingsapp
             InitializeComponent();
         }
 
-        private async void Route_Clicked(object sender, EventArgs e)
+        private async void Route_Clicked(object sender, EventArgs e) //navigatie naar het route kiezen, listview van de routes
         {
             await Navigation.PushAsync(new RouteKiezen());
         }
 
-        private async void Instellingen_Clicked(object sender, EventArgs e)
+        private async void Instellingen_Clicked(object sender, EventArgs e) //navigatie naar het instellingen menu
         {
             await Navigation.PushAsync(new InstellingenMenu());
         }

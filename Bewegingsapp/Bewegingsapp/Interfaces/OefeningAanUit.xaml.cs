@@ -13,12 +13,12 @@ namespace Bewegingsapp
             InitializeComponent();
         }
 
-        private async void Ja_Oefening_Clicked(object sender, EventArgs e)
+        private async void Ja_Oefening_Clicked(object sender, EventArgs e) //route met oefeningen, via button
         {
             await Navigation.PushAsync(new StartRoute());
         }
 
-        private async void Nee_Oefening_Clicked(object sender, EventArgs e)
+        private async void Nee_Oefening_Clicked(object sender, EventArgs e) //route zonder oefeningen, via button
         {
             await Navigation.PushAsync(new StartRoute());
         }

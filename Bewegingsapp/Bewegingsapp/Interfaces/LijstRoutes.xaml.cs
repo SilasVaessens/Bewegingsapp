@@ -12,13 +12,13 @@ namespace Bewegingsapp
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
+        protected override async void OnAppearing() //geeft lijst met routes weer
         {
             base.OnAppearing();
             Routes.ItemsSource = await App.Database.LijstRoutes();
         }
 
-        private async void Add_Clicked(object sender, EventArgs e)
+        private async void Add_Clicked(object sender, EventArgs e) //navigatie naar route toevoegen, via de add button(plus)
         {
             await Navigation.PushAsync(new RouteToevoegen());
         }

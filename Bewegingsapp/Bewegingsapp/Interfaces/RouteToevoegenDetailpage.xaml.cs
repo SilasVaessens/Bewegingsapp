@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Bewegingsapp.Interfaces
+namespace Bewegingsapp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RouteToevoegenDetailpage : ContentPage

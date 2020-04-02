@@ -76,8 +76,7 @@ namespace Bewegingsapp
             }
         }
 
-        //moet nog aangepast wordt, voegt nu alleen de naam toe, niet de lijst met coördinaten. Slaat de lijst op in de database.
-        //moet nog vervangen worden door App.Database.UpdateRoute want de te maken route bestaat al in de database
+        //Slaat de coördinaten op in de database en update de bestaande route
         private async void Route_opslaan_Clicked(object sender, EventArgs e)
         {
             if (CoördinatenRoute.Count >= 2)
@@ -88,8 +87,8 @@ namespace Bewegingsapp
                     StrokeWidth = 10,
                     Geopath =
                     {
-                        new Position(CoördinatenRoute[1].locatie1, CoördinatenRoute[1].locatie2), // pakt longitude en latitude van het eerste item in de list
-                        new Position(CoördinatenRoute.Last().locatie1, CoördinatenRoute.Last().locatie2) // pakt longitude en latitude van laatste item in de list
+                        new Position(CoördinatenRoute[1].Locatie1, CoördinatenRoute[1].Locatie2), // pakt longitude en latitude van het eerste item in de list
+                        new Position(CoördinatenRoute.Last().Locatie1, CoördinatenRoute.Last().Locatie2) // pakt longitude en latitude van laatste item in de list
                     
                     }
                 };
@@ -99,10 +98,10 @@ namespace Bewegingsapp
             {
                 await App.Database.ToevoegenCoördinaat(coördinaat);
             }
-            route.NaamRoute = Naam_Route_toevoegen.Text;
+            route.NaamRoute = Naam_Route_toevoegen.Text; 
             route.Coördinaten = CoördinatenRoute;
             await App.Database.UpdateRoute(route);
-            await Navigation.PopAsync();
+            await Navigation.PushAsync(new RouteToevoegenListview());
         }
 
         // verwijdert pins, coördinaten en polylines in de volgorde zoals ze door de gebruiker zijn toegevoegd
@@ -144,11 +143,14 @@ namespace Bewegingsapp
             Map_Route_Toevoegen.Pins.Add(pin);
             PinsLijst.Add(pin);
 
+            int NummerCoördinaat = CoördinatenRoute.Count + 1;
+
             //maak object van class Coördinaat aan die bij de nieuwe route hoort
             coördinaat = new Coördinaat
             {
-                locatie1 = location1,
-                locatie2 = location2,
+                Nummer = NummerCoördinaat,
+                Locatie1 = location1,
+                Locatie2 = location2,
                 IDRoute = await App.Database.KrijgRouteID() // hiermee krijg je het ID van de route die je nu aan het toevoegen bent
             };
 
@@ -164,9 +166,8 @@ namespace Bewegingsapp
                     StrokeWidth = 10,
                     Geopath =
                     {
-                        new Position(CoördinatenRoute[CoördinatenRoute.Count - 2].locatie1, CoördinatenRoute[CoördinatenRoute.Count -2].locatie2), // pakt longitude en latitude van voorlaatste item in de list
-                        new Position(CoördinatenRoute.Last().locatie1, CoördinatenRoute.Last().locatie2) // pakt longitude en latitude van laatste item in de list
-                    
+                        new Position(CoördinatenRoute[CoördinatenRoute.Count - 2].Locatie1, CoördinatenRoute[CoördinatenRoute.Count -2].Locatie2), // pakt longitude en latitude van voorlaatste item in de list
+                        new Position(CoördinatenRoute.Last().Locatie1, CoördinatenRoute.Last().Locatie2) // pakt longitude en latitude van laatste item in de list
                     }
                 };
                 //voegt de net gemaakte polyline toe aan de map

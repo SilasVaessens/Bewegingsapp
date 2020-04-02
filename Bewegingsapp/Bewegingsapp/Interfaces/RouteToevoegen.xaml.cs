@@ -17,7 +17,7 @@ namespace Bewegingsapp
         bool opgeslagen = false; // controle of de bestaande route al eens opgeslagen is na het aanmaken van de route
 
         public List<Pin> PinsLijst = new List<Pin>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van pins op de map
-        public List<Polyline> PolylinesLijst = new List<Polyline>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van polylines op de map
+        public List<Polyline> PolylinesLijst = new List<Polyline>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van polylines op de map 
         Coördinaat coördinaat;
 
         public RouteToevoegen()
@@ -32,6 +32,8 @@ namespace Bewegingsapp
             base.OnAppearing();
             route = new Route() { };
             await App.Database.ToevoegenRoute(route);
+            Route_Punt_Verwijderen.IsEnabled = false; // voorkomt een out of index error als de gebruiker op de knop drukt terwijl er niks is om te verwijderen
+
         }
 
         // zorgt ervoor dat er geen lege routes in de database terecht komen, verwijdert de eerder aangemaakte lege route
@@ -49,20 +51,23 @@ namespace Bewegingsapp
         private async void Route_opslaan_Clicked(object sender, EventArgs e)
         {
             opgeslagen = true; // zorgt ervoor dat de bestaande route niet verwijdert wordt na de pagina te verlaten en opgeslagen te hebben
-            route = new Route()
+            foreach (Coördinaat coördinaat in CoördinatenRoute)
             {
-                NaamRoute = Naam_Route_toevoegen.Text
-            };
-            await App.Database.ToevoegenRoute(route);
+                await App.Database.ToevoegenCoördinaat(coördinaat);
+            }
+            route.NaamRoute = Naam_Route_toevoegen.Text;
+            route.Coördinaten = CoördinatenRoute;
+            await App.Database.UpdateRoute(route);
             await Navigation.PopAsync();
         }
 
+        // verwijdert pins, coördinaten en polylines in de volgorde zoals ze door de gebruiker zijn toegevoegd
         private async void Route_Punt_Verwijderen_Clicked(object sender, EventArgs e)
         {
-            bool verwijder = await DisplayAlert("Route punt verwijderen", "Weet u zeker of u dit route punt wilt verwijderen?", "ja", "nee");
+            bool verwijder = await DisplayAlert("Route punt verwijderen", "Weet u zeker of u dat u het laatst aangemaakte route punt wilt verwijderen?", "ja", "nee");
             if (verwijder == true)
             {
-                Map_Route_Toevoegen.Pins.Remove(PinsLijst.Last()); // verwijdert de aangetikte pin
+                Map_Route_Toevoegen.Pins.Remove(PinsLijst.Last());
                 PinsLijst.Remove(PinsLijst.Last());
                 if (CoördinatenRoute.Count >= 2)
                 {
@@ -70,12 +75,16 @@ namespace Bewegingsapp
                     PolylinesLijst.Remove(PolylinesLijst.Last());
                 }
                 CoördinatenRoute.Remove(CoördinatenRoute.Last());
+                // voorkomt een out of index error als de gebruiker op de knop drukt terwijl er niks is om te verwijderen
+                if (PinsLijst.Count == 0)
+                {
+                    Route_Punt_Verwijderen.IsEnabled = false; 
+                }
             }
-
         }
 
         // dit event bevat alle handelingen die kunnen gebeuren als er op de map geklikt wordt
-        private async void Map_Route_Toevoegen_MapClicked(object sender, Xamarin.Forms.Maps.MapClickedEventArgs e)
+        private async void Map_Route_Toevoegen_MapClicked(object sender, MapClickedEventArgs e)
         {
             //longitude en latitude zijn vereist voor het maken van pins op de map
             var location1 = e.Position.Latitude;
@@ -119,6 +128,8 @@ namespace Bewegingsapp
                 Map_Route_Toevoegen.MapElements.Add(polyline);
                 PolylinesLijst.Add(polyline);
             }
+
+            Route_Punt_Verwijderen.IsEnabled = true; // zorgt dat de knop werkt zodra er weer pins en polylines bestaan
 
             //event dat gebeurd als je op een al bestaande pin klikt
             pin.MarkerClicked += (s, args) =>

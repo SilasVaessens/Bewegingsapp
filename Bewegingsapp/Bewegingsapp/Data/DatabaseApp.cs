@@ -80,6 +80,7 @@ namespace Bewegingsapp.Data
             return sqlite_database.UpdateAsync(coördinaat);
         }
 
+        //deze functie is nodig voor het aanmaken van nieuwe routes. Haalt het ID van laatst toegevoegde route
         public async Task<int> KrijgRouteID()
         {
             int routeID = await sqlite_database.Table<Route>().CountAsync();

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bewegingsapp.Model;
 using SQLite;
-using Bewegingsapp.Model;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Bewegingsapp.Data
 {
@@ -66,7 +64,7 @@ namespace Bewegingsapp.Data
         {
             return sqlite_database.Table<Coördinaat>().ToListAsync();
         }
-        
+
         public Task<int> VerwijderCoördinaat(Coördinaat coördinaat)
         {
             return sqlite_database.DeleteAsync(coördinaat);

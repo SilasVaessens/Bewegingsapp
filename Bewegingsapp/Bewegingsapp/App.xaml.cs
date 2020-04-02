@@ -1,8 +1,7 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using Bewegingsapp.Data;
+﻿using Bewegingsapp.Data;
+using System;
 using System.IO;
+using Xamarin.Forms;
 
 namespace Bewegingsapp
 {

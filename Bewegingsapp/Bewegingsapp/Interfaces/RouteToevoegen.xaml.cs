@@ -1,26 +1,24 @@
-﻿using System;
+﻿using Bewegingsapp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using Bewegingsapp.Model;
 using Xamarin.Forms.Maps;
+using Xamarin.Forms.Xaml;
 
 namespace Bewegingsapp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RouteToevoegen : ContentPage
     {
-        List<Coördinaat> CoördinatenRoute = new List<Coördinaat>(); // lijst met alle aangemaakte coördinaten, nodig voor het maken van polylines en het opslaan in de database van de coördinaten
+        public List<Coördinaat> CoördinatenRoute = new List<Coördinaat>(); // lijst met alle aangemaakte coördinaten, nodig voor het maken van polylines en het opslaan in de database van de coördinaten
         Route route; // niet verwijderen, dit zorgt ervoor dat alle functies die een route het hebben over hetzelfde route object, 
-        Pin pin;
-        Polyline polyline;
-        Coördinaat coördinaat;
-
-                    // als het route object in iedere functie zelf wordt aangemaakt, dan crasht deze pagina bij het verlaten van deze pagina
+                     // als het route object in iedere functie zelf wordt aangemaakt, dan crasht deze pagina bij het verlaten van deze pagina
         bool opgeslagen = false; // controle of de bestaande route al eens opgeslagen is na het aanmaken van de route
+
+        public List<Pin> PinsLijst = new List<Pin>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van pins op de map
+        public List<Polyline> PolylinesLijst = new List<Polyline>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van polylines op de map
+        Coördinaat coördinaat;
 
         public RouteToevoegen()
         {
@@ -59,16 +57,21 @@ namespace Bewegingsapp
             await Navigation.PopAsync();
         }
 
-        //nutteloos, RoeteToevoegen.xaml moet nog aangepast worden zodat deze eruit gegooid kan worden
         private async void Route_Punt_Verwijderen_Clicked(object sender, EventArgs e)
         {
             bool verwijder = await DisplayAlert("Route punt verwijderen", "Weet u zeker of u dit route punt wilt verwijderen?", "ja", "nee");
             if (verwijder == true)
             {
-                    Map_Route_Toevoegen.Pins.Remove(pin); // verwijdert de aangetikte pin
-                    Map_Route_Toevoegen.MapElements.Remove(polyline);
-                    CoördinatenRoute.Remove(CoördinatenRoute.Last());
+                Map_Route_Toevoegen.Pins.Remove(PinsLijst.Last()); // verwijdert de aangetikte pin
+                PinsLijst.Remove(PinsLijst.Last());
+                if (CoördinatenRoute.Count >= 2)
+                {
+                    Map_Route_Toevoegen.MapElements.Remove(PolylinesLijst.Last());
+                    PolylinesLijst.Remove(PolylinesLijst.Last());
+                }
+                CoördinatenRoute.Remove(CoördinatenRoute.Last());
             }
+
         }
 
         // dit event bevat alle handelingen die kunnen gebeuren als er op de map geklikt wordt
@@ -79,13 +82,14 @@ namespace Bewegingsapp
             var location2 = e.Position.Longitude;
 
             //maak nieuwe pin aan op aangeklikte plek op de map
-            pin = new Pin
+            Pin pin = new Pin
             {
                 Label = "label",
                 Type = PinType.Place,
                 Position = new Position(location1, location2)
             };
             Map_Route_Toevoegen.Pins.Add(pin);
+            PinsLijst.Add(pin);
 
             //maak object van class Coördinaat aan die bij de nieuwe route hoort
             coördinaat = new Coördinaat
@@ -101,7 +105,7 @@ namespace Bewegingsapp
             //zodra er 2 of meer objecten in de eerder genoemde list zijn, wordt er een polyline getrokken tussen de laatste 2 Coördinaten / pins op de map
             if (CoördinatenRoute.Count >= 2)
             {
-                polyline = new Polyline
+                Polyline polyline = new Polyline
                 {
                     StrokeColor = Color.Blue,
                     StrokeWidth = 10,
@@ -111,10 +115,16 @@ namespace Bewegingsapp
                         new Position(CoördinatenRoute.Last().locatie1, CoördinatenRoute.Last().locatie2) // pakt longitude en latitude van laatste item in de list
                     }
                 };
-                //voegt de netgemaakte polyline toe aan de map
+                //voegt de net gemaakte polyline toe aan de map
                 Map_Route_Toevoegen.MapElements.Add(polyline);
+                PolylinesLijst.Add(polyline);
             }
 
+            //event dat gebeurd als je op een al bestaande pin klikt
+            pin.MarkerClicked += (s, args) =>
+            {
+                args.HideInfoWindow = true; // zorgt ervoor dat het popup-window met label en adres niet verschijnt
+            };
         }
     }
 }

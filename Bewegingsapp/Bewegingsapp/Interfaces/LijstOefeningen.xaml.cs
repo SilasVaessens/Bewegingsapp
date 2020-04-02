@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bewegingsapp.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -34,7 +29,7 @@ namespace Bewegingsapp
             {
                 BindingContext = e.SelectedItem
             });
-            
+
         }
     }
 }

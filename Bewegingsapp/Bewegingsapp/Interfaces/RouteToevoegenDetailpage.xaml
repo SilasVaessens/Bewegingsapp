@@ -47,7 +47,8 @@
                      als dit het eerste punt is, dan hoeft hier niks toegevoegd te worden"/>
             <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="46"
                    FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="12" BackgroundColor="Yellow" Text="Oefening"/>
-            <Picker x:Name="Oefeningen_Picker" TextColor="Black"  Grid.ColumnSpan="3" Grid.Row="14" BackgroundColor="GhostWhite"/>
+            <Picker x:Name="Oefeningen_Picker" TextColor="Black"  Grid.ColumnSpan="3" Grid.Row="14" BackgroundColor="GhostWhite"
+                    ItemDisplayBinding="{Binding NaamOefening}"/>
             <Button FontSize="46" FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="16" BackgroundColor="Yellow" Text="Punt opslaan"/>
         </Grid>
     </ContentPage.Content>

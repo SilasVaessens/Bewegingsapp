@@ -30,6 +30,7 @@ namespace Bewegingsapp
                 if (coördinaat.IDRoute == IDRoute)
                 {
                     CoördinatenNieweRoute.Add(coördinaat);
+                    await Task.Delay(5);
                 }
             }
             Listview_Coördinaten.ItemsSource = CoördinatenNieweRoute;

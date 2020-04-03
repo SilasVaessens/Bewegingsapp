@@ -80,11 +80,30 @@ namespace Bewegingsapp.Data
             return sqlite_database.UpdateAsync(coördinaat);
         }
 
-        //deze functie is nodig voor het aanmaken van nieuwe routes. Haalt het ID van laatst toegevoegde route
+        //deze functie is nodig voor het aanmaken van nieuwe routes. Verkrijgt het ID van laatst toegevoegde route
         public async Task<int> KrijgRouteID()
         {
             int routeID = await sqlite_database.Table<Route>().CountAsync();
             return routeID;
+        }
+        //verwijdert alle coördinaten van 1 bepaalde route
+        public async void VerwijderCoördinatenRoute(int IDRoute)
+        {
+            List<Coördinaat> TeVerwijderenCoördinaten = new List<Coördinaat>();
+            List<Coördinaat> AlleCoördinaten = await App.Database.LijstCoördinaten();
+            foreach (Coördinaat coördinaat in AlleCoördinaten)
+            {
+                if (coördinaat.IDRoute == IDRoute)
+                {
+                    TeVerwijderenCoördinaten.Add(coördinaat);
+                }
+            }
+            AlleCoördinaten.Clear();
+            foreach (Coördinaat coördinaat1 in TeVerwijderenCoördinaten)
+            {
+                await App.Database.VerwijderCoördinaat(coördinaat1);
+            }
+            TeVerwijderenCoördinaten.Clear();
         }
     }
 }

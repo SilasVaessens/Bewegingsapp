@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
+using System.Threading.Tasks;
 
 namespace Bewegingsapp
 {
@@ -31,20 +32,32 @@ namespace Bewegingsapp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            route = new Route() { };
+            List<Route> LijstRouteIDs = await App.Database.LijstRoutes();
+            if (LijstRouteIDs.Count == 0)
+            {
+                route = new Route()
+                {
+                    IDRoute = 1
+                };
+            }
+            if (LijstRouteIDs.Count > 0)
+            {
+                route = new Route()
+                {
+                    IDRoute = LijstRouteIDs.Count + 1
+                };
+            }
             await App.Database.ToevoegenRoute(route);
             opgeslagen = false;
-            Route_Punt_Verwijderen.IsEnabled = false; // voorkomt een out of index error als de gebruiker op de knop drukt terwijl er niks is om te verwijderen
             if (String.IsNullOrEmpty(Naam_Route_toevoegen.Text) == false || CoördinatenRoute.Count != 0)
             {
                 bugfix = false;
-                Map_Route_Toevoegen.IsEnabled = false;
-                Naam_Route_toevoegen.IsEnabled = false;
             }
 
             //start locatie aanpassen aan de locatie van de gebruiker
             if (bugfix == true)
             {
+                Route_Punt_Verwijderen.IsEnabled = false; // voorkomt een out of index error als de gebruiker op de knop drukt terwijl er niks is om te verwijderen
                 try
                 {
                     var request = new GeolocationRequest(GeolocationAccuracy.High);
@@ -89,31 +102,33 @@ namespace Bewegingsapp
         {
             if (bugfix == true)
             {
-                bool bevestigingOpslaan = await DisplayAlert("Route opslaan", "Wilt u echt de route opslaan, hierna kan de naam en de oefeningen niet meer aangepast worden", "ja", "nee");
-                if (bevestigingOpslaan == true)
+                opgeslagen = true;
+                foreach (Coördinaat coördinaat in CoördinatenRoute)
                 {
-                    if (CoördinatenRoute.Count >= 2)
-                    {
-                        new Polyline
-                        {
-                            StrokeColor = Color.Blue,
-                            StrokeWidth = 10,
-                            Geopath =
-                            {
-                                new Position(CoördinatenRoute[1].Locatie1, CoördinatenRoute[1].Locatie2), // pakt longitude en latitude van het eerste item in de list
-                                new Position(CoördinatenRoute.Last().Locatie1, CoördinatenRoute.Last().Locatie2) // pakt longitude en latitude van laatste item in de list
-                            }
-                        };
-                    }
-                    opgeslagen = true; // zorgt ervoor dat de bestaande route niet verwijdert wordt na de pagina te verlaten en opgeslagen te hebben
-                    foreach (Coördinaat coördinaat in CoördinatenRoute)
-                    {
-                        await App.Database.ToevoegenCoördinaat(coördinaat);
-                    }
-                    route.NaamRoute = Naam_Route_toevoegen.Text;
-                    route.Coördinaten = CoördinatenRoute;
-                    await App.Database.UpdateRoute(route);
+                    await App.Database.ToevoegenCoördinaat(coördinaat);
+                    await Task.Delay(5);
                 }
+                route.NaamRoute = Naam_Route_toevoegen.Text;
+                route.Coördinaten = CoördinatenRoute;
+                await App.Database.UpdateRoute(route);
+            }
+            if (bugfix == false)
+            {
+                opgeslagen = true;
+                await App.Database.VerwijderRoute(route);
+                List<Route> Routes = await App.Database.LijstRoutes();
+                Route UpdateRoute = Routes.Last();
+                App.Database.VerwijderCoördinatenRoute(UpdateRoute.IDRoute);
+                
+                foreach (Coördinaat coördinaat1 in CoördinatenRoute)
+                {
+                    coördinaat1.IDRoute = UpdateRoute.IDRoute;
+                    await App.Database.ToevoegenCoördinaat(coördinaat1);
+                    await Task.Delay(5);
+                }
+                UpdateRoute.NaamRoute = Naam_Route_toevoegen.Text;
+                UpdateRoute.Coördinaten = CoördinatenRoute;
+                await App.Database.UpdateRoute(UpdateRoute);
             }
             await Navigation.PushAsync(new RouteToevoegenListview());
         }

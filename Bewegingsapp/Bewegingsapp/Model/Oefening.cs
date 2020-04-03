@@ -1,4 +1,8 @@
 ﻿using SQLite;
+using System.Collections.Generic;
+using SQLiteNetExtensions.Attributes;
+
+
 
 namespace Bewegingsapp.Model
 {
@@ -9,5 +13,7 @@ namespace Bewegingsapp.Model
         public int IDOefening { get; set; }
         public string NaamOefening { get; set; }
         public string OmschrijvingOefening { get; set; }
+        [OneToMany]
+        public List<Coördinaat> CoördinatenOefening { get; set; }
     }
 }

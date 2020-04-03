@@ -16,5 +16,10 @@ namespace Bewegingsapp
         {
             InitializeComponent();
         }
+
+        protected override async void OnAppearing()
+        {
+            Oefeningen_Picker.ItemsSource = await App.Database.LijstOefeningen();
+        }
     }
 }

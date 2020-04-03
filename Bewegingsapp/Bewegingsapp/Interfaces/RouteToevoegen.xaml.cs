@@ -16,7 +16,7 @@ namespace Bewegingsapp
         Route route;                            // niet verwijderen, dit zorgt ervoor dat alle functies die een route het hebben over hetzelfde route object, 
                                                 // als het route object in iedere functie zelf wordt aangemaakt, dan crasht deze pagina bij het verlaten van deze pagina
         bool opgeslagen = false;                // controle of de bestaande route al eens opgeslagen is na het aanmaken van de route
-
+        bool bugfix = true;                     // niet aankomen, voorkomt bug
         public List<Pin> PinsLijst = new List<Pin>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van pins op de map
         public List<Polyline> PolylinesLijst = new List<Polyline>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van polylines op de map 
         Coördinaat coördinaat;
@@ -33,8 +33,15 @@ namespace Bewegingsapp
             base.OnAppearing();
             route = new Route() { };
             await App.Database.ToevoegenRoute(route);
+            opgeslagen = false;
             Route_Punt_Verwijderen.IsEnabled = false; // voorkomt een out of index error als de gebruiker op de knop drukt terwijl er niks is om te verwijderen
-
+            if (String.IsNullOrEmpty(Naam_Route_toevoegen.Text) == false || CoördinatenRoute.Count != 0)
+            {
+                bugfix = false;
+                Map_Route_Toevoegen.IsEnabled = false;
+                Naam_Route_toevoegen.IsEnabled = false;
+            }
+            
             //start locatie aanpassen aan de locatie van de gebruiker
             try
             {
@@ -62,8 +69,6 @@ namespace Bewegingsapp
             {
                 // Locatie is niet verkregen
             }
-
-
         }
 
         // zorgt ervoor dat er geen lege routes in de database terecht komen, verwijdert de eerder aangemaakte lege route
@@ -79,28 +84,34 @@ namespace Bewegingsapp
         //Slaat de coördinaten op in de database en update de bestaande route
         private async void Route_opslaan_Clicked(object sender, EventArgs e)
         {
-            if (CoördinatenRoute.Count >= 2)
+            if (bugfix == true)
             {
-                Polyline polyline = new Polyline
+                bool bevestigingOpslaan = await DisplayAlert("Route opslaan", "Wilt u echt de route opslaan, hierna kan de naam en de oefeningen niet meer aangepast worden", "ja", "nee");
+                if (bevestigingOpslaan == true)
                 {
-                    StrokeColor = Color.Blue,
-                    StrokeWidth = 10,
-                    Geopath =
+                    if (CoördinatenRoute.Count >= 2)
                     {
-                        new Position(CoördinatenRoute[1].Locatie1, CoördinatenRoute[1].Locatie2), // pakt longitude en latitude van het eerste item in de list
-                        new Position(CoördinatenRoute.Last().Locatie1, CoördinatenRoute.Last().Locatie2) // pakt longitude en latitude van laatste item in de list
-                    
+                        new Polyline
+                        {
+                            StrokeColor = Color.Blue,
+                            StrokeWidth = 10,
+                            Geopath =
+                            {
+                                new Position(CoördinatenRoute[1].Locatie1, CoördinatenRoute[1].Locatie2), // pakt longitude en latitude van het eerste item in de list
+                                new Position(CoördinatenRoute.Last().Locatie1, CoördinatenRoute.Last().Locatie2) // pakt longitude en latitude van laatste item in de list
+                            }
+                        };
                     }
-                };
+                    opgeslagen = true; // zorgt ervoor dat de bestaande route niet verwijdert wordt na de pagina te verlaten en opgeslagen te hebben
+                    foreach (Coördinaat coördinaat in CoördinatenRoute)
+                    {
+                        await App.Database.ToevoegenCoördinaat(coördinaat);
+                    }
+                    route.NaamRoute = Naam_Route_toevoegen.Text;
+                    route.Coördinaten = CoördinatenRoute;
+                    await App.Database.UpdateRoute(route);
+                }
             }
-            opgeslagen = true; // zorgt ervoor dat de bestaande route niet verwijdert wordt na de pagina te verlaten en opgeslagen te hebben
-            foreach (Coördinaat coördinaat in CoördinatenRoute)
-            {
-                await App.Database.ToevoegenCoördinaat(coördinaat);
-            }
-            route.NaamRoute = Naam_Route_toevoegen.Text; 
-            route.Coördinaten = CoördinatenRoute;
-            await App.Database.UpdateRoute(route);
             await Navigation.PushAsync(new RouteToevoegenListview());
         }
 
@@ -132,18 +143,17 @@ namespace Bewegingsapp
             //longitude en latitude zijn vereist voor het maken van pins op de map
             var location1 = e.Position.Latitude;
             var location2 = e.Position.Longitude;
+            int NummerCoördinaat = CoördinatenRoute.Count + 1;
 
             //maak nieuwe pin aan op aangeklikte plek op de map
             Pin pin = new Pin
             {
-                Label = "label",
+                Label = NummerCoördinaat.ToString(),
                 Type = PinType.Place,
                 Position = new Position(location1, location2)
             };
             Map_Route_Toevoegen.Pins.Add(pin);
             PinsLijst.Add(pin);
-
-            int NummerCoördinaat = CoördinatenRoute.Count + 1;
 
             //maak object van class Coördinaat aan die bij de nieuwe route hoort
             coördinaat = new Coördinaat

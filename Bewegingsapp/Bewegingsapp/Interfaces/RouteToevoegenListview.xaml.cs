@@ -35,5 +35,9 @@ namespace Bewegingsapp
             Listview_Coördinaten.ItemsSource = CoördinatenNieweRoute;
         }
 
+        private async void Listview_Coördinaten_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushAsync(new RouteToevoegenDetailpage { BindingContext = e.SelectedItem});
+        }
     }
 }

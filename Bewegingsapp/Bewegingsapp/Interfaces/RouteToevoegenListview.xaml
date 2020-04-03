@@ -5,8 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Bewegingsapp.RouteToevoegenListview">
+    
     <ContentPage.Content>
-        <ListView x:Name ="Listview_Coördinaten">
+        <ListView x:Name ="Listview_Coördinaten" ItemSelected="Listview_Coördinaten_ItemSelected">
             <ListView.ItemTemplate >
                 <DataTemplate>
                     <TextCell Text="{Binding Nummer}"/>

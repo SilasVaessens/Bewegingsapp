@@ -41,34 +41,37 @@ namespace Bewegingsapp
                 Map_Route_Toevoegen.IsEnabled = false;
                 Naam_Route_toevoegen.IsEnabled = false;
             }
-            
-            //start locatie aanpassen aan de locatie van de gebruiker
-            try
-            {
-                var request = new GeolocationRequest(GeolocationAccuracy.High);
-                var location = await Geolocation.GetLocationAsync(request); //longitude, latitude en altitude van de gebruiker wordt hier opgevraagd
 
-                if (location != null)
+            //start locatie aanpassen aan de locatie van de gebruiker
+            if (bugfix == true)
+            {
+                try
                 {
-                    Map_Route_Toevoegen.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromKilometers(0.5))); //startpunt, locatie van gebruiker
+                    var request = new GeolocationRequest(GeolocationAccuracy.High);
+                    var location = await Geolocation.GetLocationAsync(request); //longitude, latitude en altitude van de gebruiker wordt hier opgevraagd
+
+                    if (location != null)
+                    {
+                        Map_Route_Toevoegen.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromKilometers(0.5))); //startpunt, locatie van gebruiker
+                    }
                 }
-            }
-            catch (FeatureNotSupportedException NotSupported)
-            {
-                // Verwerkt not supported on device exception
-            }
-            catch (FeatureNotEnabledException NotEnabled)
-            {
-                // Verwerkt not enabled on device exception
-            }
-            catch (PermissionException NotAllowed)
-            {
-                // Verwerkt permission exception
-            }
-            catch (Exception NoLocation)
-            {
-                // Locatie is niet verkregen
-            }
+                catch (FeatureNotSupportedException NotSupported)
+                {
+                    // Verwerkt not supported on device exception
+                }
+                catch (FeatureNotEnabledException NotEnabled)
+                {
+                    // Verwerkt not enabled on device exception
+                }
+                catch (PermissionException NotAllowed)
+                {
+                    // Verwerkt permission exception
+                }
+                catch (Exception NoLocation)
+                {
+                    // Locatie is niet verkregen
+                }
+            }    
         }
 
         // zorgt ervoor dat er geen lege routes in de database terecht komen, verwijdert de eerder aangemaakte lege route

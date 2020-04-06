@@ -15,6 +15,6 @@ namespace Bewegingsapp.Model
         [ForeignKey(typeof(Route))]
         public int IDRoute { get; set; }
         [ForeignKey(typeof(Oefening))]
-        public int IDOEfening { get; set; }
+        public int? IDOEfening { get; set; }
     }
 }

@@ -4,8 +4,13 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Bewegingsapp.RouteToevoegenDetailpage">
-    
+             x:Class="Bewegingsapp.RouteToevoegenDetailpage"
+             Title="Coördinaat bewerken">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="Info" Order="Primary" IconImageSource="info.png" Clicked="Info_Clicked"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <Grid BackgroundColor="Black" ColumnSpacing="0" RowSpacing="0">
             <Grid.RowDefinitions>
@@ -34,22 +39,27 @@
             </Grid.ColumnDefinitions>
             <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="46"
                    FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="0" BackgroundColor="Yellow" Text="Naam"/>
-            <Label TextColor="Black" Grid.ColumnSpan="3" Grid.Row="2" BackgroundColor="GhostWhite" Text="{Binding Nummer}"/>
+            <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="Black" Grid.ColumnSpan="3" Grid.Row="2" BackgroundColor="GhostWhite" Text="{Binding Nummer}"/>
             <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33"
                    FontAttributes="Bold" Grid.Column="0" Grid.Row="4" BackgroundColor="Yellow" Text="Lengtegraad"/>
             <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33"
                    FontAttributes="Bold" Grid.Column="2" Grid.Row="4" BackgroundColor="Yellow" Text="Breedtegraad"/>
-            <Label TextColor="Black" Grid.Column="0" Grid.Row="6" BackgroundColor="GhostWhite" Text="{Binding Locatie2}"/>
-            <Label TextColor="Black" Grid.Column="2" Grid.Row="6" BackgroundColor="GhostWhite" Text="{Binding Locatie1}"/>
+            <Label TextColor="Black" Grid.Column="0" Grid.Row="6" BackgroundColor="GhostWhite" Text="{Binding Locatie2}"
+                   VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label TextColor="Black" Grid.Column="2" Grid.Row="6" BackgroundColor="GhostWhite" Text="{Binding Locatie1}"
+                   VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
             <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="46"
                    FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="8" BackgroundColor="Yellow" Text="Routeomschrijving"/>
             <Editor Grid.ColumnSpan="3" Grid.Row="10" BackgroundColor="GhostWhite" Placeholder="Voeg hier de routeomschrijving naar dit punt toe,
-                     als dit het eerste punt is, dan hoeft hier niks toegevoegd te worden"/>
+                     als dit het eerste punt is, dan hoeft hier niks toegevoegd te worden" Text="{Binding RouteBeschrijving}" x:Name="Routeomschrijving"/>
             <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="46"
                    FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="12" BackgroundColor="Yellow" Text="Oefening"/>
             <Picker x:Name="Oefeningen_Picker" TextColor="Black"  Grid.ColumnSpan="3" Grid.Row="14" BackgroundColor="GhostWhite"
-                    ItemDisplayBinding="{Binding NaamOefening}"/>
-            <Button FontSize="46" FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="16" BackgroundColor="Yellow" Text="Punt opslaan"/>
+                    ItemDisplayBinding="{Binding NaamOefening}" SelectedIndexChanged="Oefeningen_Picker_SelectedIndexChanged" Title="Selecteer oefening"/>
+            <Button FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="1" Grid.Row="16" BackgroundColor="Yellow" Text="Opslaan"
+                    x:Name="Opslaan_Button" Clicked="Opslaan_Button_Clicked" />
+            <Button x:Name="Reset_Button" FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="1" Grid.Row="16" BackgroundColor="Yellow"
+                    Text="Reset" Clicked="Reset_Button_Clicked" Grid.Column="2"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

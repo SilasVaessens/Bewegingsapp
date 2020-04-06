@@ -7,12 +7,21 @@
              x:Class="Bewegingsapp.RouteToevoegenListview">
     
     <ContentPage.Content>
-        <ListView x:Name ="Listview_Coördinaten" ItemSelected="Listview_Coördinaten_ItemSelected">
-            <ListView.ItemTemplate >
-                <DataTemplate>
-                    <TextCell Text="{Binding Nummer}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid RowSpacing="0" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+            <ListView x:Name ="Listview_Coördinaten" BackgroundColor="GhostWhite" Grid.Row="0" ItemSelected="Listview_Coördinaten_ItemSelected">
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <TextCell Text="{Binding Nummer}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button x:Name="Klaar" BackgroundColor="Yellow" Grid.Row="2" Text="Route opslaan" FontSize="46" FontAttributes="Bold"
+                    Clicked="Klaar_Clicked"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

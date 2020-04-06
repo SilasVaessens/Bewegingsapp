@@ -179,6 +179,7 @@ namespace Bewegingsapp
                 Nummer = NummerCoördinaat,
                 Locatie1 = location1,
                 Locatie2 = location2,
+                IDOEfening = null,
                 IDRoute = await App.Database.KrijgRouteID() // hiermee krijg je het ID van de route die je nu aan het toevoegen bent
             };
 

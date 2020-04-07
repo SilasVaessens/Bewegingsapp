@@ -4,9 +4,13 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Bewegingsapp.BewerkRouteListview"
-             Title="Wijzig route">
-    
+             x:Class="Bewegingsapp.BewerkRouteListview">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="Add_Punt" Order="Primary" IconImageSource="add2.png" Clicked="Add_Punt_Clicked"/>
+        <ToolbarItem x:Name="Delete" Order="Primary" IconImageSource="delete.png" Clicked="Delete_Clicked"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <Grid RowSpacing="0" BackgroundColor="Black">
             <Grid.RowDefinitions>

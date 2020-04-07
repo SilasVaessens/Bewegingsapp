@@ -14,7 +14,6 @@ namespace Bewegingsapp
     public partial class StartRoute : ContentPage
     {
         public List<Pin> PinsLijst = new List<Pin>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van pins op de map
-        Pin pin;
         List<Coördinaat> BewerkAlleCoördinaten = new List<Coördinaat>(); // lijst met alle opgeslagen coördinaten
         List<Coördinaat> BewerkCoördinaatRoute = new List<Coördinaat>(); // lijst met alle coördinaten die bij de geselecteerde route horen
         public StartRoute()

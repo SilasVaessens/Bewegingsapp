@@ -87,7 +87,7 @@ namespace Bewegingsapp.Data
             return routeID;
         }
         //verwijdert alle coördinaten van 1 bepaalde route
-        public async void VerwijderCoördinatenRoute(int IDRoute)
+        public async Task VerwijderCoördinatenRoute(int IDRoute)
         {
             List<Coördinaat> TeVerwijderenCoördinaten = new List<Coördinaat>();
             List<Coördinaat> AlleCoördinaten = await App.Database.LijstCoördinaten();
@@ -104,6 +104,29 @@ namespace Bewegingsapp.Data
                 await App.Database.VerwijderCoördinaat(coördinaat1);
             }
             TeVerwijderenCoördinaten.Clear();
+        }
+
+        //update nummer alle coördinaten van 1 bepaalde route
+        public async Task TeUpdatenCoördinatenRoute(int IDRoute)
+        {
+            List<Coördinaat> TeUpdatenCoördinaten = new List<Coördinaat>();
+            List<Coördinaat> AlleCoördinaten = await App.Database.LijstCoördinaten();
+            foreach (Coördinaat coördinaat in AlleCoördinaten)
+            {
+                if (coördinaat.IDRoute == IDRoute)
+                {
+                    TeUpdatenCoördinaten.Add(coördinaat);
+                }
+            }
+            AlleCoördinaten.Clear();
+            int i = 1;
+            foreach (Coördinaat coördinaat1 in TeUpdatenCoördinaten)
+            {
+                coördinaat1.Nummer = i++;
+                await App.Database.UpdateCoördinaat(coördinaat1);
+            }
+            TeUpdatenCoördinaten.Clear();
+            
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Bewegingsapp.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Collections.ObjectModel;
 
 namespace Bewegingsapp
 {
@@ -11,7 +12,8 @@ namespace Bewegingsapp
     {
 
         List<Coördinaat> BewerkAlleCoördinaten = new List<Coördinaat>();
-        List<Coördinaat> BewerkCoördinaatRoute = new List<Coördinaat>();
+        ObservableCollection<Coördinaat> Coördinaten = new ObservableCollection<Coördinaat>();
+
 
         public BewerkRouteListview()
         {
@@ -28,15 +30,17 @@ namespace Bewegingsapp
             {
                 if (coördinaat.IDRoute == BindingRoute.IDRoute)
                 {
-                    BewerkCoördinaatRoute.Add(coördinaat);
+                    Coördinaten.Add(coördinaat);
                     await Task.Delay(5);
                 }
             }
-            Listview_Coördinaten_Bewerk.ItemsSource = BewerkCoördinaatRoute;
+            Listview_Coördinaten_Bewerk.ItemsSource = Coördinaten;
         }
 
         private async void Listview_Coördinaten_Bewerk_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            BewerkAlleCoördinaten.Clear();
+            Coördinaten.Clear();
             await Navigation.PushAsync(new BewerkRouteDetailview { BindingContext = e.SelectedItem });
         }
 
@@ -47,6 +51,23 @@ namespace Bewegingsapp
             {
                 await Navigation.PopAsync();
             }
+        }
+
+        private async void Delete_Clicked(object sender, System.EventArgs e)
+        {
+            bool VerwijderenRoute = await DisplayAlert("Route verwijderen", "Weet u zeker dat u deze route wilt verwijderen?", "ja", "nee");
+            if (VerwijderenRoute == true)
+            {
+                var VerwijderRoute = (Route)BindingContext;
+                await App.Database.VerwijderCoördinatenRoute(VerwijderRoute.IDRoute);
+                await App.Database.VerwijderRoute(VerwijderRoute);
+                await Navigation.PopAsync();
+            }
+        }
+
+        private void Add_Punt_Clicked(object sender, System.EventArgs e)
+        {
+
         }
     }
 }

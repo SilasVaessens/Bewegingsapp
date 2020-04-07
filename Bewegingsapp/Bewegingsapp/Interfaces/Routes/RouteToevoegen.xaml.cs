@@ -118,7 +118,7 @@ namespace Bewegingsapp
                 await App.Database.VerwijderRoute(route);
                 List<Route> Routes = await App.Database.LijstRoutes();
                 Route UpdateRoute = Routes.Last();
-                App.Database.VerwijderCoördinatenRoute(UpdateRoute.IDRoute);
+                await App.Database.VerwijderCoördinatenRoute(UpdateRoute.IDRoute);
                 
                 foreach (Coördinaat coördinaat1 in CoördinatenRoute)
                 {

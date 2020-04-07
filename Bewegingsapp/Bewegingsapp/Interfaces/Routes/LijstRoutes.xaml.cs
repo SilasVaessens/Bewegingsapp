@@ -23,9 +23,9 @@ namespace Bewegingsapp
             await Navigation.PushAsync(new RouteToevoegen());
         }
 
-        private void Routes_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void Routes_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-
+            await Navigation.PushAsync(new BewerkRouteListview { BindingContext = e.SelectedItem });
         }
     }
 }

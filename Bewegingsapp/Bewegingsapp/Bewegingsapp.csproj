@@ -19,16 +19,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Interfaces\Routes\BewerkRouteListview.xaml.cs">
+      <DependentUpon>BewerkRouteListview.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Interfaces\StartMenu.xaml.cs">
       <DependentUpon>StartMenu.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Interfaces\Oefeningen\BewerkOefening.xaml">
+    <EmbeddedResource Update="Interfaces\Routes\BewerkRouteDetailview.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Interfaces\Routes\BewerkRoute.xaml">
+    <EmbeddedResource Update="Interfaces\BewerkOefening.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Interfaces\BewerkRoute.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Interfaces\InstellingenMenu.xaml">
@@ -37,28 +43,28 @@
     <EmbeddedResource Update="InstellingenRoute.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Interfaces\Oefeningen\LijstOefeningen.xaml">
+    <EmbeddedResource Update="Interfaces\LijstOefeningen.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Interfaces\Routes\LijstRoutes.xaml">
+    <EmbeddedResource Update="Interfaces\LijstRoutes.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Interfaces\Oefeningen\OefeningAanUit.xaml">
+    <EmbeddedResource Update="Interfaces\OefeningAanUit.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Interfaces\Oefeningen\OefeningToevoegen.xaml">
+    <EmbeddedResource Update="Interfaces\OefeningToevoegen.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Interfaces\Routes\RouteKiezen.xaml">
+    <EmbeddedResource Update="Interfaces\RouteKiezen.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Interfaces\Routes\RouteToevoegen.xaml">
+    <EmbeddedResource Update="Interfaces\RouteToevoegen.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Interfaces\Routes\RouteToevoegenDetailpage.xaml">
+    <EmbeddedResource Update="Interfaces\RouteToevoegenDetailpage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Interfaces\Routes\RouteToevoegenListview.xaml">
+    <EmbeddedResource Update="Interfaces\RouteToevoegenListview.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Interfaces\StartRoute.xaml">

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Bewegingsapp.BewerkRouteListview"
+             Title="Wijzig route">
+    
+    <ContentPage.Content>
+        <Grid RowSpacing="0" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+            <ListView x:Name ="Listview_Coördinaten_Bewerk" BackgroundColor="GhostWhite" Grid.Row="0" ItemSelected="Listview_Coördinaten_Bewerk_ItemSelected">
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <TextCell Text="{Binding Nummer}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button x:Name="Klaar_Bewerk" BackgroundColor="Yellow" Grid.Row="2" Text="Route opslaan" FontSize="46" FontAttributes="Bold"
+                Clicked="Klaar_Bewerk_Clicked"/>
+        </Grid>
+   </ContentPage.Content>
+</ContentPage>

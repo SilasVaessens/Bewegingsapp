@@ -6,11 +6,11 @@
              mc:Ignorable="d"
              x:Class="Bewegingsapp.LijstRoutes"
              Title="Routes">
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="Add" IconImageSource="add2.png" Order="Primary" Clicked="Add_Clicked"/>
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <ListView x:Name="Routes" Grid.Row="0" BackgroundColor="GhostWhite" ItemSelected="Routes_ItemSelected">
             <ListView.ItemTemplate>

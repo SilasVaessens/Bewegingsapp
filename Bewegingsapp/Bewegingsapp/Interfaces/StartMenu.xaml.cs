@@ -14,7 +14,7 @@ namespace Bewegingsapp
 
         private async void Route_Clicked(object sender, EventArgs e) //navigatie naar het route kiezen, listview van de routes
         {
-            await Navigation.PushAsync(new RouteKiezen());
+            await Navigation.PushAsync(new OefeningAanUit());
         }
 
         private async void Instellingen_Clicked(object sender, EventArgs e) //navigatie naar het instellingen menu

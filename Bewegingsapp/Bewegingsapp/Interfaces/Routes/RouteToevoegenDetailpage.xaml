@@ -54,7 +54,7 @@
                      als dit het eerste punt is, dan hoeft hier niks toegevoegd te worden" Text="{Binding RouteBeschrijving}" x:Name="Routeomschrijving"/>
             <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="46"
                    FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="12" BackgroundColor="Yellow" Text="Oefening"/>
-            <Picker x:Name="Oefeningen_Picker" TextColor="Black"  Grid.ColumnSpan="3" Grid.Row="14" BackgroundColor="GhostWhite"
+            <Picker x:Name="Oefeningen_Picker" TextColor="Black" Grid.ColumnSpan="3" Grid.Row="14" BackgroundColor="GhostWhite"
                     ItemDisplayBinding="{Binding NaamOefening}" SelectedIndexChanged="Oefeningen_Picker_SelectedIndexChanged" Title="Selecteer oefening"/>
             <Button FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="1" Grid.Row="16" BackgroundColor="Yellow" Text="Opslaan"
                     x:Name="Opslaan_Button" Clicked="Opslaan_Button_Clicked" />

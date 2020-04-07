@@ -21,11 +21,12 @@ namespace Bewegingsapp
 
         protected override async void OnAppearing()
         {
+            base.OnAppearing();
             Oefeningen_Picker.ItemsSource = await App.Database.LijstOefeningen(); // itemsource = alle oefeningen die ooit aangemaakt zijn
             var coördinaat = (Coördinaat)BindingContext;
             if (coördinaat.IDOEfening != null) // voorkomt dat bij iedere coördinaat standaard de eerste oefening wordt toegevoegd
             {
-                Oefeningen_Picker.SelectedIndex = Convert.ToInt32(coördinaat.IDOEfening) - 1; // ID's beginnen vanaf 1, maar de index telf vanaf 0
+                Oefeningen_Picker.SelectedIndex = Convert.ToInt32(coördinaat.IDOEfening) - 1; // ID's beginnen vanaf 1, maar de index telt vanaf 0
                 OefeningAangepast = false; // dit telt als een SelectedIndexChanged event (staat standaard ingesteld op index -1),
                                            // maar telt niet als het wijzigen van een oefening
             }

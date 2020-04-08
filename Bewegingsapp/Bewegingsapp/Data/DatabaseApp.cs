@@ -126,7 +126,6 @@ namespace Bewegingsapp.Data
                 await App.Database.UpdateCoördinaat(coördinaat1);
             }
             TeUpdatenCoördinaten.Clear();
-            
         }
     }
 }

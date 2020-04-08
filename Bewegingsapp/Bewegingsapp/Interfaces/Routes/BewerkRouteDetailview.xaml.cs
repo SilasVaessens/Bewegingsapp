@@ -35,6 +35,14 @@ namespace Bewegingsapp
                 Oefeningen_Picker.SelectedIndex = -1; // oftewel, niks staat geselcteerd in de picker
                 OefeningAangepast = false;
             }
+            if (BindingCoördinaat.IDRoute == 1)
+            {
+                Delete.IsEnabled = false;
+                Oefeningen_Picker.IsEnabled = false;
+                Routeomschrijving.IsEnabled = false;
+                Opslaan_Button.IsEnabled = false;
+                Reset_Button.IsEnabled = false;
+            }
         }
 
         private async void Info_Clicked(object sender, EventArgs e)

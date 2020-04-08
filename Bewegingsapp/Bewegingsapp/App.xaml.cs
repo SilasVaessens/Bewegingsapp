@@ -24,7 +24,7 @@ namespace Bewegingsapp
         }
 
         public List<Coördinaat> CoördinatenRCS = new List<Coördinaat>();
-
+        bool RouteBestaat = false;
 
         public App()
         {
@@ -34,16 +34,10 @@ namespace Bewegingsapp
 
         protected async override void OnStart()
         {
-            Route routetest = new Route
-            {
-                IDRoute = 0,
-                NaamRoute = "test"
-            };
-
             List<Route> Routes = await App.Database.LijstRoutes();
-            if (Routes[0].NaamRoute != "RCS")
+
+            if (Routes.Count == 0)
             {
-                await App.Database.VerwijderRoute(routetest);
                 Route route = new Route
                 {
                     IDRoute = 1,
@@ -69,17 +63,18 @@ namespace Bewegingsapp
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 16, Locatie1 = 51.639626, Locatie2 = 5.286629 });
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 17, Locatie1 = 51.639539, Locatie2 = 5.285867 });
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 18, Locatie1 = 51.639240, Locatie2 = 5.284808 });
-                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 18, Locatie1 = 51.640149, Locatie2 = 5.284610 });
+                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 19, Locatie1 = 51.640149, Locatie2 = 5.284610 });
 
-                foreach(Coördinaat coördinaat in CoördinatenRCS)
+                foreach (Coördinaat coördinaat in CoördinatenRCS)
                 {
                     await App.Database.ToevoegenCoördinaat(coördinaat);
-                    route.Coördinaten = CoördinatenRCS;
-                    await App.Database.UpdateRoute(route);
                 }
 
-            }
+                route.Coördinaten = CoördinatenRCS;
+                await App.Database.UpdateRoute(route);
 
+
+            }
         }
 
         protected override void OnSleep()

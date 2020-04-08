@@ -35,6 +35,11 @@ namespace Bewegingsapp
                 }
             }
             Listview_Coördinaten_Bewerk.ItemsSource = Coördinaten;
+            if (BindingRoute.IDRoute == 1)
+            {
+                Add_Punt.IsEnabled = false;
+                Delete.IsEnabled = false;
+            }
         }
 
         private async void Listview_Coördinaten_Bewerk_ItemSelected(object sender, SelectedItemChangedEventArgs e)

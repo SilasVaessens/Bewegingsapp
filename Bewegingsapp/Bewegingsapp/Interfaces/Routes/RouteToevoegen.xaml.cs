@@ -33,20 +33,10 @@ namespace Bewegingsapp
         {
             base.OnAppearing();
             List<Route> LijstRouteIDs = await App.Database.LijstRoutes();
-            if (LijstRouteIDs.Count == 0)
+            route = new Route()
             {
-                route = new Route()
-                {
-                    IDRoute = 1
-                };
-            }
-            if (LijstRouteIDs.Count > 0)
-            {
-                route = new Route()
-                {
-                    IDRoute = LijstRouteIDs.Count + 1
-                };
-            }
+                IDRoute = LijstRouteIDs.Count + 1
+            };
             await App.Database.ToevoegenRoute(route);
             opgeslagen = false;
             if (String.IsNullOrEmpty(Naam_Route_toevoegen.Text) == false || CoördinatenRoute.Count != 0)

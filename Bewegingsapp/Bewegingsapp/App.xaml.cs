@@ -37,7 +37,7 @@ namespace Bewegingsapp
         {
             List<Route> Routes = await App.Database.LijstRoutes();
 
-            if (Routes.Count == 0)
+            if (Routes.Count == 0) //als er geen routes zijn, route toevoegen aan database
             {
                 Route route = new Route
                 {
@@ -45,31 +45,26 @@ namespace Bewegingsapp
                     NaamRoute = "RCS"
                 };
                 await App.Database.ToevoegenRoute(route);
-
+                //oefeningen voor de route van RCS
                 OefeningenRCS.Add(new Oefening(){NaamOefening = "lantaarnpaal",
-                    OmschrijvingOefening = "Zoek een lantaarnpaal op de stoep, ga hier dichtbij staan en pak deze met 1 hand op heuphoogte vast. " +
-                    "Pak met de andere hand de lantaarnpaal zo hoog mogelijk vast. Wissel dit met beide handen af en herhaal dit enkele keren."});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "BankjeRecht",
-                    OmschrijvingOefening = "Ga met een rechte rug op het bankje zitten, kruis vervolgens uw armen voor uw borst. Reik vervolgens met uw handen naar uw tenen, herhaal dit enkele keren"});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "BankjePunt",
-                    OmschrijvingOefening = "Ga op het puntje van de bank zitten, kruis vervolgens uw armen voor uw borst. Leun rustig naar achteren zonder de bank te raken, herhaal dit enkele keren"});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "Hek",
-                    OmschrijvingOefening = "Zoek aan uw rechterzijde naar een hek en houdt deze stevig vast. Ga vervolgens op een denkbeeldige stoel zitten en kom daarna weer omhoog, herhaal dit enkele keren"});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "HakkenTenen",
-                    OmschrijvingOefening = "Zoek een lantarenpaal of muur, hou u hieraan vast. ga op uw tenen staan en vervolgens op uw hakken, herhaal dit enkele keren"});
+                    OmschrijvingOefening = "Zoek een lantaarnpaal aan uw linkerzijde, ga hier dichtbij staan en pak deze met 1 hand op heuphoogte vast. " +
+                    "Pak met de andere hand de lantaarnpaal zo hoog mogelijk vast. Wissel dit met beide handen af en herhaal dit naar wens."});
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "HoofdDraaien",
+                    OmschrijvingOefening = "Blijf rechtop staan. Draai uw hoofd en schouders zo ver mogelijk naar links en vervolgens naar rechts. Herhaal dit zo vaak als u wilt."});
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "DenkbeeldigeStoel",
+                    OmschrijvingOefening = "Zoek een lantaarnpaal aan uw rechterzijde. Hou deze goed vast met beide handen. " +
+                    "Ga op een denkbeeldige stoel zitten en kom weer tot stand. Hou uw rug recht bij de oefening. Herhaal dit naar wens"});
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "BankPuntje",
+                    OmschrijvingOefening = "Zoek aan uw rechterzijde het bankje op het gras. Ga op het puntje van de bank zitten. " +
+                    "Kruis uw armen voor de borst en strek vervolgens tot uw tenen. Herhaal dit naar wens"});
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "Knijpen",
+                    OmschrijvingOefening = "trek uw armen zijwaarts, knijp beide handen en houd dit 5 seconden vast. Herhaal dit naar wens"});
 
                 foreach(Oefening Oefeningen in OefeningenRCS)
                 {
                     await App.Database.ToevoegenOefening(Oefeningen);
                 }
-
-                Console.WriteLine(OefeningenRCS[0].IDOefening);
-                Console.WriteLine(OefeningenRCS[1].IDOefening);
-                Console.WriteLine(OefeningenRCS[2].IDOefening);
-                Console.WriteLine(OefeningenRCS[3].IDOefening);
-                Console.WriteLine(OefeningenRCS[4].IDOefening);
-
-
+                //coördinaten voor de route van RCS, oefeningen zitten gekoppeld via ID aan de coördinaten
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 1, Locatie1 = 51.640149, Locatie2 = 5.284610,
                     RouteBeschrijving = "loop vanuit de voordeur 5 meter naar de stoep en sla rechtsaf, dan na 5 meter slaat u weer Rechtsaf Rouppe van der Voortlaan in."});
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 2, Locatie1 = 51.640327, Locatie2 = 5.284805,
@@ -111,7 +106,7 @@ namespace Bewegingsapp
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 20, Locatie1 = 51.640149, Locatie2 = 5.284610, 
                     RouteBeschrijving = "Steek hier de straat over en volg de stoep naar de voordeur. Aangekomen op uw eindbestemming"});
 
-                foreach (Coördinaat coördinaat in CoördinatenRCS)
+                foreach (Coördinaat coördinaat in CoördinatenRCS) //coördinaten en oefeningen toevoege aan de database
                 {
                     await App.Database.ToevoegenCoördinaat(coördinaat);
                 }

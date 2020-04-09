@@ -55,7 +55,7 @@
             <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="46"
                    FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="12" BackgroundColor="Yellow" Text="Oefening"/>
             <Picker x:Name="Oefeningen_Picker" TextColor="Black"  Grid.ColumnSpan="3" Grid.Row="14" BackgroundColor="GhostWhite"
-                    ItemDisplayBinding="{Binding NaamOefening}" SelectedIndexChanged="Oefeningen_Picker_SelectedIndexChanged" Title="Selecteer oefening"/>
+                    ItemDisplayBinding="{Binding NaamOefening}" Title="Selecteer oefening"/>
             <Button FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="1" Grid.Row="16" BackgroundColor="Yellow" Text="Opslaan"
                     x:Name="Opslaan_Button" Clicked="Opslaan_Button_Clicked" />
             <Button x:Name="Reset_Button" FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="1" Grid.Row="16" BackgroundColor="Yellow"

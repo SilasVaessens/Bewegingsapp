@@ -7,9 +7,14 @@
              x:Class="Bewegingsapp.BewerkOefening"
              xmlns:local="clr-namespace:Bewegingsapp.Model"
              Title="Oefening bewerken">
-    
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="Delete" Order="Primary" IconImageSource="delete.png" Clicked="Delete_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+
     <ContentPage.Content>
-        <Grid RowSpacing="0" BackgroundColor="Black" ColumnSpacing="0">
+        <Grid RowSpacing="0" BackgroundColor="Black">
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="1"/>
@@ -21,21 +26,14 @@
                 <RowDefinition Height="1"/>
                 <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="1"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Text="Naam:" Grid.ColumnSpan="3" FontSize="46" FontAttributes="Bold"
+            <Label Grid.Row="0" Text="Naam:" FontSize="46" FontAttributes="Bold"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
-            <Editor x:Name="BewerkNaam" Grid.ColumnSpan="3" Placeholder="Naam van de oefening" BackgroundColor="WhiteSmoke" Grid.Row="2" Text="{Binding NaamOefening}"/>
-            <Label Grid.Row="4" Grid.ColumnSpan="3" Text="Omschrijving:" FontSize="46" FontAttributes="Bold"
+            <Editor x:Name="BewerkNaam"  Placeholder="Naam van de oefening" BackgroundColor="WhiteSmoke" Grid.Row="2" Text="{Binding NaamOefening}"/>
+            <Label Grid.Row="4"  Text="Omschrijving:" FontSize="46" FontAttributes="Bold"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
-            <Editor x:Name="BewerkOmschrijving" Grid.ColumnSpan="3" Placeholder="Beschrijf hier wat er moet gebeuren tijdens de oefening" BackgroundColor="WhiteSmoke" Grid.Row="6" Text="{Binding OmschrijvingOefening}"/>
-            <local:CustomButton x:Name="Oefening_update" Grid.Row="8" Grid.Column="0" Text="Update oefening" FontSize="33" FontAttributes="Bold"
+            <Editor x:Name="BewerkOmschrijving"  Placeholder="Beschrijf hier wat er moet gebeuren tijdens de oefening" BackgroundColor="WhiteSmoke" Grid.Row="6" Text="{Binding OmschrijvingOefening}"/>
+            <local:CustomButton x:Name="Oefening_update" Grid.Row="8" Text="Update oefening" FontSize="33" FontAttributes="Bold"
                    TextColor="Black" BackgroundColor="Yellow" Clicked="Oefening_update_Clicked"/>
-            <local:CustomButton x:Name="Oefening_verwijder" Grid.Row="8" Grid.Column="2" Text="Verwijder oefening" FontSize="33" FontAttributes="Bold"
-                   TextColor="Black" BackgroundColor="Yellow" Clicked="Oefening_verwijder_Clicked"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -21,7 +21,7 @@
             <ListView x:Name ="Listview_Coördinaten_Bewerk" BackgroundColor="GhostWhite" Grid.Row="0" ItemSelected="Listview_Coördinaten_Bewerk_ItemSelected">
                 <ListView.ItemTemplate >
                     <DataTemplate>
-                        <TextCell Text="{Binding Nummer}"/>
+                        <TextCell Text="{Binding Nummer}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

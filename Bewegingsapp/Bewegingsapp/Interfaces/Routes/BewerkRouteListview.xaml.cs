@@ -70,9 +70,12 @@ namespace Bewegingsapp
             }
         }
 
-        private void Add_Punt_Clicked(object sender, System.EventArgs e)
+        private async void Add_Punt_Clicked(object sender, System.EventArgs e)
         {
-
+            var Add = (Route)BindingContext;
+            var bewerkRouteToevoegen = new BewerkRouteToevoegen();
+            bewerkRouteToevoegen.BindingContext = Add;
+            await Navigation.PushAsync(bewerkRouteToevoegen);
         }
     }
 }

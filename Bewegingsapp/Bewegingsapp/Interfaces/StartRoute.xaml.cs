@@ -29,7 +29,7 @@ namespace Bewegingsapp
             {
                 if (coördinaat.IDRoute == route.IDRoute)
                 {
-                    BewerkCoördinaatRoute.Add(coördinaat); //coördinaten di een gelijke IDroute hebben toevoegen aan een lijst
+                    BewerkCoördinaatRoute.Add(coördinaat); //coördinaten die een gelijke IDroute hebben toevoegen aan een lijst
                     await Task.Delay(5);
                 }
             }

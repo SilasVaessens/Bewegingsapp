@@ -41,7 +41,7 @@ namespace Bewegingsapp
             }
         }
 
-        private async void Oefening_verwijder_Clicked(object sender, EventArgs e)
+        private async void Delete_Clicked(object sender, EventArgs e)
         {
             bool answer = await DisplayAlert("Definitief verwijderen?", "Weet u zeker dat u deze oefening wilt verwijderen?", "ja", "nee"); //oefening verijderen
             if (answer == true)
@@ -50,7 +50,6 @@ namespace Bewegingsapp
                 await App.Database.VerwijderOefening(oefening);
                 await Navigation.PopAsync();
             }
-
         }
     }
 }

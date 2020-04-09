@@ -12,7 +12,6 @@ namespace Bewegingsapp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BewerkRouteDetailview : ContentPage
     {
-        public bool OefeningAangepast = false;
 
         public BewerkRouteDetailview()
         {
@@ -27,13 +26,10 @@ namespace Bewegingsapp
             if (BindingCoördinaat.IDOEfening != null) // voorkomt dat bij iedere coördinaat standaard de eerste oefening wordt toegevoegd
             {
                 Oefeningen_Picker.SelectedIndex = Convert.ToInt32(BindingCoördinaat.IDOEfening) - 1; // ID's beginnen vanaf 1, maar de index telt vanaf 0
-                OefeningAangepast = false; // dit telt als een SelectedIndexChanged event (staat standaard ingesteld op index -1),
-                                           // maar telt niet als het wijzigen van een oefening
             }
             else
             {
-                Oefeningen_Picker.SelectedIndex = -1; // oftewel, niks staat geselcteerd in de picker
-                OefeningAangepast = false;
+                Oefeningen_Picker.SelectedIndex = -1; // oftewel, niks staat geselecteerd in de picker
             }
             if (BindingCoördinaat.IDRoute == 1)
             {
@@ -54,20 +50,37 @@ namespace Bewegingsapp
                     "OK");
         }
 
-        private void Oefeningen_Picker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            OefeningAangepast = true;
-        }
 
         private async void Opslaan_Button_Clicked(object sender, EventArgs e)
         {
             var coördinaat1 = (Coördinaat)BindingContext;
-            if (OefeningAangepast == true) // Oefening ID wordt alleen aangepast als er een ander item geselecteerd wordt
+            if (Oefeningen_Picker.SelectedIndex != -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == false)
             {
-                coördinaat1.IDOEfening = Oefeningen_Picker.SelectedIndex + 1; // ID's beginnen vanaf 1, maar de index telt vanaf 0
+                await DisplayAlert("Opslaan niet mogelijk", "Een punt kan niet zowel een oefening als een routebeschrijving hebben", "ok");
             }
-            await App.Database.UpdateCoördinaat(coördinaat1);
-            await Navigation.PopAsync();
+            if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == true)
+            {
+                bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", "Weet u zeker dat u dit als een onzichtbaar punt?", "ja", "nee");
+                if (Onzichtbaar == true)
+                {
+                    coördinaat1.IDOEfening = null;
+                    await App.Database.UpdateCoördinaat(coördinaat1);
+                    await Navigation.PopAsync();
+                }
+            }
+            if (Oefeningen_Picker.SelectedIndex != -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == true || Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == false)
+            {
+                if (Oefeningen_Picker.SelectedIndex != -1) // Oefening ID wordt alleen aangepast als er een ander item geselecteerd wordt
+                {
+                    coördinaat1.IDOEfening = Oefeningen_Picker.SelectedIndex + 1; // ID's beginnen vanaf 1, maar de index telt vanaf 0
+                }
+                if (Oefeningen_Picker.SelectedIndex == -1)
+                {
+                    coördinaat1.IDOEfening = null;
+                }
+                await App.Database.UpdateCoördinaat(coördinaat1);
+                await Navigation.PopAsync();
+            }
 
         }
 
@@ -75,7 +88,6 @@ namespace Bewegingsapp
         {
             Oefeningen_Picker.SelectedIndex = -1;
             Routeomschrijving.Text = "";
-            OefeningAangepast = false;
         }
 
         private async void Delete_Clicked(object sender, EventArgs e)

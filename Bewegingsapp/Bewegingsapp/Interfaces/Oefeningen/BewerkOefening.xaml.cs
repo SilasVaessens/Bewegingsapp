@@ -1,5 +1,6 @@
 ﻿using Bewegingsapp.Model;
 using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,6 +12,19 @@ namespace Bewegingsapp
         public BewerkOefening()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Oefening oefening = (Oefening)BindingContext;
+            List<int> CheckID = new List<int>(new [] { 1, 2, 3, 4, 5});
+            if (CheckID.Contains(oefening.IDOefening))
+            {
+                BewerkNaam.IsEnabled = false;
+                BewerkOmschrijving.IsEnabled = false;
+                Delete.IsEnabled = false;
+            }
         }
 
         private async void Oefening_update_Clicked(object sender, EventArgs e)

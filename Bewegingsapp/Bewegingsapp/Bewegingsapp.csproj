@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="BewerkRouteToevoegen.xaml">
+    <EmbeddedResource Update="Interfaces\Routes\BewerkRouteToevoegen.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Interfaces\Routes\BewerkRouteDetailview.xaml">

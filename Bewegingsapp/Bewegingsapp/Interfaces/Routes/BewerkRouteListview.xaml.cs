@@ -25,16 +25,9 @@ namespace Bewegingsapp
             base.OnAppearing();
             var BindingRoute = (Route)BindingContext;
             Title = BindingRoute.NaamRoute;
-            BewerkAlleCoördinaten = await App.Database.LijstCoördinaten();
-            foreach (Coördinaat coördinaat in BewerkAlleCoördinaten)
-            {
-                if (coördinaat.IDRoute == BindingRoute.IDRoute)
-                {
-                    Coördinaten.Add(coördinaat);
-                    await Task.Delay(5);
-                }
-            }
-            Listview_Coördinaten_Bewerk.ItemsSource = Coördinaten;
+            List<Coördinaat> DezeRoute = await App.Database.LijstCoördinatenRoute(BindingRoute.IDRoute);
+            ObservableCollection<Coördinaat> DezeRouteCollection = new ObservableCollection<Coördinaat>(DezeRoute as List<Coördinaat>);
+            Listview_Coördinaten_Bewerk.ItemsSource = DezeRouteCollection;
             if (BindingRoute.IDRoute == 1)
             {
                 Add_Punt.IsEnabled = false;
@@ -44,8 +37,8 @@ namespace Bewegingsapp
 
         private async void Listview_Coördinaten_Bewerk_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            BewerkAlleCoördinaten.Clear();
-            Coördinaten.Clear();
+            //BewerkAlleCoördinaten.Clear();
+            //Coördinaten.Clear();
             await Navigation.PushAsync(new BewerkRouteDetailview { BindingContext = e.SelectedItem });
         }
 

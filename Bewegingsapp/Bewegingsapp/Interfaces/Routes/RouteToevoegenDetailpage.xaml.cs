@@ -36,11 +36,11 @@ namespace Bewegingsapp
         private async void Opslaan_Button_Clicked(object sender, EventArgs e)
         {
             var coördinaat1 = (Coördinaat)BindingContext;
-            if (Oefeningen_Picker.SelectedIndex != -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == false)
+            if (Oefeningen_Picker.SelectedIndex != -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == false)
             {
                 await DisplayAlert("Opslaan niet mogelijk", "Een punt kan niet zowel een oefening als een routebeschrijving hebben", "ok");
             }
-            if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == true)
+            if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == true)
             {
                 bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", "Weet u zeker dat u dit als een onzichtbaar punt?", "ja", "nee");
                 if (Onzichtbaar == true)
@@ -50,7 +50,7 @@ namespace Bewegingsapp
                     await Navigation.PopAsync();
                 }
             }
-            if (Oefeningen_Picker.SelectedIndex != -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == true || Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == false)
+            if (Oefeningen_Picker.SelectedIndex != -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == true || Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == false)
             {
                 if (Oefeningen_Picker.SelectedIndex != -1) // Oefening ID wordt alleen aangepast als er een ander item geselecteerd wordt
                 {
@@ -68,7 +68,7 @@ namespace Bewegingsapp
         private void Reset_Button_Clicked(object sender, EventArgs e)
         {
             Oefeningen_Picker.SelectedIndex = -1;
-            Routeomschrijving.Text = ""; 
+            Richtingsaanwijzing.Text = ""; 
         }
 
         private async void Info_Clicked(object sender, EventArgs e)

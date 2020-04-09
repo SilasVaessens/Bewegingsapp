@@ -12,8 +12,6 @@ namespace Bewegingsapp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RouteToevoegenListview : ContentPage
     {
-        public List<Coördinaat> CoördinatenAlleRoutes = new List<Coördinaat>();
-        public List<Coördinaat> CoördinatenNieweRoute = new List<Coördinaat>();
 
         public RouteToevoegenListview()
         {
@@ -26,16 +24,7 @@ namespace Bewegingsapp
             List<Route> AlleRoutes = await App.Database.LijstRoutes();
             Title = AlleRoutes.Last().NaamRoute;
             int IDRoute = await App.Database.KrijgRouteID();
-            CoördinatenAlleRoutes = await App.Database.LijstCoördinaten();
-            foreach (Coördinaat coördinaat in CoördinatenAlleRoutes)
-            {
-                if (coördinaat.IDRoute == IDRoute)
-                {
-                    CoördinatenNieweRoute.Add(coördinaat);
-                    await Task.Delay(5);
-                }
-            }
-            Listview_Coördinaten.ItemsSource = CoördinatenNieweRoute;
+            Listview_Coördinaten.ItemsSource = await App.Database.LijstCoördinatenRoute(IDRoute);
         }
 
         private async void Listview_Coördinaten_ItemSelected(object sender, SelectedItemChangedEventArgs e)

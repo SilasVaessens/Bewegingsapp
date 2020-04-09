@@ -86,6 +86,7 @@ namespace Bewegingsapp.Data
             int routeID = await sqlite_database.Table<Route>().CountAsync();
             return routeID;
         }
+
         //verwijdert alle coördinaten van 1 bepaalde route
         public async Task VerwijderCoördinatenRoute(int IDRoute)
         {
@@ -126,6 +127,21 @@ namespace Bewegingsapp.Data
                 await App.Database.UpdateCoördinaat(coördinaat1);
             }
             TeUpdatenCoördinaten.Clear();
+        }
+
+        //krijg list coördinaten van met dezelfde IDRoute
+        public async Task<List<Coördinaat>>  LijstCoördinatenRoute(int IDRoute)
+        {
+            List<Coördinaat> CoördinatenRoute = new List<Coördinaat>();
+            List<Coördinaat> AlleCoördinaten = await App.Database.LijstCoördinaten();
+            foreach (Coördinaat coördinaat in AlleCoördinaten)
+            {
+                if (coördinaat.IDRoute == IDRoute)
+                {
+                    CoördinatenRoute.Add(coördinaat);
+                }
+            }
+            return CoördinatenRoute;
         }
     }
 }

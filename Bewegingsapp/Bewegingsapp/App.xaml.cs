@@ -25,7 +25,6 @@ namespace Bewegingsapp
 
         public List<Coördinaat> CoördinatenRCS = new List<Coördinaat>();
         public List<Oefening> OefeningenRCS = new List<Oefening>();
-        bool RouteBestaat = false;
 
         public App()
         {
@@ -46,29 +45,22 @@ namespace Bewegingsapp
                 };
                 await App.Database.ToevoegenRoute(route);
 
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "lantaarnpaal",
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RCS] lantaarnpaal",
                     OmschrijvingOefening = "Zoek een lantaarnpaal op de stoep, ga hier dichtbij staan en pak deze met 1 hand op heuphoogte vast. " +
                     "Pak met de andere hand de lantaarnpaal zo hoog mogelijk vast. Wissel dit met beide handen af en herhaal dit enkele keren."});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "BankjeRecht",
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RSC] BankjeRecht",
                     OmschrijvingOefening = "Ga met een rechte rug op het bankje zitten, kruis vervolgens uw armen voor uw borst. Reik vervolgens met uw handen naar uw tenen, herhaal dit enkele keren"});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "BankjePunt",
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RSC] BankjePunt",
                     OmschrijvingOefening = "Ga op het puntje van de bank zitten, kruis vervolgens uw armen voor uw borst. Leun rustig naar achteren zonder de bank te raken, herhaal dit enkele keren"});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "Hek",
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RSC] Hek",
                     OmschrijvingOefening = "Zoek aan uw rechterzijde naar een hek en houdt deze stevig vast. Ga vervolgens op een denkbeeldige stoel zitten en kom daarna weer omhoog, herhaal dit enkele keren"});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "HakkenTenen",
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RSC] HakkenTenen",
                     OmschrijvingOefening = "Zoek een lantarenpaal of muur, hou u hieraan vast. ga op uw tenen staan en vervolgens op uw hakken, herhaal dit enkele keren"});
 
                 foreach(Oefening Oefeningen in OefeningenRCS)
                 {
                     await App.Database.ToevoegenOefening(Oefeningen);
                 }
-
-                Console.WriteLine(OefeningenRCS[0].IDOefening);
-                Console.WriteLine(OefeningenRCS[1].IDOefening);
-                Console.WriteLine(OefeningenRCS[2].IDOefening);
-                Console.WriteLine(OefeningenRCS[3].IDOefening);
-                Console.WriteLine(OefeningenRCS[4].IDOefening);
-
 
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 1, Locatie1 = 51.640149, Locatie2 = 5.284610,
                     RouteBeschrijving = "loop vanuit de voordeur 5 meter naar de stoep en sla rechtsaf, dan na 5 meter slaat u weer Rechtsaf Rouppe van der Voortlaan in."});

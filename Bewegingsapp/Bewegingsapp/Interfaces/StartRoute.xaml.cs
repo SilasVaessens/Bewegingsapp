@@ -80,32 +80,10 @@ namespace Bewegingsapp
 
             Map_Start_Route.MapElements.Add(polyline1);
 
-            try
-            {
-                var request = new GeolocationRequest(GeolocationAccuracy.Best);
-                var location = await Geolocation.GetLocationAsync(request); //longitude, latitude en altitude van de gebruiker wordt hier opgevraagd
-
-                if (location != null)
-                {
-                    Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromKilometers(0.5))); //startpunt, locatie van gebruiker
-                }
-            }
-            catch (FeatureNotSupportedException NotSupported)
-            {
-                // Verwerkt not supported on device exception
-            }
-            catch (FeatureNotEnabledException NotEnabled)
-            {
-                // Verwerkt not enabled on device exception
-            }
-            catch (PermissionException NotAllowed)
-            {
-                // Verwerkt permission exception
-            }
-            catch (Exception NoLocation)
-            {
-                // Locatie is niet verkregen
-            }
+            double locatie1 = BewerkCoördinaatRoute[0].Locatie1;
+            double locatie2 = BewerkCoördinaatRoute[0].Locatie2;
+            Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locatie1, locatie2), Distance.FromMeters(50))); //startpunt, locatie van gebruiker
+          
 
         }
 

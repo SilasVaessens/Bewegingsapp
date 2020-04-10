@@ -35,7 +35,10 @@ namespace Bewegingsapp
                     Type = PinType.Place,
                     Position = new Position(location1, location2)
                 };
-                Map_Start_Route.Pins.Add(pin);
+                if (coördinaat1.IDOEfening != null || coördinaat1.RouteBeschrijving != null) 
+                {
+                    Map_Start_Route.Pins.Add(pin);
+                }
                 PinsLijst.Add(pin);
 
                 if (PinsLijst.Count >= 2)

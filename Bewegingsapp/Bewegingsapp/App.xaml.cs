@@ -67,6 +67,7 @@ namespace Bewegingsapp
                 //coördinaten voor de route van RCS, oefeningen zitten gekoppeld via ID aan de coördinaten
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 1, Locatie1 = 51.640149, Locatie2 = 5.284610,
                     RouteBeschrijving = "loop vanuit de voordeur 5 meter naar de stoep en sla rechtsaf, dan na 5 meter slaat u weer Rechtsaf Rouppe van der Voortlaan in."});
+                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 21, Locatie1 = 51.640327, Locatie2 = 5.284600 });
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 2, Locatie1 = 51.640327, Locatie2 = 5.284805,
                     RouteBeschrijving = "Volg gedurende 120 meter Rouppe van der Voortlaan dan komt u aan bij oefening 1"});
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 3, Locatie1 = 51.640284, Locatie2 = 5.286323, IDOEfening = 1,
@@ -85,24 +86,30 @@ namespace Bewegingsapp
                     RouteBeschrijving = "Blijf Pieter Vreedesingel volgen hier komt nog een kruispunt, hier steekt u over."});
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 10, Locatie1 = 51.638926, Locatie2 = 5.290046,
                     RouteBeschrijving = "Sla op het einde van de stoep op Pieter Vreedesingel rechtsaf de Hertoglaan in, loop gedurende 100 meter rechtdoor over Hertoglaan, tot u aankomt bij de kruising."});
+                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 22, Locatie1 = 51.638720, Locatie2 = 5.290100 });
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 11, Locatie1 = 51.638672, Locatie2 = 5.288776,
                     RouteBeschrijving = "Steek hier de straat over bij de geleidelijnen, steek vervolgens links de straat over, ook bij de geleidelijnen en vervolg uw weg naar rechts."});
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 12, Locatie1 = 51.638600, Locatie2 = 5.288455,
                     RouteBeschrijving = "Volg gedurende 40 meter de Hertoglaan dan komt u aan bij de 4e oefening"});
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 13, Locatie1 = 51.638565, Locatie2 = 5.287890, IDOEfening = 4,
                     RouteBeschrijving = "vervolg de stoep tot aan de geleidelijn"});
-                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 14, Locatie1 = 51.638605, Locatie2 = 5.286913,
+                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 14, Locatie1 = 51.638605, Locatie2 = 5.286950,
                     RouteBeschrijving = "Steek bij de geleidelijnen de straat over. Vervolgens steekt u rechts de straat over bij de volgende geleidelijnen. U bent aangekomen in de Brabantlaan."});
+                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 23, Locatie1 = 51.638605, Locatie2 = 5.286821 });
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 15, Locatie1 = 51.638817, Locatie2 = 5.286821,
                     RouteBeschrijving = "Loop gedurende 100 meter rechtdoor over de Brabantlaan"});
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 16, Locatie1 = 51.639503, Locatie2 = 5.286853, 
-                    RouteBeschrijving = "Zoek het einde van de stoep en volg deze linksaf Bisschop Zweisenplein in."}); 
+                    RouteBeschrijving = "Zoek het einde van de stoep en volg deze linksaf Bisschop Zweisenplein in."});
+                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 24, Locatie1 = 51.639626, Locatie2 = 5.286853 });
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 17, Locatie1 = 51.639626, Locatie2 = 5.286629,
                     RouteBeschrijving = "Blijf de stoep volgen deze maakt een bocht naar links over Bisschop Zweisenplein na ongeveer 35 meter."});
+                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 25, Locatie1 = 51.639660, Locatie2 = 5.286000 });
+                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 26, Locatie1 = 51.639600, Locatie2 = 5.285870 });
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 18, Locatie1 = 51.639240, Locatie2 = 5.285867,
                     RouteBeschrijving = "Steek hier de straat over tot u de stoep vindt. Volg hier de huizenlijn aan uw linkerzijde en de speelplaats aan uw rechterzijde voor 30 meter."});
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 19, Locatie1 = 51.639240, Locatie2 = 5.284808, IDOEfening = 5,
                     RouteBeschrijving = "Op het einde van de stoep steekt u een smalle straat over, Loop vervolgens rechtsaf richting het einde van de route."});
+                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 27, Locatie1 = 51.639240, Locatie2 = 5.284560 });
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 20, Locatie1 = 51.640149, Locatie2 = 5.284610, 
                     RouteBeschrijving = "Steek hier de straat over en volg de stoep naar de voordeur. Aangekomen op uw eindbestemming"});
 

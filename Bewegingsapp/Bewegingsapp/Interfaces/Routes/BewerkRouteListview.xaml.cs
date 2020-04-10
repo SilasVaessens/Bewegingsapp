@@ -10,11 +10,6 @@ namespace Bewegingsapp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BewerkRouteListview : ContentPage
     {
-
-        List<Coördinaat> BewerkAlleCoördinaten = new List<Coördinaat>();
-        ObservableCollection<Coördinaat> Coördinaten = new ObservableCollection<Coördinaat>();
-
-
         public BewerkRouteListview()
         {
             InitializeComponent();
@@ -66,8 +61,10 @@ namespace Bewegingsapp
         private async void Add_Punt_Clicked(object sender, System.EventArgs e)
         {
             var Add = (Route)BindingContext;
-            var bewerkRouteToevoegen = new BewerkRouteToevoegen();
-            bewerkRouteToevoegen.BindingContext = Add;
+            var bewerkRouteToevoegen = new BewerkRouteToevoegen
+            {
+                BindingContext = Add
+            };
             await Navigation.PushAsync(bewerkRouteToevoegen);
         }
     }

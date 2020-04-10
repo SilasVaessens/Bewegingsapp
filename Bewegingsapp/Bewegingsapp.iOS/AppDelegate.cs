@@ -22,6 +22,7 @@ namespace Bewegingsapp.iOS
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
             LoadApplication(new App());
+            UIApplication.SharedApplication.IdleTimerDisabled = true;
 
             return base.FinishedLaunching(app, options);
         }

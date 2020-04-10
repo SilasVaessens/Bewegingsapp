@@ -14,7 +14,7 @@ namespace Bewegingsapp
     public partial class StartRoute : ContentPage
     {
         public List<Pin> PinsLijst = new List<Pin>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van pins op de map
-        List<Coördinaat> GekozenRoute = new List<Coördinaat>(); // lijst met alle coördinaten die bij de geselecteerde route horen
+        public List<Coördinaat> GekozenRoute = new List<Coördinaat>(); // lijst met alle coördinaten die bij de geselecteerde route horen
         public StartRoute()
         {
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace Bewegingsapp
                 //maak nieuwe pin aan op aangeklikte plek op de map
                 Pin pin = new Pin
                 {
-                    Label = coördinaat1.IDCoördinaat.ToString(),
+                    Label = coördinaat1.Nummer.ToString(),
                     Type = PinType.Place,
                     Position = new Position(location1, location2)
                 };

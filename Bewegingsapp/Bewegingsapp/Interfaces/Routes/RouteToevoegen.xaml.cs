@@ -149,8 +149,8 @@ namespace Bewegingsapp
         private async void Map_Route_Toevoegen_MapClicked(object sender, MapClickedEventArgs e)
         {
             //longitude en latitude zijn vereist voor het maken van pins op de map
-            var location1 = e.Position.Latitude;
-            var location2 = e.Position.Longitude;
+            double location1 = e.Position.Latitude;
+            double location2 = e.Position.Longitude;
             int NummerCoördinaat = CoördinatenRoute.Count + 1;
 
             //maak nieuwe pin aan op aangeklikte plek op de map

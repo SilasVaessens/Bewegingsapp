@@ -18,14 +18,22 @@ namespace Bewegingsapp
         {
             base.OnAppearing();
             Route_Kiezen.ItemsSource = await App.Database.LijstRoutes();
+            
         }
         private async void Routes_ItemSelected(object sender, SelectedItemChangedEventArgs e) //route selecteren uit listview
         {
-            bool answer = await DisplayAlert("Bevestiging route", "Weet u zeker dat u deze route wilt kiezen?", "ja", "nee");
-            if (answer == true)
+            if (Route_Kiezen.SelectedItem != null)
             {
+                bool answer = await DisplayAlert("Bevestiging route", "Weet u zeker dat u deze route wilt kiezen?", "ja", "nee");
+                if (answer == true)
+                {
 
-                await Navigation.PushAsync(new StartRoute { BindingContext = e.SelectedItem });
+                    await Navigation.PushAsync(new StartRoute { BindingContext = e.SelectedItem });
+                }
+                else
+                {
+                    Route_Kiezen.SelectedItem = null;
+                }
             }
         }
 

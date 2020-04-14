@@ -22,20 +22,23 @@ namespace Bewegingsapp
 
         protected override async void OnAppearing()
         {
-            var route = (Route)BindingContext; // verzamel informatie van geselecteerde route
+            var route = (Route)BindingContext; // verzamel informatie van geselecteerde route, deze is bij RouteKiezen.xaml.cs doorgeven
             GekozenRoute = await App.Database.LijstCoördinatenRoute(route.IDRoute);
             foreach (Coördinaat coördinaat1 in GekozenRoute)
             {
-                var location1 = coördinaat1.Locatie1;
-                var location2 = coördinaat1.Locatie2;
-                //maak nieuwe pin aan op aangeklikte plek op de map
+                double location1 = coördinaat1.Locatie1;
+                double location2 = coördinaat1.Locatie2;
                 Pin pin = new Pin
                 {
                     Label = coördinaat1.Nummer.ToString(),
                     Type = PinType.Place,
                     Position = new Position(location1, location2)
                 };
-                if (coördinaat1.IDOEfening != null || coördinaat1.RouteBeschrijving != null) 
+                pin.MarkerClicked += (s, args) =>
+                {
+                    args.HideInfoWindow = true;
+                };
+                if (coördinaat1.IDOEfening != null || coördinaat1.RouteBeschrijving != null) // zorgt ervoor dat onzichtbare punten niet worden weergegeven als pins
                 {
                     Map_Start_Route.Pins.Add(pin);
                 }
@@ -75,7 +78,7 @@ namespace Bewegingsapp
 
             double locatie1 = GekozenRoute[0].Locatie1;
             double locatie2 = GekozenRoute[0].Locatie2;
-            Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locatie1, locatie2), Distance.FromMeters(50))); //startpunt, locatie van gebruiker
+            Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locatie1, locatie2), Distance.FromMeters(50))); //startpunt, locatie eerste coördinaat gekozen route
           
 
         }

@@ -17,10 +17,13 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Text="Kies route" FontSize="57" FontAttributes="Bold"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
-            <ListView x:Name="Route_Kiezen" Grid.Row="2" BackgroundColor="GhostWhite" ItemSelected="Routes_ItemSelected">
+            <ListView x:Name="Route_Kiezen" Grid.Row="2" BackgroundColor="GhostWhite" ItemSelected="Routes_ItemSelected" RowHeight="100" SelectionMode="Single">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding NaamRoute}"/>
+                        <ViewCell>
+                            <Label Text="{Binding NaamRoute}" FontSize="50" TextColor="Black" VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

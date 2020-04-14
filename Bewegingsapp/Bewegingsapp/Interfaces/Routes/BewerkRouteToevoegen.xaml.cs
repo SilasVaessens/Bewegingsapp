@@ -37,12 +37,15 @@ namespace Bewegingsapp
             {
                 double location1 = coördinaat.Locatie1;
                 double location2 = coördinaat.Locatie2;
-                //maak nieuwe pin aan op aangeklikte plek op de map
                 Pin pin = new Pin
                 {
                     Label = coördinaat.Nummer.ToString(),
                     Type = PinType.Place,
                     Position = new Position(location1, location2)
+                };
+                pin.MarkerClicked += (s, args) =>
+                {
+                    args.HideInfoWindow = true;
                 };
                 Map_Route_Bewerken.Pins.Add(pin);
                 PinsLijst.Add(pin);
@@ -95,6 +98,10 @@ namespace Bewegingsapp
                 Label = NummerCoördinaat.ToString(),
                 Type = PinType.Place,
                 Position = new Position(location1, location2)
+            };
+            pin.MarkerClicked += (s, args) =>
+            {
+                args.HideInfoWindow = true;
             };
             Map_Route_Bewerken.Pins.Add(pin);
             NieuwPunt.Add(pin);

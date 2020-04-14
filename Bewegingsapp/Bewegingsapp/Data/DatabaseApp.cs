@@ -2,6 +2,7 @@
 using SQLite;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Bewegingsapp.Data
 {
@@ -83,8 +84,9 @@ namespace Bewegingsapp.Data
         //deze functie is nodig voor het aanmaken van nieuwe routes. Verkrijgt het ID van laatst toegevoegde route
         public async Task<int> KrijgRouteID()
         {
-            int routeID = await sqlite_database.Table<Route>().CountAsync();
-            return routeID;
+            List<Route> RouteID= await App.Database.LijstRoutes();
+            int ID = RouteID.Last().IDRoute;
+            return ID;
         }
 
         //verwijdert alle coördinaten van 1 bepaalde route

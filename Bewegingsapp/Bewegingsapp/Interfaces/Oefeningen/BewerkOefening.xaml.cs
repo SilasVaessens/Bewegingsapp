@@ -29,25 +29,37 @@ namespace Bewegingsapp
 
         private async void Oefening_update_Clicked(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(BewerkNaam.Text) & String.IsNullOrEmpty(BewerkOmschrijving.Text))
+            if (String.IsNullOrWhiteSpace(BewerkNaam.Text) & String.IsNullOrWhiteSpace(BewerkOmschrijving.Text))
             {
                 await DisplayAlert("Niks ingevuld", "De oefening heeft geen naam en omschrijving meer", "OK"); //oefening heeft geen naam en omschrijving, wordt niet aangepast
             }
             else
             {
-                if (String.IsNullOrEmpty(BewerkNaam.Text))  //oefening heeft geen naam, wordt niet aangepast
+                if (String.IsNullOrWhiteSpace(BewerkNaam.Text))  //oefening heeft geen naam, wordt niet aangepast
                 {
                     await DisplayAlert("Geen naam", "De oefening heeft geen naam meer", "OK");
                 }
                 else
                 {
-                    if (String.IsNullOrEmpty(BewerkOmschrijving.Text)) //oefening heeft geen omschrijving, wordt niet aangepast
+                    if (String.IsNullOrWhiteSpace(BewerkOmschrijving.Text)) //oefening heeft geen omschrijving, wordt niet aangepast
                     {
                         await DisplayAlert("Geen omschrijvijng", "De oefening heeft geen naam meer", "OK"); 
                     }
+                    else
+                    {
+                        List<Oefening> oefeningen = await App.Database.LijstOefeningen();
+                        foreach (Oefening oefening in oefeningen)
+                        {
+                            if (oefening.NaamOefening == BewerkNaam.Text)
+                            {
+                                await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze oefening wordt al gebruikt voor een andere oefening", "ok");
+                                break;
+                            }
+                        }
+                    }
                 }
             }
-            if (String.IsNullOrEmpty(BewerkNaam.Text) == false & String.IsNullOrEmpty(BewerkOmschrijving.Text) == false) //oefening met naam en omschrijving wordt aangepast
+            if (String.IsNullOrWhiteSpace(BewerkNaam.Text) == false & String.IsNullOrWhiteSpace(BewerkOmschrijving.Text) == false) //oefening met naam en omschrijving wordt aangepast
             {
                 var oefening = (Oefening)BindingContext;
                 await App.Database.UpdateOefening(oefening);

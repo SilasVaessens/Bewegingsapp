@@ -26,10 +26,10 @@
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Text="Nummer:" FontSize="46" FontAttributes="Bold" Grid.ColumnSpan="3"
+            <Label Grid.Row="0" Text="Naam" FontSize="46" FontAttributes="Bold" Grid.ColumnSpan="3"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
             <Editor x:Name="Naam_Route_toevoegen" Placeholder="Naam van de route" BackgroundColor="WhiteSmoke" Grid.Row="2" Grid.ColumnSpan="3"/>
-            <Label Grid.Row="4" Text="Route punten:" FontSize="46" FontAttributes="Bold" Grid.ColumnSpan="3"
+            <Label Grid.Row="4" Text="Route punten" FontSize="46" FontAttributes="Bold" Grid.ColumnSpan="3"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
             <maps:Map x:Name="Map_Route_Toevoegen" Grid.Row="6" Grid.ColumnSpan="3" IsShowingUser="True" MapClicked="Map_Route_Toevoegen_MapClicked"/>
             <Button x:Name="Route_opslaan" Grid.Row="8" Grid.Column="0" Text="Route opslaan" FontSize="27" FontAttributes="Bold"

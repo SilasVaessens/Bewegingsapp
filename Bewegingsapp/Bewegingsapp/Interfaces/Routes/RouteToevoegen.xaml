@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              mc:Ignorable="d"
+             xmlns:local="clr-namespace:Bewegingsapp.Model"
              x:Class="Bewegingsapp.RouteToevoegen"
              Title="Nieuwe route toevoegen">
     
@@ -34,7 +35,7 @@
             <maps:Map x:Name="Map_Route_Toevoegen" Grid.Row="6" Grid.ColumnSpan="3" IsShowingUser="True" MapClicked="Map_Route_Toevoegen_MapClicked"/>
             <Button x:Name="Route_opslaan" Grid.Row="8" Grid.Column="0" Text="Route opslaan" FontSize="27" FontAttributes="Bold"
                    TextColor="Black" BackgroundColor="Yellow" Clicked="Route_opslaan_Clicked"/>
-            <Button x:Name="Route_Punt_Verwijderen" Grid.Row="8"  Grid.Column="2" Text="Punt verwijderen" FontSize="27" FontAttributes="Bold"
+            <local:CustomButton x:Name="Route_Punt_Verwijderen" Grid.Row="8"  Grid.Column="2" Text="Punt verwijderen" FontSize="27" FontAttributes="Bold"
                    TextColor="Black" BackgroundColor="Yellow" Clicked="Route_Punt_Verwijderen_Clicked"/>
         </Grid>
     </ContentPage.Content>

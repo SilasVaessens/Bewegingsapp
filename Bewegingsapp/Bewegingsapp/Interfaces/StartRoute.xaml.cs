@@ -35,7 +35,7 @@ namespace Bewegingsapp
                     Type = PinType.Place,
                     Position = new Position(location1, location2)
                 };
-                if (coördinaat1.IDOEfening != null || coördinaat1.RouteBeschrijving != null) 
+                if (coördinaat1.IDOEfening != null || coördinaat1.RouteBeschrijving != null)
                 {
                     Map_Start_Route.Pins.Add(pin);
                 }
@@ -76,8 +76,40 @@ namespace Bewegingsapp
             double locatie1 = GekozenRoute[0].Locatie1;
             double locatie2 = GekozenRoute[0].Locatie2;
             Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locatie1, locatie2), Distance.FromMeters(50))); //startpunt, locatie van gebruiker
-          
 
+
+        }
+
+
+        private async void Start_Route_Clicked(object sender, EventArgs e)
+        {
+
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.High);
+                var location = await Geolocation.GetLocationAsync(request); //longitude, latitude en altitude van de gebruiker wordt hier opgevraagd
+
+                if (location != null)
+                {
+                    Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromMeters(50))); //startpunt, locatie van gebruiker
+                }
+            }
+            catch (FeatureNotSupportedException NotSupported)
+            {
+                // Verwerkt not supported on device exception
+            }
+            catch (FeatureNotEnabledException NotEnabled)
+            {
+                // Verwerkt not enabled on device exception
+            }
+            catch (PermissionException NotAllowed)
+            {
+                // Verwerkt permission exception
+            }
+            catch (Exception NoLocation)
+            {
+                // Locatie is niet verkregen
+            }
         }
 
         private void Map_Start_Route_MapClicked(object sender, MapClickedEventArgs e)

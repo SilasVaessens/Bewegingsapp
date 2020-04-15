@@ -79,8 +79,6 @@ namespace Bewegingsapp
             double locatie1 = GekozenRoute[0].Locatie1;
             double locatie2 = GekozenRoute[0].Locatie2;
             Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locatie1, locatie2), Distance.FromMeters(50))); //startpunt, locatie eerste coördinaat gekozen route
-          
-
         }
 
         private void Map_Start_Route_MapClicked(object sender, MapClickedEventArgs e)

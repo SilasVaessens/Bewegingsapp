@@ -21,6 +21,8 @@ namespace Bewegingsapp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            Coördinaat coördinaat = (Coördinaat)BindingContext;
+            Title = coördinaat.Nummer.ToString();
             Oefeningen_Picker.ItemsSource = await App.Database.LijstOefeningen(); // itemsource = alle oefeningen die ooit aangemaakt zijn
             var BindingCoördinaat = (Coördinaat)BindingContext;
             if (BindingCoördinaat.IDOEfening != null) // voorkomt dat bij iedere coördinaat standaard de eerste oefening wordt toegevoegd

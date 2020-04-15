@@ -18,7 +18,7 @@ namespace Bewegingsapp
         {
             base.OnAppearing();
             Oefening oefening = (Oefening)BindingContext;
-            List<int> CheckID = new List<int>(new [] { 1, 2, 3, 4, 5});
+            List<int> CheckID = new List<int> { 1, 2, 3, 4, 5 };
             if (CheckID.Contains(oefening.IDOefening))
             {
                 BewerkNaam.IsEnabled = false;

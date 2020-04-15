@@ -90,6 +90,7 @@ namespace Bewegingsapp
         //Slaat de coördinaten op in de database en update de bestaande route
         private async void Route_opslaan_Clicked(object sender, EventArgs e)
         {
+            bool NaamBestaat = false;
             if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) & CoördinatenRoute.Count == 0)
             {
                 await DisplayAlert("Niks ingevuld", "U heeft de route geen naam en geen route punten gegeven", "OK");
@@ -114,15 +115,15 @@ namespace Bewegingsapp
                             if (route.NaamRoute == Naam_Route_toevoegen.Text)
                             {
                                 await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze route wordt al gebruikt voor een andere route", "ok");
+                                NaamBestaat = true;
                                 break;
                             }
                         }
                     }
                 }
             }
-            if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) == false & CoördinatenRoute.Count != 0)
+            if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) & CoördinatenRoute.Count == 0 & NaamBestaat == false)
             {
-
                 if (bugfix == true)
                 {
                     opgeslagen = true;
@@ -154,6 +155,7 @@ namespace Bewegingsapp
                     await App.Database.UpdateRoute(UpdateRoute);
                 }
                 await Navigation.PushAsync(new RouteToevoegenListview());
+
             }
         }
 

@@ -22,7 +22,8 @@ namespace Bewegingsapp
         {
             base.OnAppearing();
             Oefeningen_Picker.ItemsSource = await App.Database.LijstOefeningen(); // itemsource = alle oefeningen die ooit aangemaakt zijn
-            var coördinaat = (Coördinaat)BindingContext;
+            Coördinaat coördinaat = (Coördinaat)BindingContext;
+            Title = coördinaat.Nummer.ToString();
             if (coördinaat.IDOEfening != null) // voorkomt dat bij iedere coördinaat standaard de eerste oefening wordt toegevoegd
             {
                 Oefeningen_Picker.SelectedIndex = Convert.ToInt32(coördinaat.IDOEfening) - 1; // ID's beginnen vanaf 1, maar de index telt vanaf 0

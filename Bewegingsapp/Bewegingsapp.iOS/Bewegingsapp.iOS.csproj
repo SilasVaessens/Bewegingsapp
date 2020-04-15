@@ -11,7 +11,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Bewegingsapp.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Bewegingsapp.iOS</AssemblyName>
+    <AssemblyName>RCS Beweegroute</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <ProvisioningType>manual</ProvisioningType>

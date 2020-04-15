@@ -44,18 +44,18 @@ namespace Bewegingsapp
                 };
                 await App.Database.ToevoegenRoute(route);
                 //oefeningen voor de route van RCS
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RSC] lantaarnpaal",
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RCS] Lantaarnpaal",
                     OmschrijvingOefening = "Zoek een lantaarnpaal aan uw linkerzijde, ga hier dichtbij staan en pak deze met 1 hand op heuphoogte vast. " +
                     "Pak met de andere hand de lantaarnpaal zo hoog mogelijk vast. Wissel dit met beide handen af en herhaal dit naar wens."});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RSC] HoofdDraaien",
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RCS] Hoofd draaien",
                     OmschrijvingOefening = "Blijf rechtop staan. Draai uw hoofd en schouders zo ver mogelijk naar links en vervolgens naar rechts. Herhaal dit zo vaak als u wilt."});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RSC] DenkbeeldigeStoel",
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RCS] Denkbeeldige stoel",
                     OmschrijvingOefening = "Zoek een lantaarnpaal aan uw rechterzijde. Hou deze goed vast met beide handen. " +
                     "Ga op een denkbeeldige stoel zitten en kom weer tot stand. Hou uw rug recht bij de oefening. Herhaal dit naar wens"});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RSC] BankPuntje",
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RCS] Bank puntje",
                     OmschrijvingOefening = "Zoek aan uw rechterzijde het bankje op het gras. Ga op het puntje van de bank zitten. " +
                     "Kruis uw armen voor de borst en strek vervolgens tot uw tenen. Herhaal dit naar wens"});
-                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RSC] Knijpen",
+                OefeningenRCS.Add(new Oefening(){NaamOefening = "[RCS] Knijpen",
                     OmschrijvingOefening = "trek uw armen zijwaarts, knijp beide handen en houd dit 5 seconden vast. Herhaal dit naar wens"});
 
                 foreach(Oefening Oefeningen in OefeningenRCS)

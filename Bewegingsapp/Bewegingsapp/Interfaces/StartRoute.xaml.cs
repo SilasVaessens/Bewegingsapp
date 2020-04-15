@@ -99,7 +99,7 @@ namespace Bewegingsapp
                 Location Gebruiker = new Location(location);
                 Location BeginPunt = new Location(GekozenRoute[0].Locatie1, GekozenRoute[0].Locatie2);
                 double AfstandGebruikerBeginpunt = Location.CalculateDistance(Gebruiker, BeginPunt, DistanceUnits.Kilometers);
-                if (AfstandGebruikerBeginpunt > 0.01)
+                if (AfstandGebruikerBeginpunt > 0.005)
                 {
                     RouteGestart = false;
                     Tekst.Text = "U bent niet op het startpunt";
@@ -128,22 +128,24 @@ namespace Bewegingsapp
             {
                 Start_Route.IsEnabled = false;
                 Start_Route.Text = "Onderweg";
+                List<Oefening> Oefeningen = await App.Database.LijstOefeningen();
+                Map_Start_Route.HasScrollEnabled = false;
                 try
                 {
-                    var request = new GeolocationRequest(GeolocationAccuracy.High);
+                    var request = new GeolocationRequest(GeolocationAccuracy.Best);
                     var location = await Geolocation.GetLocationAsync(request); //longitude, latitude en altitude van de gebruiker wordt hier opgevraagd
 
                     if (location != null)
                     {
                         Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromMeters(50))); //startpunt, locatie van gebruiker
-                        await Task.Delay(5000);
+                        await Task.Delay(4000);
                     }
 
                     Location Gebruiker = new Location(location);
                     Location Coördinaat = new Location(GekozenRoute[HuidigCoördinaat].Locatie1, GekozenRoute[HuidigCoördinaat].Locatie2);
                     double Afstand = Location.CalculateDistance(Gebruiker, Coördinaat, DistanceUnits.Kilometers);
 
-                    if (Afstand < 0.01)
+                    if (Afstand < 0.005)
                     {
                         if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null || GekozenRoute[HuidigCoördinaat].IDOEfening != null)
                         {
@@ -153,15 +155,12 @@ namespace Bewegingsapp
                             }
                             if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null & GekozenRoute[HuidigCoördinaat].IDOEfening != null)
                             {
-                                Tekst.Text = GekozenRoute[HuidigCoördinaat].IDOEfening.ToString();
+                                Oefening OefeningBeschrijving = Oefeningen.Find(oefening => oefening.IDOefening == GekozenRoute[HuidigCoördinaat].IDOEfening);
+                                Tekst.Text = OefeningBeschrijving.OmschrijvingOefening;
                             }
                         }
                         HuidigCoördinaat++;
                     }
-
-                    Console.WriteLine(HuidigCoördinaat);
-
-
                 }
                 catch (FeatureNotSupportedException NotSupported)
                 {

@@ -85,7 +85,7 @@ namespace Bewegingsapp
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 11, Locatie1 = 51.638926, Locatie2 = 5.290046,
                     RouteBeschrijving = "Sla op het einde van de stoep op Pieter Vreedesingel rechtsaf de Hertoglaan in, loop gedurende 100 meter rechtdoor over Hertoglaan, tot u aankomt bij de kruising."});
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 12, Locatie1 = 51.638720, Locatie2 = 5.290100 });
-                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 13, Locatie1 = 51.638672, Locatie2 = 5.288776,
+                CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 13, Locatie1 = 51.638672, Locatie2 = 5.288676,
                     RouteBeschrijving = "Steek hier de straat over bij de geleidelijnen, steek vervolgens links de straat over, ook bij de geleidelijnen en vervolg uw weg naar rechts."});
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 14, Locatie1 = 51.638600, Locatie2 = 5.288455,
                     RouteBeschrijving = "Volg gedurende 40 meter de Hertoglaan dan komt u aan bij de 4e oefening"});

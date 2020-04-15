@@ -87,5 +87,101 @@ namespace Bewegingsapp
         {
 
         }
+
+        private async void Start_Route_Clicked(object sender, EventArgs e)
+        {
+            bool RouteGestart = true;
+            int HuidigCoördinaat = 0;
+
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.High);
+                var location = await Geolocation.GetLocationAsync(request); //longitude, latitude en altitude van de gebruiker wordt hier opgevraagd
+
+                Location Gebruiker = new Location(location);
+                Location BeginPunt = new Location(GekozenRoute[0].Locatie1, GekozenRoute[0].Locatie2);
+                double AfstandGebruikerBeginpunt = Location.CalculateDistance(Gebruiker, BeginPunt, DistanceUnits.Kilometers);
+                if (AfstandGebruikerBeginpunt > 0.01)
+                {
+                    RouteGestart = false;
+                    Tekst.Text = "U bent niet op het startpunt";
+                    await Task.Delay(5000);
+                    Tekst.Text = null;
+                }
+            }
+            catch (FeatureNotSupportedException NotSupported)
+            {
+                // Verwerkt not supported on device exception
+            }
+            catch (FeatureNotEnabledException NotEnabled)
+            {
+                // Verwerkt not enabled on device exception
+            }
+            catch (PermissionException NotAllowed)
+            {
+                // Verwerkt permission exception
+            }
+            catch (Exception NoLocation)
+            {
+                // Locatie is niet verkregen
+            }
+
+            while (RouteGestart == true)
+            {
+                Start_Route.IsEnabled = false;
+                Start_Route.Text = "Onderweg";
+                try
+                {
+                    var request = new GeolocationRequest(GeolocationAccuracy.High);
+                    var location = await Geolocation.GetLocationAsync(request); //longitude, latitude en altitude van de gebruiker wordt hier opgevraagd
+
+                    if (location != null)
+                    {
+                        Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromMeters(50))); //startpunt, locatie van gebruiker
+                        await Task.Delay(5000);
+                    }
+
+                    Location Gebruiker = new Location(location);
+                    Location Coördinaat = new Location(GekozenRoute[HuidigCoördinaat].Locatie1, GekozenRoute[HuidigCoördinaat].Locatie2);
+                    double Afstand = Location.CalculateDistance(Gebruiker, Coördinaat, DistanceUnits.Kilometers);
+
+                    if (Afstand < 0.01)
+                    {
+                        if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null || GekozenRoute[HuidigCoördinaat].IDOEfening != null)
+                        {
+                            if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null & GekozenRoute[HuidigCoördinaat].IDOEfening == null)
+                            {
+                                Tekst.Text = GekozenRoute[HuidigCoördinaat].RouteBeschrijving;
+                            }
+                            if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null & GekozenRoute[HuidigCoördinaat].IDOEfening != null)
+                            {
+                                Tekst.Text = GekozenRoute[HuidigCoördinaat].IDOEfening.ToString();
+                            }
+                        }
+                        HuidigCoördinaat++;
+                    }
+
+                    Console.WriteLine(HuidigCoördinaat);
+
+
+                }
+                catch (FeatureNotSupportedException NotSupported)
+                {
+                    // Verwerkt not supported on device exception
+                }
+                catch (FeatureNotEnabledException NotEnabled)
+                {
+                    // Verwerkt not enabled on device exception
+                }
+                catch (PermissionException NotAllowed)
+                {
+                    // Verwerkt permission exception
+                }
+                catch (Exception NoLocation)
+                {
+                    // Locatie is niet verkregen
+                }
+            }
+        }
     }
 }

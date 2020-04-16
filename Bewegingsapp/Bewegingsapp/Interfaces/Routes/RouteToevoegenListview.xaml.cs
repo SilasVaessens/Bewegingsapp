@@ -21,18 +21,18 @@ namespace Bewegingsapp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            List<Route> AlleRoutes = await App.Database.LijstRoutes();
-            Title = AlleRoutes.Last().NaamRoute;
+            List<Route> AlleRoutes = await App.Database.LijstRoutes(); //lijst van alle routes
+            Title = AlleRoutes.Last().NaamRoute; //selecteerd route die net gemaakt is(laatste route)
             int IDRoute = await App.Database.KrijgRouteID();
-            Listview_Coördinaten.ItemsSource = await App.Database.LijstCoördinatenRoute(IDRoute);
+            Listview_Coördinaten.ItemsSource = await App.Database.LijstCoördinatenRoute(IDRoute); //listview coördinaten laatste route
         }
 
         private async void Listview_Coördinaten_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            await Navigation.PushAsync(new RouteToevoegenDetailpage { BindingContext = e.SelectedItem});
+            await Navigation.PushAsync(new RouteToevoegenDetailpage { BindingContext = e.SelectedItem}); //detailview van geselecteerde coördinaat
         }
 
-        private async void Klaar_Clicked(object sender, EventArgs e)
+        private async void Klaar_Clicked(object sender, EventArgs e) //navigatie naar instellingen menu
         {
             bool KlaarBewerken = await DisplayAlert("Route opslaan", "Bent u klaar met het bewerken van de route?", "ja", "nee");
             if (KlaarBewerken == true)

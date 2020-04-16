@@ -23,8 +23,8 @@ namespace Bewegingsapp
         protected override async void OnAppearing()
         {
             var route = (Route)BindingContext; // verzamel informatie van geselecteerde route, deze is bij RouteKiezen.xaml.cs doorgeven
-            GekozenRoute = await App.Database.LijstCoördinatenRoute(route.IDRoute);
-            foreach (Coördinaat coördinaat1 in GekozenRoute)
+            GekozenRoute = await App.Database.LijstCoördinatenRoute(route.IDRoute); //ophalen van coördinaten geselecteerde route
+            foreach (Coördinaat coördinaat1 in GekozenRoute) //pins neerzetten voor de punten(coördinaten) uit de lijst
             {
                 double location1 = coördinaat1.Locatie1;
                 double location2 = coördinaat1.Locatie2;
@@ -44,7 +44,7 @@ namespace Bewegingsapp
                 }
                 PinsLijst.Add(pin);
 
-                if (PinsLijst.Count >= 2)
+                if (PinsLijst.Count >= 2) //als er minstens 2 punten zijn
                 {
                     Polyline polyline = new Polyline
                     {
@@ -57,7 +57,7 @@ namespace Bewegingsapp
                         }
                     };
 
-                    Map_Start_Route.MapElements.Add(polyline);
+                    Map_Start_Route.MapElements.Add(polyline); //polyline wordt getekent tussen 2 punten
                 }
 
             }
@@ -68,13 +68,13 @@ namespace Bewegingsapp
                 StrokeWidth = 10,
                 Geopath =
                 {
-                    new Position(GekozenRoute[0].Locatie1, GekozenRoute[0].Locatie2), // pakt longitude en latitude van voorlaatste item in de list
+                    new Position(GekozenRoute[0].Locatie1, GekozenRoute[0].Locatie2), // pakt longitude en latitude van eerste item in de list
                     new Position(GekozenRoute.Last().Locatie1, GekozenRoute.Last().Locatie2) // pakt longitude en latitude van laatste item in de list
                 }
 
             };
 
-            Map_Start_Route.MapElements.Add(polyline1);
+            Map_Start_Route.MapElements.Add(polyline1); //polyline van laatste coördinaat naar eerste coördinaat
 
             double locatie1 = GekozenRoute[0].Locatie1;
             double locatie2 = GekozenRoute[0].Locatie2;

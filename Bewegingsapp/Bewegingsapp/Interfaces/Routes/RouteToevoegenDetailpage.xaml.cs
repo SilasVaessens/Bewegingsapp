@@ -34,13 +34,13 @@ namespace Bewegingsapp
             }
         }
 
-        private async void Opslaan_Button_Clicked(object sender, EventArgs e)
+        private async void Opslaan_Button_Clicked(object sender, EventArgs e) //opslaan coördinaat met omschrijving en/of oefening of zonder
         {
             var coördinaat1 = (Coördinaat)BindingContext;
-            if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == true)
+            if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == true) //geen omschrijving en geen oefening
             {
                 bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", "Weet u zeker dat u dit als een onzichtbaar punt?", "ja", "nee");
-                if (Onzichtbaar == true)
+                if (Onzichtbaar == true) //onzichtbare pin, voor het tekenen van polylines
                 {
                     coördinaat1.IDOEfening = null;
                     await App.Database.UpdateCoördinaat(coördinaat1);
@@ -63,13 +63,13 @@ namespace Bewegingsapp
 
         }
 
-        private void Reset_Button_Clicked(object sender, EventArgs e)
+        private void Reset_Button_Clicked(object sender, EventArgs e) //oefening deselecteren en routeomschrijving leeg maken
         {
             Oefeningen_Picker.SelectedIndex = -1;
             Richtingsaanwijzing.Text = ""; 
         }
 
-        private async void Info_Clicked(object sender, EventArgs e)
+        private async void Info_Clicked(object sender, EventArgs e) //informatie knop, hoe de punten werken
         {
             await DisplayAlert("Soorten punten", "Er zijn 3 soorten punten: navigatie-punten, oefening-punten en onzichtbare punten.\n \n" +
                      "Navigatie-punten hebben altijd een routeomschrijving en geen oefening, ze zijn bedoeld als aanwijzingen voor de slechtzienden.\n \n" +

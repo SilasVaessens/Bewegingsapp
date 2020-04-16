@@ -12,10 +12,10 @@ namespace Bewegingsapp
             InitializeComponent();
         }
 
-        protected override async void OnAppearing() //geeft lijst met oefeningen weer
+        protected override async void OnAppearing() //bij openen LijstOefeningen pagina
         {
             base.OnAppearing();
-            Oefeningen.ItemsSource = await App.Database.LijstOefeningen();
+            Oefeningen.ItemsSource = await App.Database.LijstOefeningen(); //geeft lijst met oefeningen weer
         }
 
         private async void Add_Clicked(object sender, EventArgs e) //navigatie naar oefening toevoegen, via de add button(plus)

@@ -56,7 +56,7 @@ namespace Bewegingsapp
         private async void Opslaan_Button_Clicked(object sender, EventArgs e) //opslaan omschrijving en/of oefening van geselecteerde coördinaat
         {
             var coördinaat1 = (Coördinaat)BindingContext;
-            if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == true)
+            if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == true) //geen oefening en geen omschrijving
             {
                 bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", "Weet u zeker dat u dit als een onzichtbaar punt?", "ja", "nee");
                 if (Onzichtbaar == true)
@@ -88,7 +88,7 @@ namespace Bewegingsapp
             Routeomschrijving.Text = "";
         }
 
-        private async void Delete_Clicked(object sender, EventArgs e) //Coördinaat verwijdenren
+        private async void Delete_Clicked(object sender, EventArgs e) //Coördinaat verwijderen
         {
             bool Verwijderen = await DisplayAlert("Punt verwijderen", "Weet u zeker dat u dit punt wilt verwijderen?", "ja", "nee");
             if (Verwijderen == true)

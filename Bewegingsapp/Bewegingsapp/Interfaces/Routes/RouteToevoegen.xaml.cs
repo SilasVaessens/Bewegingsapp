@@ -90,13 +90,13 @@ namespace Bewegingsapp
         //Slaat de coördinaten op in de database en update de bestaande route
         private async void Route_opslaan_Clicked(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) & CoördinatenRoute.Count == 0)
+            if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) & CoördinatenRoute.Count == 0) //route naam niet ingevuld en geen punt(coördinaten) neergezet
             {
                 await DisplayAlert("Niks ingevuld", "U heeft de route geen naam en geen route punten gegeven", "OK");
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text))
+                if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text)) //geen naam ingevuld
                 {
                     await DisplayAlert("Geen naam", "U heeft de route geen naam gegeven", "OK");
                 }
@@ -104,12 +104,12 @@ namespace Bewegingsapp
                 {
                     if (CoördinatenRoute.Count == 0)
                     {
-                        await DisplayAlert("Geen route punten", "U heeft de route geen route punten gegeven", "OK");
+                        await DisplayAlert("Geen route punten", "U heeft de route geen route punten gegeven", "OK"); //geen punt(coördinaten) neergezet
                     }
                     else
                     {
                         List<Route> routes = await App.Database.LijstRoutes();
-                        if (routes.Exists(route1 => route1.NaamRoute == Naam_Route_toevoegen.Text) & bugfix == true)
+                        if (routes.Exists(route1 => route1.NaamRoute == Naam_Route_toevoegen.Text) & bugfix == true) //naam is al in gebruik
                         { 
                             await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze route wordt al gebruikt voor een andere route", "ok");
                         }
@@ -118,7 +118,7 @@ namespace Bewegingsapp
                             if (bugfix == true)
                             {
                                 opgeslagen = true;
-                                foreach (Coördinaat coördinaat in CoördinatenRoute)
+                                foreach (Coördinaat coördinaat in CoördinatenRoute) //alle neergezette punten(coördinaten) opslaan in de database
                                 {
                                     await App.Database.ToevoegenCoördinaat(coördinaat);
                                     await Task.Delay(5);
@@ -153,14 +153,14 @@ namespace Bewegingsapp
         }
 
         // verwijdert pins, coördinaten en polylines in de volgorde zoals ze door de gebruiker zijn toegevoegd
-        private async void Route_Punt_Verwijderen_Clicked(object sender, EventArgs e)
+        private async void Route_Punt_Verwijderen_Clicked(object sender, EventArgs e) //laatst geplaatste punt verwijderen
         {
             bool verwijder = await DisplayAlert("Route punt verwijderen", "Weet u zeker of u dat u het laatst aangemaakte route punt wilt verwijderen?", "ja", "nee");
             if (verwijder == true)
             {
-                Map_Route_Toevoegen.Pins.Remove(PinsLijst.Last());
+                Map_Route_Toevoegen.Pins.Remove(PinsLijst.Last()); //verwijder pin
                 PinsLijst.Remove(PinsLijst.Last());
-                if (CoördinatenRoute.Count >= 2)
+                if (CoördinatenRoute.Count >= 2) //polyline verwijderen als er 2 of meer punten zijn
                 {
                     Map_Route_Toevoegen.MapElements.Remove(PolylinesLijst.Last());
                     PolylinesLijst.Remove(PolylinesLijst.Last());

@@ -28,7 +28,7 @@ namespace Bewegingsapp
                 if (answer == true)
                 {
 
-                    await Navigation.PushAsync(new StartRoute { BindingContext = e.SelectedItem });
+                    await Navigation.PushAsync(new StartRoute { BindingContext = e.SelectedItem }); //navigatie naar startroute met geselecteerde route
                 }
                 else
                 {

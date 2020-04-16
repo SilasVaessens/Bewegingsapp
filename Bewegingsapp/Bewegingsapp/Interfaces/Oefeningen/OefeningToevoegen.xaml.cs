@@ -36,11 +36,11 @@ namespace Bewegingsapp
                     else
                     {
                         List<Oefening> oefeningen = await App.Database.LijstOefeningen();
-                        if (oefeningen.Exists(oefening => oefening.NaamOefening == NaamEditor.Text))
+                        if (oefeningen.Exists(oefening => oefening.NaamOefening == NaamEditor.Text)) //naam van oefening is al in gebruik
                         {
                             await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze oefening wordt al gebruikt voor een andere oefening", "ok");
                         }
-                        else
+                        else //oefening toevoegen, velden zijn ingevuld en de naam is beschikbaar
                         {
                             Oefening oefening = new Oefening()
                             {

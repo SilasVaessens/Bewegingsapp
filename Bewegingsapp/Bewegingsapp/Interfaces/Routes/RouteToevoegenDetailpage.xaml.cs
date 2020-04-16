@@ -37,10 +37,6 @@ namespace Bewegingsapp
         private async void Opslaan_Button_Clicked(object sender, EventArgs e)
         {
             var coördinaat1 = (Coördinaat)BindingContext;
-            if (Oefeningen_Picker.SelectedIndex != -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == false)
-            {
-                await DisplayAlert("Opslaan niet mogelijk", "Een punt kan niet zowel een oefening als een routebeschrijving hebben", "ok");
-            }
             if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == true)
             {
                 bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", "Weet u zeker dat u dit als een onzichtbaar punt?", "ja", "nee");
@@ -51,7 +47,7 @@ namespace Bewegingsapp
                     await Navigation.PopAsync();
                 }
             }
-            if (Oefeningen_Picker.SelectedIndex != -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == true || Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == false)
+            else
             {
                 if (Oefeningen_Picker.SelectedIndex != -1) // Oefening ID wordt alleen aangepast als er een ander item geselecteerd wordt
                 {
@@ -64,6 +60,7 @@ namespace Bewegingsapp
                 await App.Database.UpdateCoördinaat(coördinaat1);
                 await Navigation.PopAsync();
             }
+
         }
 
         private void Reset_Button_Clicked(object sender, EventArgs e)
@@ -76,7 +73,7 @@ namespace Bewegingsapp
         {
             await DisplayAlert("Soorten punten", "Er zijn 3 soorten punten: navigatie-punten, oefening-punten en onzichtbare punten.\n \n" +
                      "Navigatie-punten hebben altijd een routeomschrijving en geen oefening, ze zijn bedoeld als aanwijzingen voor de slechtzienden.\n \n" +
-                     "Oefening-punten zijn bedoeld als optionele oefeningen tijdens het lopen, deze hebben altijd een oefening en geen routebeschrijving.\n \n" +
+                     "Oefening-punten zijn bedoeld als optionele oefeningen tijdens het lopen, deze hebben altijd een oefening.\n \n" +
                      "Onzichtbare punten zijn bedoeld om de route goed laten lopen, want deze volgt niet de straten, deze hebben geen oefening of routebeschrijving.",
                      "OK");
         }

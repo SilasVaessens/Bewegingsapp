@@ -90,7 +90,6 @@ namespace Bewegingsapp
         //Slaat de coördinaten op in de database en update de bestaande route
         private async void Route_opslaan_Clicked(object sender, EventArgs e)
         {
-            bool NaamBestaat = false;
             if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) & CoördinatenRoute.Count == 0)
             {
                 await DisplayAlert("Niks ingevuld", "U heeft de route geen naam en geen route punten gegeven", "OK");
@@ -110,52 +109,46 @@ namespace Bewegingsapp
                     else
                     {
                         List<Route> routes = await App.Database.LijstRoutes();
-                        foreach (Route route in routes)
+                        if (routes.Exists(route1 => route1.NaamRoute == Naam_Route_toevoegen.Text) & bugfix == true)
+                        { 
+                            await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze route wordt al gebruikt voor een andere route", "ok");
+                        }
+                        else
                         {
-                            if (route.NaamRoute == Naam_Route_toevoegen.Text)
+                            if (bugfix == true)
                             {
-                                await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze route wordt al gebruikt voor een andere route", "ok");
-                                NaamBestaat = true;
-                                break;
+                                opgeslagen = true;
+                                foreach (Coördinaat coördinaat in CoördinatenRoute)
+                                {
+                                    await App.Database.ToevoegenCoördinaat(coördinaat);
+                                    await Task.Delay(5);
+                                }
+                                this.route.NaamRoute = Naam_Route_toevoegen.Text;
+                                this.route.Coördinaten = CoördinatenRoute;
+                                await App.Database.UpdateRoute(this.route);
                             }
+                            if (bugfix == false)
+                            {
+                                opgeslagen = true;
+                                await App.Database.VerwijderRoute(this.route);
+                                List<Route> Routes = await App.Database.LijstRoutes();
+                                Route UpdateRoute = Routes.Last();
+                                await App.Database.VerwijderCoördinatenRoute(UpdateRoute.IDRoute);
+
+                                foreach (Coördinaat coördinaat1 in CoördinatenRoute)
+                                {
+                                    coördinaat1.IDRoute = UpdateRoute.IDRoute;
+                                    await App.Database.ToevoegenCoördinaat(coördinaat1);
+                                    await Task.Delay(5);
+                                }
+                                UpdateRoute.NaamRoute = Naam_Route_toevoegen.Text;
+                                UpdateRoute.Coördinaten = CoördinatenRoute;
+                                await App.Database.UpdateRoute(UpdateRoute);
+                            }
+                            await Navigation.PushAsync(new RouteToevoegenListview());
                         }
                     }
                 }
-            }
-            if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) & CoördinatenRoute.Count == 0 & NaamBestaat == false)
-            {
-                if (bugfix == true)
-                {
-                    opgeslagen = true;
-                    foreach (Coördinaat coördinaat in CoördinatenRoute)
-                    {
-                        await App.Database.ToevoegenCoördinaat(coördinaat);
-                        await Task.Delay(5);
-                    }
-                    route.NaamRoute = Naam_Route_toevoegen.Text;
-                    route.Coördinaten = CoördinatenRoute;
-                    await App.Database.UpdateRoute(route);
-                }
-                if (bugfix == false)
-                {
-                    opgeslagen = true;
-                    await App.Database.VerwijderRoute(route);
-                    List<Route> Routes = await App.Database.LijstRoutes();
-                    Route UpdateRoute = Routes.Last();
-                    await App.Database.VerwijderCoördinatenRoute(UpdateRoute.IDRoute);
-
-                    foreach (Coördinaat coördinaat1 in CoördinatenRoute)
-                    {
-                        coördinaat1.IDRoute = UpdateRoute.IDRoute;
-                        await App.Database.ToevoegenCoördinaat(coördinaat1);
-                        await Task.Delay(5);
-                    }
-                    UpdateRoute.NaamRoute = Naam_Route_toevoegen.Text;
-                    UpdateRoute.Coördinaten = CoördinatenRoute;
-                    await App.Database.UpdateRoute(UpdateRoute);
-                }
-                await Navigation.PushAsync(new RouteToevoegenListview());
-
             }
         }
 

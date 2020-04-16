@@ -17,7 +17,6 @@ namespace Bewegingsapp
 
         private async void Oefening_opslaan_Clicked(object sender, EventArgs e)
         {
-            bool NaamBestaat = false;
             if (String.IsNullOrWhiteSpace(NaamEditor.Text) & String.IsNullOrWhiteSpace(OmschrijvingEditor.Text)) //oefening heeft geen naam en omschrijving, wordt niet toegevoegd
             {
                 await DisplayAlert("Niks ingevuld", "U heeft de oefening geen naam en geen omschrijving gegeven", "OK");
@@ -37,29 +36,22 @@ namespace Bewegingsapp
                     else
                     {
                         List<Oefening> oefeningen = await App.Database.LijstOefeningen();
-                        foreach (Oefening oefening in oefeningen)
+                        if (oefeningen.Exists(oefening => oefening.NaamOefening == NaamEditor.Text))
                         {
-                            if (oefening.NaamOefening == NaamEditor.Text)
+                            await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze oefening wordt al gebruikt voor een andere oefening", "ok");
+                        }
+                        else
+                        {
+                            Oefening oefening = new Oefening()
                             {
-                                await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze oefening wordt al gebruikt voor een andere oefening", "ok");
-                                NaamBestaat = true;
-                                break;
-                            }
+                                NaamOefening = NaamEditor.Text,
+                                OmschrijvingOefening = OmschrijvingEditor.Text
+                            };
+                            await App.Database.ToevoegenOefening(oefening);
+                            await Navigation.PopAsync();
                         }
                     }
-
                 }
-            }
-            if (String.IsNullOrWhiteSpace(NaamEditor.Text) == false & String.IsNullOrWhiteSpace(OmschrijvingEditor.Text) == false & NaamBestaat == false) //oefening met naam en omschrijving wordt toegevoegd
-            {
-                Oefening oefening = new Oefening()
-                {
-                    NaamOefening = NaamEditor.Text,
-                    OmschrijvingOefening = OmschrijvingEditor.Text
-                };
-                await App.Database.ToevoegenOefening(oefening);
-                await Navigation.PopAsync();
-
             }
         }
     }

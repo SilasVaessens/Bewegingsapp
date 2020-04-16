@@ -14,7 +14,6 @@
     <ContentPage.Content>
         <Grid BackgroundColor="Black" ColumnSpacing="0" RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1"/>
                 <RowDefinition/>
                 <RowDefinition Height="1"/>
                 <RowDefinition/>

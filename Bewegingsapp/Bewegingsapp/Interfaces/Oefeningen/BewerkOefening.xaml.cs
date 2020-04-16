@@ -48,22 +48,19 @@ namespace Bewegingsapp
                     else
                     {
                         List<Oefening> oefeningen = await App.Database.LijstOefeningen();
-                        foreach (Oefening oefening in oefeningen)
+                        Oefening oefening1 = (Oefening)BindingContext;
+                        if (oefeningen.Exists(oefening => oefening.NaamOefening == BewerkNaam.Text & oefening.IDOefening != oefening1.IDOefening))
                         {
-                            if (oefening.NaamOefening == BewerkNaam.Text)
-                            {
-                                await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze oefening wordt al gebruikt voor een andere oefening", "ok");
-                                break;
-                            }
+                            await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze oefening wordt al gebruikt voor een andere oefening", "ok");
+                        }
+                        else
+                        {
+                            var oefening = (Oefening)BindingContext;
+                            await App.Database.UpdateOefening(oefening);
+                            await Navigation.PopAsync();
                         }
                     }
                 }
-            }
-            if (String.IsNullOrWhiteSpace(BewerkNaam.Text) == false & String.IsNullOrWhiteSpace(BewerkOmschrijving.Text) == false) //oefening met naam en omschrijving wordt aangepast
-            {
-                var oefening = (Oefening)BindingContext;
-                await App.Database.UpdateOefening(oefening);
-                await Navigation.PopAsync();
             }
         }
 

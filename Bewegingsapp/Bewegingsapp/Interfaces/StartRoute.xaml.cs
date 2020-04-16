@@ -61,20 +61,20 @@ namespace Bewegingsapp
                 }
 
             }
-
-            Polyline polyline1 = new Polyline
+            if (route.EindeIsBegin == true)
             {
-                StrokeColor = Color.Blue,
-                StrokeWidth = 10,
-                Geopath =
+                Polyline polyline1 = new Polyline
                 {
-                    new Position(GekozenRoute[0].Locatie1, GekozenRoute[0].Locatie2), // pakt longitude en latitude van eerste item in de list
-                    new Position(GekozenRoute.Last().Locatie1, GekozenRoute.Last().Locatie2) // pakt longitude en latitude van laatste item in de list
-                }
-
-            };
-
-            Map_Start_Route.MapElements.Add(polyline1); //polyline van laatste coördinaat naar eerste coördinaat
+                    StrokeColor = Color.Blue,
+                    StrokeWidth = 10,
+                    Geopath =
+                    {
+                        new Position(GekozenRoute[0].Locatie1, GekozenRoute[0].Locatie2), // pakt longitude en latitude van eerste item in de list
+                        new Position(GekozenRoute.Last().Locatie1, GekozenRoute.Last().Locatie2) // pakt longitude en latitude van laatste item in de list
+                    }
+                };
+                Map_Start_Route.MapElements.Add(polyline1); //polyline van laatste coördinaat naar eerste coördinaat
+            }
 
             double locatie1 = GekozenRoute[0].Locatie1;
             double locatie2 = GekozenRoute[0].Locatie2;
@@ -157,14 +157,17 @@ namespace Bewegingsapp
                             }
                             if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null & GekozenRoute[HuidigCoördinaat].IDOEfening != null) //als een punt een routebeschrijving heeft en een oefening heeft
                             {
-                                Oefening OefeningBeschrijving = Oefeningen.Find(oefening => oefening.IDOefening == GekozenRoute[HuidigCoördinaat].IDOEfening); //ophalen van de oefening
-                                Tekst.Text = OefeningBeschrijving.OmschrijvingOefening;
-                                await TextToSpeech.SpeakAsync(Tekst.Text); //oefening
-                                await Task.Delay(60000);
+                                if (App.Database.OefeningAanUit == true)
+                                {
+                                    Oefening OefeningBeschrijving = Oefeningen.Find(oefening => oefening.IDOefening == GekozenRoute[HuidigCoördinaat].IDOEfening); //ophalen van de oefening
+                                    Tekst.Text = OefeningBeschrijving.OmschrijvingOefening;
+                                    await TextToSpeech.SpeakAsync(Tekst.Text); //oefening
+                                    await Task.Delay(60000);
+                                }
                                 Tekst.Text = GekozenRoute[HuidigCoördinaat].RouteBeschrijving; //richtingsaanwijzing
                                 await TextToSpeech.SpeakAsync(Tekst.Text);
                             }
-                            if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving == null & GekozenRoute[HuidigCoördinaat].IDOEfening != null) //als een punt een oefening heeft
+                            if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving == null & GekozenRoute[HuidigCoördinaat].IDOEfening != null & App.Database.OefeningAanUit == true) //als een punt een oefening heeft
                             {
                                 Oefening OefeningBeschrijving = Oefeningen.Find(oefening => oefening.IDOefening == GekozenRoute[HuidigCoördinaat].IDOEfening); //ophalen van de oefening
                                 Tekst.Text = OefeningBeschrijving.OmschrijvingOefening;

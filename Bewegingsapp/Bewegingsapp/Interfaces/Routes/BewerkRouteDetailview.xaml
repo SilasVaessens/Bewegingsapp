@@ -14,41 +14,41 @@
     <ContentPage.Content>
         <Grid BackgroundColor="Black" ColumnSpacing="0" RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="1"/>
-                <RowDefinition/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="1"/>
-                <RowDefinition/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="1"/>
-                <RowDefinition/>
+                <RowDefinition Height="35*"/>
                 <RowDefinition Height="1"/>
-                <RowDefinition/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="1"/>
-                <RowDefinition/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="1"/>
-                <RowDefinition/>
+                <RowDefinition Height="15*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33"
+            <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="31"
                    FontAttributes="Bold" Grid.Column="0" Grid.Row="0" BackgroundColor="Yellow" Text="Lengtegraad"/>
-            <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33"
+            <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="31"
                    FontAttributes="Bold" Grid.Column="2" Grid.Row="0" BackgroundColor="Yellow" Text="Breedtegraad"/>
             <Label TextColor="Black" Grid.Column="0" Grid.Row="2" BackgroundColor="GhostWhite" Text="{Binding Locatie2}"
-                   VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                   VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="20"/>
             <Label TextColor="Black" Grid.Column="2" Grid.Row="2" BackgroundColor="GhostWhite" Text="{Binding Locatie1}"
-                   VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-            <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="46"
+                   VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="20"/>
+            <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33"
                    FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="4" BackgroundColor="Yellow" Text="Richtingsaanwijzing"/>
-            <Editor Grid.ColumnSpan="3" Grid.Row="6" BackgroundColor="GhostWhite" Placeholder="Voeg hier de richtingsaanwijzing naar dit punt toe,
-                     als dit het eerste punt is, dan hoeft hier niks toegevoegd te worden" Text="{Binding RouteBeschrijving}" x:Name="Routeomschrijving"/>
-            <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="46"
+            <Editor Grid.ColumnSpan="3" Grid.Row="6" BackgroundColor="GhostWhite" Placeholder="Voeg hier de richtingsaanwijzing naar het volgende punt toe."
+                     Text="{Binding RouteBeschrijving}" x:Name="Routeomschrijving" FontSize="20"/>
+            <Label TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33"
                    FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="8" BackgroundColor="Yellow" Text="Oefening"/>
             <Picker x:Name="Oefeningen_Picker" TextColor="Black"  Grid.ColumnSpan="3" Grid.Row="10" BackgroundColor="GhostWhite"
-                    ItemDisplayBinding="{Binding NaamOefening}" Title="Selecteer oefening"/>
+                    ItemDisplayBinding="{Binding NaamOefening}" Title="Selecteer oefening" FontSize="20"/>
             <Button FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="1" Grid.Row="12" BackgroundColor="Yellow" Text="Opslaan"
                     x:Name="Opslaan_Button" Clicked="Opslaan_Button_Clicked" />
             <Button x:Name="Reset_Button" FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="1" Grid.Row="12" BackgroundColor="Yellow"

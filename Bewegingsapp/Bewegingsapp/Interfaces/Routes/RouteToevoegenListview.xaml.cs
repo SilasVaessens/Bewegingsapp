@@ -12,6 +12,8 @@ namespace Bewegingsapp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RouteToevoegenListview : ContentPage
     {
+        int IDRoute;
+        List<Route> AlleRoutes; 
 
         public RouteToevoegenListview()
         {
@@ -21,9 +23,9 @@ namespace Bewegingsapp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            List<Route> AlleRoutes = await App.Database.LijstRoutes(); //lijst van alle routes
+            AlleRoutes = await App.Database.LijstRoutes(); //lijst van alle routes
             Title = AlleRoutes.Last().NaamRoute; //selecteerd route die net gemaakt is(laatste route)
-            int IDRoute = await App.Database.KrijgRouteID();
+            IDRoute = await App.Database.KrijgRouteID();
             Listview_Coördinaten.ItemsSource = await App.Database.LijstCoördinatenRoute(IDRoute); //listview coördinaten laatste route
         }
 
@@ -37,6 +39,14 @@ namespace Bewegingsapp
             bool KlaarBewerken = await DisplayAlert("Route opslaan", "Bent u klaar met het bewerken van de route?", "ja", "nee");
             if (KlaarBewerken == true)
             {
+                if (EindeIsBegin.IsChecked == true)
+                {
+                    Route route = AlleRoutes.Find(route1 => route1.IDRoute == IDRoute);
+                    Console.WriteLine("Voor verandering : " + route.EindeIsBegin);
+                    route.EindeIsBegin = true;
+                    Console.WriteLine("Na verandering : " + route.EindeIsBegin);
+                    await App.Database.UpdateRoute(route);
+                }
                 var VorigePage = Navigation.NavigationStack.LastOrDefault();
                 Navigation.RemovePage(VorigePage);
                 await Navigation.PopAsync();

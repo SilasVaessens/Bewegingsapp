@@ -40,7 +40,8 @@ namespace Bewegingsapp
                 Route route = new Route
                 {
                     IDRoute = 1,
-                    NaamRoute = "RCS"
+                    NaamRoute = "RCS",
+                    EindeIsBegin = false
                 };
                 await App.Database.ToevoegenRoute(route);
                 //oefeningen voor de route van RCS

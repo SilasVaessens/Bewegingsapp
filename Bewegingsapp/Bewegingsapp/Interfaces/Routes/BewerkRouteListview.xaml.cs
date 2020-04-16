@@ -20,6 +20,15 @@ namespace Bewegingsapp
             base.OnAppearing();
             var BindingRoute = (Route)BindingContext; //ophalen van geselecteerde route
             Title = BindingRoute.NaamRoute;
+            NaamRouteBewerk.Text = BindingRoute.NaamRoute;
+            if (BindingRoute.EindeIsBegin == false)
+            {
+                EindeIsBegin.IsChecked = false;
+            }
+            if (BindingRoute.EindeIsBegin == true)
+            {
+                EindeIsBegin.IsChecked = true;
+            }
             List<Coördinaat> DezeRoute = await App.Database.LijstCoördinatenRoute(BindingRoute.IDRoute); //ophalen coördinaten van geselecteerde route voor listview
             ObservableCollection<Coördinaat> DezeRouteCollection = new ObservableCollection<Coördinaat>(DezeRoute as List<Coördinaat>);
             Listview_Coördinaten_Bewerk.ItemsSource = DezeRouteCollection; //listview coördinaten
@@ -27,6 +36,8 @@ namespace Bewegingsapp
             {
                 Add_Punt.IsEnabled = false; //kan geen punt toevoegen
                 Delete.IsEnabled = false; //kan geen punt verwijderen
+                EindeIsBegin.IsEnabled = false; //kan deze optie ook niet veranderen
+                NaamRouteBewerk.IsEnabled = false; //kan de naam van RCS route niet aanpassen
             }
         }
 
@@ -37,10 +48,29 @@ namespace Bewegingsapp
 
         private async void Klaar_Bewerk_Clicked(object sender, System.EventArgs e)
         {
+            var UpdateRoute = (Route)BindingContext;
             bool KlaarBewerken = await DisplayAlert("Route opslaan", "Bent u klaar met het bewerken van de route?", "ja", "nee");
             if (KlaarBewerken == true)
             {
-                await Navigation.PopAsync(); //navigatie naar instellingen menu
+                List<Route> routes = await App.Database.LijstRoutes();
+                if (routes.Exists(route1 => route1.NaamRoute == UpdateRoute.NaamRoute & route1.IDRoute != UpdateRoute.IDRoute))
+                {
+                    await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze route wordt al gebruikt voor een andere route", "ok");
+                }
+                else
+                {
+                    UpdateRoute.NaamRoute = NaamRouteBewerk.Text;
+                    if (EindeIsBegin.IsChecked == true)
+                    {
+                        UpdateRoute.EindeIsBegin = true;
+                    }
+                    if (EindeIsBegin.IsChecked == false)
+                    {
+                        UpdateRoute.EindeIsBegin = false;
+                    }
+                    await App.Database.UpdateRoute(UpdateRoute);
+                    await Navigation.PopAsync(); //navigatie naar instellingen menu
+                }
             }
         }
 

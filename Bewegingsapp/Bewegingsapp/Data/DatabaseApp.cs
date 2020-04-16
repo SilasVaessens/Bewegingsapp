@@ -9,6 +9,7 @@ namespace Bewegingsapp.Data
     public class DatabaseApp
     {
         readonly SQLiteAsyncConnection sqlite_database;
+        public bool OefeningAanUit { get; set; }
 
         public DatabaseApp(string dbPath)
         {

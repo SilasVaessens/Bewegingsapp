@@ -32,11 +32,7 @@ namespace Bewegingsapp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            List<Route> LijstRouteIDs = await App.Database.LijstRoutes();
-            route = new Route()
-            {
-                IDRoute = LijstRouteIDs.Last().IDRoute + 1
-            };
+            route = new Route() { };
             await App.Database.ToevoegenRoute(route);
             opgeslagen = false;
             if (String.IsNullOrEmpty(Naam_Route_toevoegen.Text) == false || CoördinatenRoute.Count != 0)
@@ -123,14 +119,15 @@ namespace Bewegingsapp
                                     await App.Database.ToevoegenCoördinaat(coördinaat);
                                     await Task.Delay(5);
                                 }
-                                this.route.NaamRoute = Naam_Route_toevoegen.Text;
-                                this.route.Coördinaten = CoördinatenRoute;
-                                await App.Database.UpdateRoute(this.route);
+                                route.NaamRoute = Naam_Route_toevoegen.Text;
+                                route.Coördinaten = CoördinatenRoute;
+                                route.EindeIsBegin = false;
+                                await App.Database.UpdateRoute(route);
                             }
                             if (bugfix == false)
                             {
                                 opgeslagen = true;
-                                await App.Database.VerwijderRoute(this.route);
+                                await App.Database.VerwijderRoute(route);
                                 List<Route> Routes = await App.Database.LijstRoutes();
                                 Route UpdateRoute = Routes.Last();
                                 await App.Database.VerwijderCoördinatenRoute(UpdateRoute.IDRoute);

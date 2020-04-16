@@ -12,21 +12,38 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <Grid RowSpacing="0" BackgroundColor="Black">
+        <Grid RowSpacing="0" BackgroundColor="Black" ColumnSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="75*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="50*"/>
                 <RowDefinition Height="1"/>
                 <RowDefinition Height="15*"/>
             </Grid.RowDefinitions>
-            <ListView x:Name ="Listview_Coördinaten_Bewerk" BackgroundColor="GhostWhite" Grid.Row="0" ItemSelected="Listview_Coördinaten_Bewerk_ItemSelected">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="90*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.ColumnSpan="2" BackgroundColor="Yellow" Text="Naam" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33" TextColor="Black"/>
+            <Editor x:Name="NaamRouteBewerk" Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="GhostWhite" FontSize="25"/>
+            <Label Grid.Row="4" Grid.ColumnSpan="2" BackgroundColor="Yellow" Text="Route punten" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33" TextColor="Black"/>
+            <CheckBox x:Name="EindeIsBegin" Grid.Row="6" BackgroundColor="GhostWhite"/>
+            <Label Grid.Row="6" Grid.Column="1" BackgroundColor="GhostWhite" Text="Verbindt het laatste punt met het eerste punt" VerticalTextAlignment="Center" TextColor="Black" FontAttributes="Bold" FontSize="15"/>
+            <ListView x:Name ="Listview_Coördinaten_Bewerk" BackgroundColor="GhostWhite" Grid.Row="8" Grid.ColumnSpan="2" ItemSelected="Listview_Coördinaten_Bewerk_ItemSelected">
                 <ListView.ItemTemplate >
                     <DataTemplate>
                         <TextCell Text="{Binding Nummer}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="Klaar_Bewerk" BackgroundColor="Yellow" Grid.Row="2" Text="Route opslaan" FontSize="46" FontAttributes="Bold"
-                Clicked="Klaar_Bewerk_Clicked"/>
+            <Button x:Name="Klaar_Bewerk" BackgroundColor="Yellow" Grid.Row="10" Text="Opslaan" FontSize="33" FontAttributes="Bold"
+                Clicked="Klaar_Bewerk_Clicked" Grid.ColumnSpan="2"/>
         </Grid>
    </ContentPage.Content>
 </ContentPage>

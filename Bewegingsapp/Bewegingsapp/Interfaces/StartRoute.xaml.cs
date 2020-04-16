@@ -79,6 +79,8 @@ namespace Bewegingsapp
             double locatie1 = GekozenRoute[0].Locatie1;
             double locatie2 = GekozenRoute[0].Locatie2;
             Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locatie1, locatie2), Distance.FromMeters(50))); //startpunt, locatie eerste coördinaat gekozen route
+            Tekst.Text = String.Format("Om de {0} route te starten, moet u zich op het start punt bevinden en op de start knop duwen", route.NaamRoute);
+            await TextToSpeech.SpeakAsync(Tekst.Text);
         }
 
         private void Map_Start_Route_MapClicked(object sender, MapClickedEventArgs e)
@@ -90,7 +92,7 @@ namespace Bewegingsapp
         {
             bool RouteGestart = true;
             int HuidigCoördinaat = 0;
-
+            var route = (Route)BindingContext;
             try
             {
                 var request = new GeolocationRequest(GeolocationAccuracy.High);
@@ -102,7 +104,7 @@ namespace Bewegingsapp
                 if (AfstandGebruikerBeginpunt > 0.010) //als de afstand groter is dan 10 meter
                 {
                     RouteGestart = false; //als dit false is wordt de route niet gestart
-                    Tekst.Text = "U bent niet op het startpunt";
+                    Tekst.Text = String.Format("U bent niet op het startpunt van de {0} route", route.NaamRoute);
                     await TextToSpeech.SpeakAsync(Tekst.Text);
                     await Task.Delay(5000);
                     Tekst.Text = null;
@@ -129,6 +131,7 @@ namespace Bewegingsapp
             {
                 Start_Route.IsEnabled = false; //button wordt disabled
                 Start_Route.Text = "Onderweg"; //button tekst veranderd
+                await TextToSpeech.SpeakAsync(String.Format("U bent begonnen aan het lopen van de {0} route", route.NaamRoute));
                 List<Oefening> Oefeningen = await App.Database.LijstOefeningen();
                 Map_Start_Route.HasScrollEnabled = false;
                 try

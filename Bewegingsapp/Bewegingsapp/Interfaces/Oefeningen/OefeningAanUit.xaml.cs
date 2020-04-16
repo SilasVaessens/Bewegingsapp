@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,6 +11,14 @@ namespace Bewegingsapp
         public OefeningAanUit()
         {
             InitializeComponent();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await TextToSpeech.SpeakAsync(Label_Vraag.Text);
+            await TextToSpeech.SpeakAsync(Nee_Oefening.Text);
+            await TextToSpeech.SpeakAsync(Ja_Oefening.Text);
         }
 
         private async void Ja_Oefening_Clicked(object sender, EventArgs e) //route met oefeningen, via button

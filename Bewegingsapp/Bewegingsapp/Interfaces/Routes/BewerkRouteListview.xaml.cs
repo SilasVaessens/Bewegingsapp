@@ -18,23 +18,21 @@ namespace Bewegingsapp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            var BindingRoute = (Route)BindingContext;
+            var BindingRoute = (Route)BindingContext; //ophalen van geselecteerde route
             Title = BindingRoute.NaamRoute;
-            List<Coördinaat> DezeRoute = await App.Database.LijstCoördinatenRoute(BindingRoute.IDRoute);
+            List<Coördinaat> DezeRoute = await App.Database.LijstCoördinatenRoute(BindingRoute.IDRoute); //ophalen coördinaten van geselecteerde route voor listview
             ObservableCollection<Coördinaat> DezeRouteCollection = new ObservableCollection<Coördinaat>(DezeRoute as List<Coördinaat>);
-            Listview_Coördinaten_Bewerk.ItemsSource = DezeRouteCollection;
-            if (BindingRoute.IDRoute == 1)
+            Listview_Coördinaten_Bewerk.ItemsSource = DezeRouteCollection; //listview coördinaten
+            if (BindingRoute.IDRoute == 1) //route rcs kan niet verwijderd worden
             {
-                Add_Punt.IsEnabled = false;
-                Delete.IsEnabled = false;
+                Add_Punt.IsEnabled = false; //kan geen punt toevoegen
+                Delete.IsEnabled = false; //kan geen punt verwijderen
             }
         }
 
         private async void Listview_Coördinaten_Bewerk_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            //BewerkAlleCoördinaten.Clear();
-            //Coördinaten.Clear();
-            await Navigation.PushAsync(new BewerkRouteDetailview { BindingContext = e.SelectedItem });
+            await Navigation.PushAsync(new BewerkRouteDetailview { BindingContext = e.SelectedItem }); //detailview van geselecteerde coördinaat
         }
 
         private async void Klaar_Bewerk_Clicked(object sender, System.EventArgs e)
@@ -42,11 +40,11 @@ namespace Bewegingsapp
             bool KlaarBewerken = await DisplayAlert("Route opslaan", "Bent u klaar met het bewerken van de route?", "ja", "nee");
             if (KlaarBewerken == true)
             {
-                await Navigation.PopAsync();
+                await Navigation.PopAsync(); //navigatie naar instellingen menu
             }
         }
 
-        private async void Delete_Clicked(object sender, System.EventArgs e)
+        private async void Delete_Clicked(object sender, System.EventArgs e) //verwijderen van route
         {
             bool VerwijderenRoute = await DisplayAlert("Route verwijderen", "Weet u zeker dat u deze route wilt verwijderen?", "ja", "nee");
             if (VerwijderenRoute == true)
@@ -58,7 +56,7 @@ namespace Bewegingsapp
             }
         }
 
-        private async void Add_Punt_Clicked(object sender, System.EventArgs e)
+        private async void Add_Punt_Clicked(object sender, System.EventArgs e) //punt toevoegen aan route
         {
             var Add = (Route)BindingContext;
             var bewerkRouteToevoegen = new BewerkRouteToevoegen

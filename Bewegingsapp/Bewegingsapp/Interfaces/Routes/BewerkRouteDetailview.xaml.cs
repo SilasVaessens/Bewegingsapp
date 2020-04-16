@@ -23,7 +23,7 @@ namespace Bewegingsapp
             base.OnAppearing();
             Coördinaat coördinaat = (Coördinaat)BindingContext;
             Title = coördinaat.Nummer.ToString();
-            Oefeningen_Picker.ItemsSource = await App.Database.LijstOefeningen(); // itemsource = alle oefeningen die ooit aangemaakt zijn
+            Oefeningen_Picker.ItemsSource = await App.Database.LijstOefeningen(); // itemsource == alle oefeningen die ooit aangemaakt zijn
             var BindingCoördinaat = (Coördinaat)BindingContext;
             if (BindingCoördinaat.IDOEfening != null) // voorkomt dat bij iedere coördinaat standaard de eerste oefening wordt toegevoegd
             {
@@ -33,7 +33,7 @@ namespace Bewegingsapp
             {
                 Oefeningen_Picker.SelectedIndex = -1; // oftewel, niks staat geselecteerd in de picker
             }
-            if (BindingCoördinaat.IDRoute == 1)
+            if (BindingCoördinaat.IDRoute == 1) //RCS route mag niet worden bewerkt
             {
                 Delete.IsEnabled = false;
                 Oefeningen_Picker.IsEnabled = false;
@@ -43,7 +43,7 @@ namespace Bewegingsapp
             }
         }
 
-        private async void Info_Clicked(object sender, EventArgs e)
+        private async void Info_Clicked(object sender, EventArgs e) //informatie knop, hoe de punten werken
         {
             await DisplayAlert("Soorten punten", "Er zijn 3 soorten punten: navigatie-punten, oefening-punten en onzichtbare punten.\n \n" +
                     "Navigatie-punten hebben altijd een routeomschrijving en geen oefening, ze zijn bedoeld als aanwijzingen voor de slechtzienden.\n \n" +
@@ -53,7 +53,7 @@ namespace Bewegingsapp
         }
 
 
-        private async void Opslaan_Button_Clicked(object sender, EventArgs e)
+        private async void Opslaan_Button_Clicked(object sender, EventArgs e) //opslaan omschrijving en/of oefening van geselecteerde coördinaat
         {
             var coördinaat1 = (Coördinaat)BindingContext;
             if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == true)
@@ -68,7 +68,7 @@ namespace Bewegingsapp
             }
             else
             {
-                if (Oefeningen_Picker.SelectedIndex != -1) // Oefening ID wordt alleen aangepast als er een ander item geselecteerd wordt
+                if (Oefeningen_Picker.SelectedIndex != -1) // oefening ID wordt alleen aangepast als er een ander item geselecteerd wordt
                 {
                     coördinaat1.IDOEfening = Oefeningen_Picker.SelectedIndex + 1; // ID's beginnen vanaf 1, maar de index telt vanaf 0
                 }
@@ -82,13 +82,13 @@ namespace Bewegingsapp
 
         }
 
-        private void Reset_Button_Clicked(object sender, EventArgs e)
+        private void Reset_Button_Clicked(object sender, EventArgs e) //oefening deselecteren en routeomschrijving leeg maken
         {
             Oefeningen_Picker.SelectedIndex = -1;
             Routeomschrijving.Text = "";
         }
 
-        private async void Delete_Clicked(object sender, EventArgs e)
+        private async void Delete_Clicked(object sender, EventArgs e) //Coördinaat verwijdenren
         {
             bool Verwijderen = await DisplayAlert("Punt verwijderen", "Weet u zeker dat u dit punt wilt verwijderen?", "ja", "nee");
             if (Verwijderen == true)

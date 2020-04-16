@@ -26,14 +26,14 @@ namespace Bewegingsapp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            Route route = (Route)BindingContext;
-            CoördinatenRoute = await App.Database.LijstCoördinatenRoute(route.IDRoute);
+            Route route = (Route)BindingContext; //ophalen van geselecteerde route
+            CoördinatenRoute = await App.Database.LijstCoördinatenRoute(route.IDRoute); //coördinaten ophalen van geselecteerde route
 
             var latitude = CoördinatenRoute[0].Locatie1;
             var Longitude = CoördinatenRoute[0].Locatie2;
             Map_Route_Bewerken.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(latitude, Longitude), Distance.FromKilometers(0.5))); //startpunt, locatie van eerste coördinaat
 
-            foreach (Coördinaat coördinaat in CoördinatenRoute)
+            foreach (Coördinaat coördinaat in CoördinatenRoute) //voor iedere coördinaat in de geslecteerde route
             {
                 double location1 = coördinaat.Locatie1;
                 double location2 = coördinaat.Locatie2;
@@ -47,10 +47,10 @@ namespace Bewegingsapp
                 {
                     args.HideInfoWindow = true;
                 };
-                Map_Route_Bewerken.Pins.Add(pin);
-                PinsLijst.Add(pin);
+                Map_Route_Bewerken.Pins.Add(pin); //pin toevoegen aan de map
+                PinsLijst.Add(pin); //lijst van pins om polylines te tekenen
 
-                if (PinsLijst.Count >= 2)
+                if (PinsLijst.Count >= 2) //als er 2 of meer pins zijn
                 {
                     Polyline polyline = new Polyline
                     {
@@ -63,14 +63,14 @@ namespace Bewegingsapp
                         }
                     };
 
-                    Map_Route_Bewerken.MapElements.Add(polyline);
+                    Map_Route_Bewerken.MapElements.Add(polyline); //polyline tekenen
                 }
 
             }
 
         }
 
-        private async void Toevoegen_Clicked(object sender, EventArgs e)
+        private async void Toevoegen_Clicked(object sender, EventArgs e) //opslaan van nieuw toegevoegde coördinaat
         {
             Route UpdateCoördinatenRoute = (Route)BindingContext;
             Console.WriteLine("Naam Route : " + UpdateCoördinatenRoute.NaamRoute + "IDRoute van coördinaat : " + coördinaat.IDRoute);
@@ -86,14 +86,13 @@ namespace Bewegingsapp
             double location2 = e.Position.Longitude;
             int NummerCoördinaat = CoördinatenRoute.Count + 1;
 
-            if (NieuwPunt.Count == 1)
+            if (NieuwPunt.Count == 1) //hier wordt ervoor gezord dat er niet meerdere nieuwe pins tegelijk kunnen worden neergezet
             {
                 Map_Route_Bewerken.Pins.Remove(NieuwPunt.Last());
                 NieuwPunt.Remove(NieuwPunt.Last());
                 Map_Route_Bewerken.MapElements.Remove(polyline);
             }
-            //maak nieuwe pin aan op aangeklikte plek op de map
-            Pin pin = new Pin
+            Pin pin = new Pin //maak nieuwe pin aan op aangeklikte plek op de map
             {
                 Label = NummerCoördinaat.ToString(),
                 Type = PinType.Place,
@@ -104,7 +103,7 @@ namespace Bewegingsapp
                 args.HideInfoWindow = true;
             };
             Map_Route_Bewerken.Pins.Add(pin);
-            NieuwPunt.Add(pin);
+            NieuwPunt.Add(pin); //pin toevoegen aan de map
 
             coördinaat = new Coördinaat
             {
@@ -115,7 +114,7 @@ namespace Bewegingsapp
                 IDRoute = route.IDRoute
             };
 
-            polyline = new Polyline
+            polyline = new Polyline //maak nieuwe polyline tussen nieuwe pin en laatste pin in route
             {
                 StrokeColor = Color.Blue,
                 StrokeWidth = 10,
@@ -125,10 +124,10 @@ namespace Bewegingsapp
                             new Position(coördinaat.Locatie1, coördinaat.Locatie2) // pakt longitude en latitude van laatste item in de list
                         }
             };
-            Map_Route_Bewerken.MapElements.Add(polyline);
+            Map_Route_Bewerken.MapElements.Add(polyline); //polyline tekenen
         }
 
-        private async void Info_Clicked(object sender, EventArgs e)
+        private async void Info_Clicked(object sender, EventArgs e) //informatie knop, hoe het toevoegen werkt
         {
             await DisplayAlert("Punt toevoegen", "Het is niet mogelijk om meer dan 1 punt tegelijk toe te voegen. \n \n" +
                                 "Het nieuwe punt wordt automatisch toegevoegd aan het einde van de list, het is niet mogelijk " +

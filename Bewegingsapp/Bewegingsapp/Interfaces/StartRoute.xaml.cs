@@ -96,13 +96,14 @@ namespace Bewegingsapp
                 var request = new GeolocationRequest(GeolocationAccuracy.High);
                 var location = await Geolocation.GetLocationAsync(request); //longitude, latitude en altitude van de gebruiker wordt hier opgevraagd
 
-                Location Gebruiker = new Location(location);
-                Location BeginPunt = new Location(GekozenRoute[0].Locatie1, GekozenRoute[0].Locatie2);
-                double AfstandGebruikerBeginpunt = Location.CalculateDistance(Gebruiker, BeginPunt, DistanceUnits.Kilometers);
-                if (AfstandGebruikerBeginpunt > 0.005)
+                Location Gebruiker = new Location(location); //locatie gebruiker
+                Location BeginPunt = new Location(GekozenRoute[0].Locatie1, GekozenRoute[0].Locatie2); //locatie startpunt route
+                double AfstandGebruikerBeginpunt = Location.CalculateDistance(Gebruiker, BeginPunt, DistanceUnits.Kilometers); //afstand berekenen tussen gebruiker en startpunt
+                if (AfstandGebruikerBeginpunt > 0.010) //als de afstand groter is dan 10 meter
                 {
-                    RouteGestart = false;
+                    RouteGestart = false; //als dit false is wordt de route niet gestart
                     Tekst.Text = "U bent niet op het startpunt";
+                    await TextToSpeech.SpeakAsync(Tekst.Text);
                     await Task.Delay(5000);
                     Tekst.Text = null;
                 }
@@ -124,10 +125,10 @@ namespace Bewegingsapp
                 // Locatie is niet verkregen
             }
 
-            while (RouteGestart == true)
+            while (RouteGestart == true) //binnen 10 meter van de start locatie op start route klikken
             {
-                Start_Route.IsEnabled = false;
-                Start_Route.Text = "Onderweg";
+                Start_Route.IsEnabled = false; //button wordt disabled
+                Start_Route.Text = "Onderweg"; //button tekst veranderd
                 List<Oefening> Oefeningen = await App.Database.LijstOefeningen();
                 Map_Start_Route.HasScrollEnabled = false;
                 try
@@ -137,29 +138,40 @@ namespace Bewegingsapp
 
                     if (location != null)
                     {
-                        Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromMeters(50))); //startpunt, locatie van gebruiker
+                        Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromMeters(50))); //om de 4 seconden map centreren naar locatie van gebruiker
                         await Task.Delay(4000);
                     }
+                     
+                    Location Gebruiker = new Location(location); //locatie gebruiker
+                    Location Coördinaat = new Location(GekozenRoute[HuidigCoördinaat].Locatie1, GekozenRoute[HuidigCoördinaat].Locatie2); //locatie volgende punt in route
+                    double Afstand = Location.CalculateDistance(Gebruiker, Coördinaat, DistanceUnits.Kilometers); //afstand berekenen tussen gebruiker en volgende punt
 
-                    Location Gebruiker = new Location(location);
-                    Location Coördinaat = new Location(GekozenRoute[HuidigCoördinaat].Locatie1, GekozenRoute[HuidigCoördinaat].Locatie2);
-                    double Afstand = Location.CalculateDistance(Gebruiker, Coördinaat, DistanceUnits.Kilometers);
-
-                    if (Afstand < 0.005)
+                    if (Afstand < 0.010) //als de afstand kleiner is dan 10 meter
                     {
-                        if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null || GekozenRoute[HuidigCoördinaat].IDOEfening != null)
+                        if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null || GekozenRoute[HuidigCoördinaat].IDOEfening != null) //als een punt een routebeschrijving heeft of een oefening heeft
                         {
-                            if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null & GekozenRoute[HuidigCoördinaat].IDOEfening == null)
+                            if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null & GekozenRoute[HuidigCoördinaat].IDOEfening == null) //als een punt een routebeschrijving heeft
                             {
-                                Tekst.Text = GekozenRoute[HuidigCoördinaat].RouteBeschrijving;
+                                Tekst.Text = GekozenRoute[HuidigCoördinaat].RouteBeschrijving; //richtingsaanwijzing
+                                await TextToSpeech.SpeakAsync(Tekst.Text);
                             }
-                            if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null & GekozenRoute[HuidigCoördinaat].IDOEfening != null)
+                            if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null & GekozenRoute[HuidigCoördinaat].IDOEfening != null) //als een punt een routebeschrijving heeft en een oefening heeft
                             {
-                                Oefening OefeningBeschrijving = Oefeningen.Find(oefening => oefening.IDOefening == GekozenRoute[HuidigCoördinaat].IDOEfening);
+                                Oefening OefeningBeschrijving = Oefeningen.Find(oefening => oefening.IDOefening == GekozenRoute[HuidigCoördinaat].IDOEfening); //ophalen van de oefening
                                 Tekst.Text = OefeningBeschrijving.OmschrijvingOefening;
+                                await TextToSpeech.SpeakAsync(Tekst.Text); //oefening
+                                await Task.Delay(60000);
+                                Tekst.Text = GekozenRoute[HuidigCoördinaat].RouteBeschrijving; //richtingsaanwijzing
+                                await TextToSpeech.SpeakAsync(Tekst.Text);
+                            }
+                            if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving == null & GekozenRoute[HuidigCoördinaat].IDOEfening != null) //als een punt een oefening heeft
+                            {
+                                Oefening OefeningBeschrijving = Oefeningen.Find(oefening => oefening.IDOefening == GekozenRoute[HuidigCoördinaat].IDOEfening); //ophalen van de oefening
+                                Tekst.Text = OefeningBeschrijving.OmschrijvingOefening;
+                                await TextToSpeech.SpeakAsync(Tekst.Text); //oefening
                             }
                         }
-                        HuidigCoördinaat++;
+                        HuidigCoördinaat++; //voor het indexen van het volgende punt in de route
                     }
                 }
                 catch (FeatureNotSupportedException NotSupported)

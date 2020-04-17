@@ -95,7 +95,7 @@ namespace Bewegingsapp
             var route = (Route)BindingContext;
             try
             {
-                var request = new GeolocationRequest(GeolocationAccuracy.High);
+                var request = new GeolocationRequest(GeolocationAccuracy.Best);
                 var location = await Geolocation.GetLocationAsync(request); //longitude, latitude en altitude van de gebruiker wordt hier opgevraagd
 
                 Location Gebruiker = new Location(location); //locatie gebruiker
@@ -131,7 +131,11 @@ namespace Bewegingsapp
             {
                 Start_Route.IsEnabled = false; //button wordt disabled
                 Start_Route.Text = "Onderweg"; //button tekst veranderd
-                await TextToSpeech.SpeakAsync(String.Format("U bent begonnen aan het lopen van de {0} route", route.NaamRoute));
+                if (HuidigCoördinaat == 0)
+                {
+                    Tekst.Text = String.Format("U bent begonnen aan het lopen van de {0} route", route.NaamRoute);
+                    await TextToSpeech.SpeakAsync(Tekst.Text);
+                }
                 List<Oefening> Oefeningen = await App.Database.LijstOefeningen();
                 Map_Start_Route.HasScrollEnabled = false;
                 try
@@ -177,7 +181,19 @@ namespace Bewegingsapp
                                 await TextToSpeech.SpeakAsync(Tekst.Text); //oefening
                             }
                         }
-                        HuidigCoördinaat++; //voor het indexen van het volgende punt in de route
+                        if (HuidigCoördinaat < GekozenRoute.Count)
+                        {
+                            HuidigCoördinaat++; //voor het indexen van het volgende punt in de route
+                        }
+                        if (HuidigCoördinaat == GekozenRoute.Count)
+                        {
+                            RouteGestart = false;
+                            Start_Route.Text = "Einde!";
+                            Tekst.Text = String.Format("De {0} route is afgelopen, u gaat nu terug naar het hoofdmenu", route.NaamRoute);
+                            await TextToSpeech.SpeakAsync(Tekst.Text);
+                            await Task.Delay(4000);
+                            await Navigation.PopToRootAsync();
+                        }
                     }
                 }
                 catch (FeatureNotSupportedException NotSupported)

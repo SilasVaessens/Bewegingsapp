@@ -42,7 +42,7 @@ namespace Bewegingsapp
                 Route route = (Route)e.SelectedItem;
                 Grid_Kiezen.RowDefinitions[0].Height = new GridLength(50, GridUnitType.Star);
                 Grid_Kiezen.RowDefinitions[2].Height = new GridLength(50, GridUnitType.Star);
-                Label_Route.Text = String.Format("Weet u zeker dat u {0} wilt gaan lopen?", route.NaamRoute);
+                Label_Route.Text = String.Format("Weet u zeker dat u de {0} route wilt gaan lopen?", route.NaamRoute);
                 await TextToSpeech.SpeakAsync(Label_Route.Text);
                 await TextToSpeech.SpeakAsync(Nee_Route.Text);
                 await TextToSpeech.SpeakAsync(Ja_Route.Text);

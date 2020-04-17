@@ -91,7 +91,7 @@ namespace Bewegingsapp
         private async void Start_Route_Clicked(object sender, EventArgs e)
         {
             bool RouteGestart = true;
-            int HuidigCoördinaat = 0;
+            int HuidigCoördinaat = 0; //nodig voor het indexen van de volgende locatie, afstand meten tussen gebruiker en volgende punt
             var route = (Route)BindingContext;
             try
             {
@@ -135,9 +135,10 @@ namespace Bewegingsapp
                 {
                     Tekst.Text = String.Format("U bent begonnen aan het lopen van de {0} route", route.NaamRoute);
                     await TextToSpeech.SpeakAsync(Tekst.Text);
+                    HuidigCoördinaat = 24;
                 }
                 List<Oefening> Oefeningen = await App.Database.LijstOefeningen();
-                Map_Start_Route.HasScrollEnabled = false;
+                Map_Start_Route.HasScrollEnabled = false; //kunt de kaart niet zelf aanpassen als de route is gestart
                 try
                 {
                     var request = new GeolocationRequest(GeolocationAccuracy.Best);
@@ -181,15 +182,15 @@ namespace Bewegingsapp
                                 await TextToSpeech.SpeakAsync(Tekst.Text); //oefening
                             }
                         }
-                        if (HuidigCoördinaat < GekozenRoute.Count)
+                        if (HuidigCoördinaat < GekozenRoute.Count) //voorkomt index error
                         {
                             HuidigCoördinaat++; //voor het indexen van het volgende punt in de route
                         }
-                        if (HuidigCoördinaat == GekozenRoute.Count)
+                        if (HuidigCoördinaat == GekozenRoute.Count) //route is aan het einde
                         {
                             RouteGestart = false;
                             Start_Route.Text = "Einde!";
-                            Tekst.Text = String.Format("De {0} route is afgelopen, u gaat nu terug naar het hoofdmenu", route.NaamRoute);
+                            Tekst.Text = String.Format("De {0} route is afgelopen, u gaat nu terug naar het hoofdmenu", route.NaamRoute); //app navigeert naar startmenu (poptorootasync)
                             await TextToSpeech.SpeakAsync(Tekst.Text);
                             await Task.Delay(4000);
                             await Navigation.PopToRootAsync();

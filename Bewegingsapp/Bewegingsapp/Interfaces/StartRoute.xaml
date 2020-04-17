@@ -4,14 +4,24 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="Bewegingsapp.StartRoute"
              NavigationPage.HasNavigationBar="false">
     
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Deze functionaliteit bestaat momenteel nog niet en zal later toegevoegd worden."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid RowSpacing="0" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" FontSize="23" FontAttributes="Bold" x:Name="Tekst" TextColor="Black"
+                   VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
+            <maps:Map x:Name="Map_Start_Route" Grid.Row="2" MapClicked="Map_Start_Route_MapClicked" IsShowingUser="true" />
+            <Button x:Name="Start_Route" Grid.Row="4" Text="Start" FontSize="57" FontAttributes="Bold"
+                   TextColor="Black" BackgroundColor="Yellow" Clicked="Start_Route_Clicked"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

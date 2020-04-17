@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:Bewegingsapp.Model"
+             x:Class="Bewegingsapp.RouteToevoegen"
+             Title="Nieuwe route toevoegen">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="Info" Order="Primary" IconImageSource="info.png" Clicked="Info_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Content>
+        <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="55*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Text="Naam" FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="3"
+                   TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
+            <Editor x:Name="Naam_Route_toevoegen" Placeholder="Naam van de route" BackgroundColor="WhiteSmoke" Grid.Row="2" Grid.ColumnSpan="3" FontSize="25"/>
+            <Label Grid.Row="4" Text="Route punten" FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="3"
+                   TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
+            <maps:Map x:Name="Map_Route_Toevoegen" Grid.Row="6" Grid.ColumnSpan="3" IsShowingUser="True" MapClicked="Map_Route_Toevoegen_MapClicked"/>
+            <Button x:Name="Route_opslaan" Grid.Row="8" Grid.Column="0" Text="Opslaan" FontSize="30" FontAttributes="Bold"
+                   TextColor="Black" BackgroundColor="Yellow" Clicked="Route_opslaan_Clicked"/>
+            <local:CustomButton x:Name="Route_Punt_Verwijderen" Grid.Row="8"  Grid.Column="2" Text="Verwijder punt" FontSize="30" FontAttributes="Bold"
+                   TextColor="Black" BackgroundColor="Yellow" Clicked="Route_Punt_Verwijderen_Clicked"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

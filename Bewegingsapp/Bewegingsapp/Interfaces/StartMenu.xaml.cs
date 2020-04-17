@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace Bewegingsapp
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
@@ -18,12 +13,19 @@ namespace Bewegingsapp
             InitializeComponent();
         }
 
-        private async void Route_Clicked(object sender, EventArgs e)
+        protected override async void OnAppearing()
         {
-            await Navigation.PushAsync(new RouteKiezen());
+            base.OnAppearing();
+            await TextToSpeech.SpeakAsync(Route.Text);
+            await TextToSpeech.SpeakAsync(Instellingen.Text);
         }
 
-        private async void Instellingen_Clicked(object sender, EventArgs e)
+        private async void Route_Clicked(object sender, EventArgs e) //navigatie naar het route kiezen, listview van de routes
+        {
+            await Navigation.PushAsync(new OefeningAanUit());
+        }
+
+        private async void Instellingen_Clicked(object sender, EventArgs e) //navigatie naar het instellingen menu
         {
             await Navigation.PushAsync(new InstellingenMenu());
         }

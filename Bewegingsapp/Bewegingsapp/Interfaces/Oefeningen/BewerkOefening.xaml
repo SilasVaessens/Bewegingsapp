@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Bewegingsapp.BewerkOefening"
+             xmlns:local="clr-namespace:Bewegingsapp.Model"
+             Title="Oefening bewerken">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="Delete" Order="Primary" IconImageSource="delete.png" Clicked="Delete_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Content>
+        <Grid RowSpacing="0" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="55*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Naam" FontSize="33" FontAttributes="Bold"
+                   TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
+            <Editor x:Name="BewerkNaam"  Placeholder="Naam van de oefening." BackgroundColor="WhiteSmoke" Grid.Row="2" Text="{Binding NaamOefening}"/>
+            <Label Grid.Row="4"  Text="Omschrijving" FontSize="33" FontAttributes="Bold"
+                   TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
+            <Editor x:Name="BewerkOmschrijving"  Placeholder="Beschrijf hier wat er moet gebeuren tijdens de oefening." BackgroundColor="WhiteSmoke" Grid.Row="6" Text="{Binding OmschrijvingOefening}"/>
+            <local:CustomButton x:Name="Oefening_update" Grid.Row="8" Text="Opslaan" FontSize="33" FontAttributes="Bold"
+                   TextColor="Black" BackgroundColor="Yellow" Clicked="Oefening_update_Clicked"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

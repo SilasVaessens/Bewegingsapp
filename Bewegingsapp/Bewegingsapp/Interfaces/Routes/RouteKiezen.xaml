@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Bewegingsapp.RouteKiezen"
+             Title="Routes"
+             NavigationPage.HasNavigationBar="false">
+    
+    <ContentPage.Content>
+        <Grid RowSpacing="0" BackgroundColor="Black" ColumnSpacing="0" x:Name="Grid_Kiezen" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="85*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="Label_Route" Grid.Row="0" Text="Kies route" FontSize="57" FontAttributes="Bold" Grid.ColumnSpan="3"
+                   TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
+            <ListView x:Name="Route_Kiezen" Grid.Row="2" BackgroundColor="GhostWhite" ItemSelected="Routes_ItemSelected" 
+                      RowHeight="100" SelectionMode="Single" Grid.ColumnSpan="3">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding NaamRoute}" FontSize="50" TextColor="Black" VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button x:Name="Nee_Route" Grid.Row="2" Grid.Column="0" BackgroundColor="Red"  Text="Nee" TextColor="Black"
+                    FontSize="50" FontAttributes="Bold" IsVisible="False" IsEnabled="False"/>
+            <Label x:Name="Tussen_Knoppen" Grid.Row="2" Grid.Column="1" BackgroundColor="Black" Text="Ja"
+                   IsVisible="False" IsEnabled="False"/>
+            <Button x:Name="Ja_Route" Grid.Row="2" Grid.Column="2" BackgroundColor="Green" Text="Ja" TextColor="Black"
+                    FontSize="50" FontAttributes="Bold" IsVisible="False" IsEnabled="False"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

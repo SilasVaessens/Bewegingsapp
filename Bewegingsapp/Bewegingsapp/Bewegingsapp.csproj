@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -12,18 +12,28 @@
 
   <ItemGroup>
     <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
-    <PackageReference Include="Xamarin.Forms.Maps" Version="4.5.0.396" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.617" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.2" />
+    <PackageReference Include="Xamarin.Forms.Maps" Version="4.5.0.617" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Interfaces\Routes\BewerkRouteListview.xaml.cs">
+      <DependentUpon>BewerkRouteListview.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Interfaces\StartMenu.xaml.cs">
       <DependentUpon>StartMenu.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Interfaces\Routes\BewerkRouteToevoegen.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Interfaces\Routes\BewerkRouteDetailview.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Interfaces\BewerkOefening.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -52,6 +62,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Interfaces\RouteToevoegen.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Interfaces\RouteToevoegenDetailpage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Interfaces\RouteToevoegenListview.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Interfaces\StartRoute.xaml">

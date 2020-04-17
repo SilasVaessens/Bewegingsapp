@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Bewegingsapp.OefeningToevoegen"
+             Title="Nieuwe oefening toevoegen">
+    
+    <ContentPage.Content>
+        <Grid RowSpacing="0" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="55*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Naam" FontSize="33" FontAttributes="Bold"
+                   TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
+            <Editor x:Name="NaamEditor" Placeholder="Naam van de oefening." BackgroundColor="WhiteSmoke" Grid.Row="2" FontSize="25"/>
+            <Label Grid.Row="4" Text="Omschrijving" FontSize="33" FontAttributes="Bold"
+                   TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
+            <Editor x:Name="OmschrijvingEditor" Placeholder="Beschrijf hier wat er moet gebeuren tijdens de oefening." 
+                    BackgroundColor="WhiteSmoke" Grid.Row="6" FontSize="25"/>
+            <Button x:Name="Oefening_opslaan" Grid.Row="8" Text="Opslaan" FontSize="33" FontAttributes="Bold"
+                   TextColor="Black" BackgroundColor="Yellow" Clicked="Oefening_opslaan_Clicked"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

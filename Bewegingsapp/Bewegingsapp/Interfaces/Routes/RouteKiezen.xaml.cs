@@ -1,0 +1,77 @@
+﻿using System;
+using Bewegingsapp.Model;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
+using System.Threading.Tasks;
+
+
+namespace Bewegingsapp
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class RouteKiezen : ContentPage
+    {
+        public RouteKiezen()
+        {
+            InitializeComponent();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            Route_Kiezen.ItemsSource = await App.Database.LijstRoutes();
+            await TextToSpeech.SpeakAsync(Label_Route.Text);
+            foreach (Route route in Route_Kiezen.ItemsSource)
+            {
+                await TextToSpeech.SpeakAsync(route.NaamRoute);
+                await Task.Delay(200);
+            }
+            
+        }
+        private async void Routes_ItemSelected(object sender, SelectedItemChangedEventArgs e) //route selecteren uit listview
+        {
+            if (Route_Kiezen.SelectedItem != null)
+            {
+                Ja_Route.IsEnabled = true;
+                Ja_Route.IsVisible = true;
+                Nee_Route.IsEnabled = true;
+                Nee_Route.IsVisible = true;
+                Tussen_Knoppen.IsEnabled = true;
+                Tussen_Knoppen.IsVisible = true;
+                Route_Kiezen.IsEnabled = false;
+                Route route = (Route)e.SelectedItem;
+                Grid_Kiezen.RowDefinitions[0].Height = new GridLength(50, GridUnitType.Star);
+                Grid_Kiezen.RowDefinitions[2].Height = new GridLength(50, GridUnitType.Star);
+                Label_Route.Text = String.Format("Weet u zeker dat u de {0} route wilt gaan lopen?", route.NaamRoute);
+                await TextToSpeech.SpeakAsync(Label_Route.Text);
+                await TextToSpeech.SpeakAsync(Nee_Route.Text);
+                await TextToSpeech.SpeakAsync(Ja_Route.Text);
+                Ja_Route.Clicked += async (s, args) =>
+                {
+                    await Navigation.PushAsync(new StartRoute { BindingContext = e.SelectedItem }); //navigatie naar startroute met geselecteerde route
+                };
+                Nee_Route.Clicked += async (s, args) =>
+                {
+                    Route_Kiezen.IsEnabled = true;
+                    Route_Kiezen.SelectedItem = null;
+                    Ja_Route.IsEnabled = false;
+                    Ja_Route.IsVisible = false;
+                    Nee_Route.IsVisible = false;
+                    Nee_Route.IsVisible = false;
+                    Tussen_Knoppen.IsEnabled = false;
+                    Tussen_Knoppen.IsVisible = false;
+                    Grid_Kiezen.RowDefinitions[0].Height = new GridLength(15, GridUnitType.Star);
+                    Grid_Kiezen.RowDefinitions[2].Height = new GridLength(85, GridUnitType.Star);
+                    Label_Route.Text = "Kies route";
+                    await TextToSpeech.SpeakAsync(Label_Route.Text);
+                    foreach (Route route1 in Route_Kiezen.ItemsSource)
+                    {
+                        await TextToSpeech.SpeakAsync(route1.NaamRoute);
+                        await Task.Delay(200);
+                    }
+
+                };
+            }
+        }
+    }
+}

@@ -44,7 +44,7 @@ gestopt worden, voorkomt ook dat text-to-speech daar elkaar gaat.
 4. De mogelijkheid om routes daar te laten lopen op de achtergrond, bijvoorbeeld als het scherm uit is.
 5. De functionaliteit van het lopen van een route verbeteren, werkt nu alleen als de gebruiker ook precies langs ieder coördinaat
 loopt.
-6. De code opruimen, heb waarschijnlijk vrij veel dubbele code in de menu's die bedoeld zijn voor de gebruiker, kijk of er menu's 
+6. De code opruimen, heb waarschijnlijk vrij veel dubbele code in de menu's die bedoeld zijn voor de begeleiders, kijk of er menu's 
 samengevoegd kunnen worden
 
 Er zijn natuurlijk nog meer dingen te verbeteren, maar dit zijn de belangrijkste punten. Daarnaast wil ik iedereen nog aanbevelen

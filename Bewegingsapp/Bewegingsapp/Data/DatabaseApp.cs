@@ -146,5 +146,15 @@ namespace Bewegingsapp.Data
             }
             return CoördinatenRoute;
         }
+
+        //verwijder lege route bij crash / afsluiten terwijl in route toevoegen menu
+        public async Task VerwijderLegeRoute()
+        {
+            List<Route> LastRoute = await App.Database.LijstRoutes();
+            if (LastRoute.Count > 1 & string.IsNullOrWhiteSpace(LastRoute.Last().NaamRoute) == true)
+            {
+                await App.Database.VerwijderRoute(LastRoute.Last());
+            }
+        }
     }
 }

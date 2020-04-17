@@ -8,7 +8,12 @@
              xmlns:local="clr-namespace:Bewegingsapp.Model"
              x:Class="Bewegingsapp.RouteToevoegen"
              Title="Nieuwe route toevoegen">
-    
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="Info" Order="Primary" IconImageSource="info.png" Clicked="Info_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+
     <ContentPage.Content>
         <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="Black">
             <Grid.RowDefinitions>

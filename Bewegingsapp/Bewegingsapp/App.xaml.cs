@@ -1,5 +1,6 @@
 ﻿using Bewegingsapp.Data;
 using System;
+using System.Linq;
 using System.IO;
 using Xamarin.Forms;
 using System.Collections.Generic;
@@ -61,7 +62,7 @@ namespace Bewegingsapp
 
                 foreach(Oefening Oefeningen in OefeningenRCS)
                 {
-                    await App.Database.ToevoegenOefening(Oefeningen);
+                    await Database.ToevoegenOefening(Oefeningen);
                 }
                 //coördinaten voor de route van RCS, oefeningen zitten gekoppeld via ID aan de coördinaten
                 CoördinatenRCS.Add(new Coördinaat() { IDRoute = 1, Nummer = 1, Locatie1 = 51.640149, Locatie2 = 5.284610,
@@ -114,13 +115,12 @@ namespace Bewegingsapp
 
                 foreach (Coördinaat coördinaat in CoördinatenRCS) //coördinaten en oefeningen toevoege aan de database
                 {
-                    await App.Database.ToevoegenCoördinaat(coördinaat);
+                    await Database.ToevoegenCoördinaat(coördinaat);
                 }
                 route.Coördinaten = CoördinatenRCS;
-                await App.Database.UpdateRoute(route);
-
-
+                await Database.UpdateRoute(route);
             }
+            await Database.VerwijderLegeRoute();
         }
 
         protected override void OnSleep()

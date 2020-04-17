@@ -228,5 +228,15 @@ namespace Bewegingsapp
                 args.HideInfoWindow = true; // zorgt ervoor dat het popup-window met label en adres niet verschijnt
             };
         }
+
+        private async void Info_Clicked(object sender, EventArgs e)
+        {
+            await DisplayAlert("Route toevoegen", "Een route heeft altijd een naam en route punten, zonder deze kan de route niet opgeslagen worden. \n \n" +
+                "Een route kan geen naam hebben die een andere route al heeft, dan kan de route niet opgeslagen worden. \n \n" +
+                "Om een route punt toe te voegen, klik op de map waar u het route punt wilt toevoegen, en blijf dit herhalen tot dat u klaar bent. \n \n" +
+                "Er worden automatisch lijnen getrokken tussen de route punten, maar deze volgen niet de weg, om de lijnen wel de weg te laten volgen" +
+                " moet u bij iedere plek waar de weg verandert een route punt neerzetten. \n \n" +
+                "Klik op verwijder punt om de route punten te verwijderen in de volgorde zoals u ze heeft neergezet.", "ok");
+        }
     }
 }

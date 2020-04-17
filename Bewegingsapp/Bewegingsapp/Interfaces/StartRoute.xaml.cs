@@ -83,11 +83,6 @@ namespace Bewegingsapp
             await TextToSpeech.SpeakAsync(Tekst.Text);
         }
 
-        private void Map_Start_Route_MapClicked(object sender, MapClickedEventArgs e)
-        {
-
-        }
-
         private async void Start_Route_Clicked(object sender, EventArgs e)
         {
             bool RouteGestart = true;
@@ -170,7 +165,7 @@ namespace Bewegingsapp
                                     Oefening OefeningBeschrijving = Oefeningen.Find(oefening => oefening.IDOefening == GekozenRoute[HuidigCoördinaat].IDOEfening); //ophalen van de oefening
                                     Tekst.Text = OefeningBeschrijving.OmschrijvingOefening;
                                     await TextToSpeech.SpeakAsync(Tekst.Text); //oefening
-                                    await Task.Delay(60000);
+                                    await Task.Delay(5000);
                                 }
                                 Tekst.Text = GekozenRoute[HuidigCoördinaat].RouteBeschrijving; //richtingsaanwijzing
                                 await TextToSpeech.SpeakAsync(Tekst.Text);

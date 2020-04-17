@@ -148,12 +148,12 @@ namespace Bewegingsapp
                         Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromMeters(50))); //om de 4 seconden map centreren naar locatie van gebruiker
                         await Task.Delay(4000);
                     }
-                     
+
                     Location Gebruiker = new Location(location); //locatie gebruiker
                     Location Coördinaat = new Location(GekozenRoute[HuidigCoördinaat].Locatie1, GekozenRoute[HuidigCoördinaat].Locatie2); //locatie volgende punt in route
                     double Afstand = Location.CalculateDistance(Gebruiker, Coördinaat, DistanceUnits.Kilometers); //afstand berekenen tussen gebruiker en volgende punt
 
-                    if (Afstand < 0.010) //als de afstand kleiner is dan 10 meter
+                    if (Afstand < 0.015) //als de afstand kleiner is dan 15 meter
                     {
                         if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null || GekozenRoute[HuidigCoördinaat].IDOEfening != null) //als een punt een routebeschrijving heeft of een oefening heeft
                         {

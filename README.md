@@ -1,9 +1,8 @@
 # RCS Beweegroute
-code bewegingsapp
 
-17-04-2020
+### 17-04-2020
 
-API key voor het weergeven van Maps 
+## API key voor het weergeven van Maps 
 
 Als eerste komt de Maps API key. iOS heeft geen API key nodig tijdens het testen, maar heeft er wel een nodig wanneer de 
 applicatie gedeployed wordt. De API key voor Android werkte alleen tijdens het ontwikkelen van de applicatie. Er is een
@@ -12,7 +11,7 @@ is te vinden in deze link: https://developer.apple.com/documentation/mapkitjs/cr
 de Robert Coppes stichting heeft op dit moment nog geen developers account.
 
 
-Uitbrengen applicatie
+## Uitbrengen applicatie
 
 Als 2e geldt hoe ze de applicatie gaan uitbrengen. Er is onderzoek gedaan naar het uitbrengen in de Apple App Store en de 
 Google Play Store. Dit is te vinden in het bestand "Onderzoek Appstore en google store". Dit is natuurlijk niet vereist,
@@ -26,7 +25,7 @@ Hoe de Robert Coppes Stichting met de code en alle omliggende documentatie om wi
 een licentie bijgezet kunnen worden, maar dit zal in overleg met de Robert Coppes Stichting gebeuren.
 
 
-Aanbevelingen voor de code
+## Aanbevelingen voor de code
 
 Aangezien er een tijdslimiet zat aan de tijd van het ontwikkelen van de code, komen hier enkele aanbevelingen voor in de toekomst
 voor het verbeteren van de applicatie:
@@ -40,6 +39,9 @@ gestopt worden en dit voorkomt ook dat text-to-speech daar elkaar gaat praten.
 5. De functionaliteit van het lopen van een route verbeteren. Deze werkt nu alleen als de gebruiker ook precies langs ieder coördinaat
 loopt.
 6. De code opruimen. Er is waarschijnlijk vrij veel dubbele code in de menu's die bedoeld zijn voor de begeleiders. Kijk bijvoorbeeld of er menu's samengevoegd kunnen worden.
+
+
+### Verdere aandachtspunten
 
 Ook zijn er nog een aantal aandachtspunten waar we op willen wijzen:
 1. We kunnen iedereen aanbevelen om gebruik te maken van de Github extensie van Visual Studio. Dat zorgt ervoor dat je de code direct kunt aanpassen in Visual Studio en met een simpele commit en push de code ook direct op Github hebt.

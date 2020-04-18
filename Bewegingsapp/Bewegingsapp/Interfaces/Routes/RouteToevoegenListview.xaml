@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="90*"/>
             </Grid.ColumnDefinitions>
             <CheckBox x:Name="EindeIsBegin" Grid.Row="0" Grid.Column="0" BackgroundColor="GhostWhite"/>
-            <Label Grid.Row="0" Grid.Column="1" BackgroundColor="GhostWhite" Text="Verbindt het laatste punt met het eerste punt" TextColor="Black" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="15"/>
+            <Label Grid.Row="0" Grid.Column="1" BackgroundColor="GhostWhite" Text="Verbind het laatste punt met het eerste punt" TextColor="Black" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="15"/>
             <ListView x:Name ="Listview_Coördinaten" BackgroundColor="GhostWhite" Grid.Row="2" ItemSelected="Listview_Coördinaten_ItemSelected" Grid.ColumnSpan="2">
                 <ListView.ItemTemplate >
                     <DataTemplate>

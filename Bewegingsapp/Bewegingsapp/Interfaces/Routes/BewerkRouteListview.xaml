@@ -34,7 +34,7 @@
             <Editor x:Name="NaamRouteBewerk" Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="GhostWhite" FontSize="25" PropertyChanged="NaamRouteBewerk_PropertyChanged"/>
             <Label Grid.Row="4" Grid.ColumnSpan="2" BackgroundColor="Yellow" Text="Route punten" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33" TextColor="Black"/>
             <CheckBox x:Name="EindeIsBegin" Grid.Row="6" BackgroundColor="GhostWhite"/>
-            <Label Grid.Row="6" Grid.Column="1" BackgroundColor="GhostWhite" Text="Verbindt het laatste punt met het eerste punt" VerticalTextAlignment="Center" TextColor="Black" FontAttributes="Bold" FontSize="15"/>
+            <Label Grid.Row="6" Grid.Column="1" BackgroundColor="GhostWhite" Text="Verbind het laatste punt met het eerste punt" VerticalTextAlignment="Center" TextColor="Black" FontAttributes="Bold" FontSize="15"/>
             <ListView x:Name ="Listview_Coördinaten_Bewerk" BackgroundColor="GhostWhite" Grid.Row="8" Grid.ColumnSpan="2" ItemSelected="Listview_Coördinaten_Bewerk_ItemSelected">
                 <ListView.ItemTemplate >
                     <DataTemplate>

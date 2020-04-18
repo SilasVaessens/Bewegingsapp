@@ -71,7 +71,7 @@ namespace Bewegingsapp
 
         private async void Delete_Clicked(object sender, EventArgs e) //oefening verijderen
         {
-            string VerwijderString = string.Format("Weet u zeker dat u de {0) oefening wilt verwijderen?", BewerkNaam.Text);
+            string VerwijderString = string.Format("Weet u zeker dat u de {0} oefening wilt verwijderen?", BewerkNaam.Text);
             bool answer = await DisplayAlert("Definitief verwijderen?", VerwijderString, "JA", "NEE");
             if (answer == true)
             {

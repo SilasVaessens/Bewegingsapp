@@ -41,7 +41,7 @@ loopt.
 6. De code opruimen. Er is waarschijnlijk vrij veel dubbele code in de menu's die bedoeld zijn voor de begeleiders. Kijk bijvoorbeeld of er menu's samengevoegd kunnen worden.
 
 
-### Verdere aandachtspunten
+## Verdere aandachtspunten
 
 Ook zijn er nog een aantal aandachtspunten waar we op willen wijzen:
 1. We kunnen iedereen aanbevelen om gebruik te maken van de Github extensie van Visual Studio. Dat zorgt ervoor dat je de code direct kunt aanpassen in Visual Studio en met een simpele commit en push de code ook direct op Github hebt.

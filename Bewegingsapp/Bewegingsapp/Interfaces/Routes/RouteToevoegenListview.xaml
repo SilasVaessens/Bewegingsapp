@@ -28,7 +28,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="Klaar" BackgroundColor="Yellow" Grid.Row="4" Text="Opslaan" FontSize="33" FontAttributes="Bold"
+            <Button x:Name="Klaar" BackgroundColor="Yellow" Grid.Row="4" Text="OPSLAAN" FontSize="33" FontAttributes="Bold"
                     Clicked="Klaar_Clicked" Grid.ColumnSpan="2"/>
         </Grid>
     </ContentPage.Content>

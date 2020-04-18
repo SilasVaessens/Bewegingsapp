@@ -33,11 +33,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="Nee_Route" Grid.Row="2" Grid.Column="0" BackgroundColor="Red"  Text="Nee" TextColor="Black"
+            <Button x:Name="Nee_Route" Grid.Row="2" Grid.Column="0" BackgroundColor="Red"  Text="NEE" TextColor="Black"
                     FontSize="50" FontAttributes="Bold" IsVisible="False" IsEnabled="False"/>
-            <Label x:Name="Tussen_Knoppen" Grid.Row="2" Grid.Column="1" BackgroundColor="Black" Text="Ja"
-                   IsVisible="False" IsEnabled="False"/>
-            <Button x:Name="Ja_Route" Grid.Row="2" Grid.Column="2" BackgroundColor="Green" Text="Ja" TextColor="Black"
+            <Label x:Name="Tussen_Knoppen" Grid.Row="2" Grid.Column="1" BackgroundColor="Black" IsVisible="False" IsEnabled="False"/>
+            <Button x:Name="Ja_Route" Grid.Row="2" Grid.Column="2" BackgroundColor="Green" Text="JA" TextColor="Black"
                     FontSize="50" FontAttributes="Bold" IsVisible="False" IsEnabled="False"/>
         </Grid>
     </ContentPage.Content>

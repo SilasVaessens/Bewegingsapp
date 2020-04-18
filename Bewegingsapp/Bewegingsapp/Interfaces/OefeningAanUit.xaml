@@ -22,9 +22,9 @@
             </Grid.ColumnDefinitions>
             <Label  Grid.Row="0" Grid.ColumnSpan="3" Text="Wilt u de route met of zonder oefeningen lopen?" FontSize="57" FontAttributes="Bold"
                     TextColor="Black" BackgroundColor="Yellow" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" x:Name="Label_Vraag"/>
-            <local:CustomButton x:Name="Nee_Oefening" Grid.Row="2" Text="Zonder oefening" FontSize="38" FontAttributes="Bold"
+            <local:CustomButton x:Name="Nee_Oefening" Grid.Row="2" Text="ZONDER OEFENING" FontSize="35" FontAttributes="Bold"
                     TextColor="Black" BackgroundColor="Red" Clicked="Nee_Oefening_Clicked"/>
-            <local:CustomButton x:Name="Ja_Oefening" Grid.Row="2" Grid.Column="2" Text="Met oefening" FontSize="38" FontAttributes="Bold"
+            <local:CustomButton x:Name="Ja_Oefening" Grid.Row="2" Grid.Column="2" Text="MET OEFENING" FontSize="35" FontAttributes="Bold"
                     TextColor="Black" BackgroundColor="ForestGreen" Clicked="Ja_Oefening_Clicked"/>
         </Grid>
     </ContentPage.Content>

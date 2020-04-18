@@ -49,10 +49,10 @@
                    FontAttributes="Bold" Grid.ColumnSpan="3" Grid.Row="8" BackgroundColor="Yellow" Text="Oefening"/>
             <Picker x:Name="Oefeningen_Picker" TextColor="Black" Grid.ColumnSpan="3" Grid.Row="10" BackgroundColor="GhostWhite"
                     ItemDisplayBinding="{Binding NaamOefening}" Title="Selecteer oefening" FontSize="25"/>
-            <Button FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="1" Grid.Row="12" BackgroundColor="Yellow" Text="Opslaan"
+            <Button FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="1" Grid.Row="12" BackgroundColor="Yellow" Text="OPSLAAN"
                     x:Name="Opslaan_Button" Clicked="Opslaan_Button_Clicked" />
             <Button x:Name="Reset_Button" FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="1" Grid.Row="12" BackgroundColor="Yellow"
-                    Text="Reset" Clicked="Reset_Button_Clicked" Grid.Column="2"/>
+                    Text="RESET" Clicked="Reset_Button_Clicked" Grid.Column="2"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

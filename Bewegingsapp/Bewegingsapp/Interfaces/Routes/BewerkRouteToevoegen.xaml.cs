@@ -43,7 +43,7 @@ namespace Bewegingsapp
                     Type = PinType.Place,
                     Position = new Position(location1, location2)
                 };
-                pin.MarkerClicked += (s, args) =>
+                pin.MarkerClicked += (s, args) => // verbergt de label die verschijnt als je op de pin klikt
                 {
                     args.HideInfoWindow = true;
                 };
@@ -72,10 +72,16 @@ namespace Bewegingsapp
 
         private async void Toevoegen_Clicked(object sender, EventArgs e) //opslaan van nieuw toegevoegde coördinaat
         {
-            Route UpdateCoördinatenRoute = (Route)BindingContext;
-            Console.WriteLine("Naam Route : " + UpdateCoördinatenRoute.NaamRoute + "IDRoute van coördinaat : " + coördinaat.IDRoute);
-            await App.Database.ToevoegenCoördinaat(coördinaat);
-            await Navigation.PopAsync();
+            if (NieuwPunt.Count == 0)
+            {
+                await DisplayAlert("Geen punt toegevoegd", "U heeft geen nieuw punt toegevoegd, dus opslaan is niet mogelijk.", "OK");
+            }
+            else
+            {
+                Route UpdateCoördinatenRoute = (Route)BindingContext;
+                await App.Database.ToevoegenCoördinaat(coördinaat);
+                await Navigation.PopAsync();
+            }
         }
 
         private void Map_Route_Bewerken_MapClicked(object sender, MapClickedEventArgs e)
@@ -88,9 +94,9 @@ namespace Bewegingsapp
 
             if (NieuwPunt.Count == 1) //hier wordt ervoor gezord dat er niet meerdere nieuwe pins tegelijk kunnen worden neergezet
             {
-                Map_Route_Bewerken.Pins.Remove(NieuwPunt.Last());
-                NieuwPunt.Remove(NieuwPunt.Last());
-                Map_Route_Bewerken.MapElements.Remove(polyline);
+                Map_Route_Bewerken.Pins.Remove(NieuwPunt.Last()); //pin op de map
+                NieuwPunt.Remove(NieuwPunt.Last()); // pin in pinslijst
+                Map_Route_Bewerken.MapElements.Remove(polyline); // polyline naar pin
             }
             Pin pin = new Pin //maak nieuwe pin aan op aangeklikte plek op de map
             {
@@ -98,12 +104,12 @@ namespace Bewegingsapp
                 Type = PinType.Place,
                 Position = new Position(location1, location2)
             };
-            pin.MarkerClicked += (s, args) =>
+            pin.MarkerClicked += (s, args) => // verbergt de label die verschijnt als je op de pin klikt
             {
                 args.HideInfoWindow = true;
             };
-            Map_Route_Bewerken.Pins.Add(pin);
-            NieuwPunt.Add(pin); //pin toevoegen aan de map
+            Map_Route_Bewerken.Pins.Add(pin); //pin toevoegen aan de map
+            NieuwPunt.Add(pin); 
 
             coördinaat = new Coördinaat
             {
@@ -116,7 +122,7 @@ namespace Bewegingsapp
 
             polyline = new Polyline //maak nieuwe polyline tussen nieuwe pin en laatste pin in route
             {
-                StrokeColor = Color.Blue,
+                StrokeColor = Color.Red,
                 StrokeWidth = 10,
                 Geopath =
                         {
@@ -129,9 +135,9 @@ namespace Bewegingsapp
 
         private async void Info_Clicked(object sender, EventArgs e) //informatie knop, hoe het toevoegen werkt
         {
-            await DisplayAlert("Punt toevoegen", "Het is niet mogelijk om meer dan 1 punt tegelijk toe te voegen. \n \n" +
-                                "Het nieuwe punt wordt automatisch toegevoegd aan het einde van de list, het is niet mogelijk " +
-                                "om het nieuwe punt tussendoor of aan het begin toe te voegen.", "ok");
+            await DisplayAlert("Punt toevoegen", "Het is niet mogelijk om meer dan 1 punt tegelijk toe te voegen aan een route. \n \n" +
+                                "Het nieuwe punt wordt automatisch toegevoegd aan het einde van de lijst met route punten, het is niet mogelijk " +
+                                "om het nieuwe punt tussendoor of aan het begin toe te voegen.", "OK");
         }
     }
 }

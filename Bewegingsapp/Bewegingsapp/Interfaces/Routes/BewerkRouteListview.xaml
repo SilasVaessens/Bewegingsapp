@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="90*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.ColumnSpan="2" BackgroundColor="Yellow" Text="Naam" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33" TextColor="Black"/>
-            <Editor x:Name="NaamRouteBewerk" Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="GhostWhite" FontSize="25"/>
+            <Editor x:Name="NaamRouteBewerk" Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="GhostWhite" FontSize="25" PropertyChanged="NaamRouteBewerk_PropertyChanged"/>
             <Label Grid.Row="4" Grid.ColumnSpan="2" BackgroundColor="Yellow" Text="Route punten" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="33" TextColor="Black"/>
             <CheckBox x:Name="EindeIsBegin" Grid.Row="6" BackgroundColor="GhostWhite"/>
             <Label Grid.Row="6" Grid.Column="1" BackgroundColor="GhostWhite" Text="Verbindt het laatste punt met het eerste punt" VerticalTextAlignment="Center" TextColor="Black" FontAttributes="Bold" FontSize="15"/>
@@ -42,7 +42,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="Klaar_Bewerk" BackgroundColor="Yellow" Grid.Row="10" Text="Opslaan" FontSize="33" FontAttributes="Bold"
+            <Button x:Name="Klaar_Bewerk" BackgroundColor="Yellow" Grid.Row="10" Text="OPSLAAN" FontSize="33" FontAttributes="Bold"
                 Clicked="Klaar_Bewerk_Clicked" Grid.ColumnSpan="2" TextColor="Black"/>
         </Grid>
    </ContentPage.Content>

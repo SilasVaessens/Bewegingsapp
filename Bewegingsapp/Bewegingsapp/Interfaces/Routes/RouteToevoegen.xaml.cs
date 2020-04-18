@@ -88,26 +88,27 @@ namespace Bewegingsapp
         {
             if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) & CoördinatenRoute.Count == 0) //route naam niet ingevuld en geen punt(coördinaten) neergezet
             {
-                await DisplayAlert("Niks ingevuld", "U heeft de route geen naam en geen route punten gegeven", "OK");
+                await DisplayAlert("Niks ingevuld", "U heeft de route geen naam en geen route punten gegeven.", "OK");
             }
             else
             {
                 if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text)) //geen naam ingevuld
                 {
-                    await DisplayAlert("Geen naam", "U heeft de route geen naam gegeven", "OK");
+                    await DisplayAlert("Geen naam", "U heeft de route geen naam gegeven.", "OK");
                 }
                 else
                 {
                     if (CoördinatenRoute.Count == 0)
                     {
-                        await DisplayAlert("Geen route punten", "U heeft de route geen route punten gegeven", "OK"); //geen punt(coördinaten) neergezet
+                        string GeenCoördinaten = string.Format("U heeft de {0} route geen route punten gegeven.", Naam_Route_toevoegen.Text);
+                        await DisplayAlert("Geen route punten", GeenCoördinaten , "OK"); //geen punt(coördinaten) neergezet
                     }
                     else
                     {
                         List<Route> routes = await App.Database.LijstRoutes();
                         if (routes.Exists(route1 => route1.NaamRoute == Naam_Route_toevoegen.Text) & bugfix == true) //naam is al in gebruik
                         { 
-                            await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze route wordt al gebruikt voor een andere route", "ok");
+                            await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze route wordt al gebruikt voor een andere route.", "OK");
                         }
                         else
                         {
@@ -152,7 +153,7 @@ namespace Bewegingsapp
         // verwijdert pins, coördinaten en polylines in de volgorde zoals ze door de gebruiker zijn toegevoegd
         private async void Route_Punt_Verwijderen_Clicked(object sender, EventArgs e) //laatst geplaatste punt verwijderen
         {
-            bool verwijder = await DisplayAlert("Route punt verwijderen", "Weet u zeker of u dat u het laatst aangemaakte route punt wilt verwijderen?", "ja", "nee");
+            bool verwijder = await DisplayAlert("Route punt verwijderen", "Weet u zeker dat u het laatst aangemaakte route punt wilt verwijderen?", "JA", "NEE");
             if (verwijder == true)
             {
                 Map_Route_Toevoegen.Pins.Remove(PinsLijst.Last()); //verwijder pin
@@ -236,7 +237,19 @@ namespace Bewegingsapp
                 "Om een route punt toe te voegen, klik op de map waar u het route punt wilt toevoegen, en blijf dit herhalen tot dat u klaar bent. \n \n" +
                 "Er worden automatisch lijnen getrokken tussen de route punten, maar deze volgen niet de weg, om de lijnen wel de weg te laten volgen" +
                 " moet u bij iedere plek waar de weg verandert een route punt neerzetten. \n \n" +
-                "Klik op verwijder punt om de route punten te verwijderen in de volgorde zoals u ze heeft neergezet.", "ok");
+                "Klik op VERWIJDER PUNT om de route punten te verwijderen in de volgorde zoals u ze heeft neergezet.", "OK");
+        }
+
+        private void Naam_Route_toevoegen_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) == true)
+            {
+                Title = "Nieuwe route toevoegen";
+            }
+            if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) == false)
+            {
+                Title = Naam_Route_toevoegen.Text;
+            }
         }
     }
 }

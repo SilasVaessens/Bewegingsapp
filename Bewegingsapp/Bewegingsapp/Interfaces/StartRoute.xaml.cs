@@ -79,7 +79,7 @@ namespace Bewegingsapp
             double locatie1 = GekozenRoute[0].Locatie1;
             double locatie2 = GekozenRoute[0].Locatie2;
             Map_Start_Route.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locatie1, locatie2), Distance.FromMeters(50))); //startpunt, locatie eerste coördinaat gekozen route
-            Tekst.Text = String.Format("Om de {0} route te starten, moet u zich op het start punt bevinden en op de start knop duwen", route.NaamRoute);
+            Tekst.Text = String.Format("Om de {0} route te starten, moet u zich op het start punt bevinden en op de start knop duwen.", route.NaamRoute);
             await TextToSpeech.SpeakAsync(Tekst.Text);
         }
 
@@ -99,7 +99,7 @@ namespace Bewegingsapp
                 if (AfstandGebruikerBeginpunt > 0.010) //als de afstand groter is dan 10 meter
                 {
                     RouteGestart = false; //als dit false is wordt de route niet gestart
-                    Tekst.Text = String.Format("U bent niet op het startpunt van de {0} route", route.NaamRoute);
+                    Tekst.Text = String.Format("U bent niet op het startpunt van de {0} route.", route.NaamRoute);
                     await TextToSpeech.SpeakAsync(Tekst.Text);
                     await Task.Delay(5000);
                     Tekst.Text = null;
@@ -128,9 +128,8 @@ namespace Bewegingsapp
                 Start_Route.Text = "Onderweg"; //button tekst veranderd
                 if (HuidigCoördinaat == 0)
                 {
-                    Tekst.Text = String.Format("U bent begonnen aan het lopen van de {0} route", route.NaamRoute);
+                    Tekst.Text = String.Format("U bent begonnen aan het lopen van de {0} route.", route.NaamRoute);
                     await TextToSpeech.SpeakAsync(Tekst.Text);
-                    HuidigCoördinaat = 24;
                 }
                 List<Oefening> Oefeningen = await App.Database.LijstOefeningen();
                 Map_Start_Route.HasScrollEnabled = false; //kunt de kaart niet zelf aanpassen als de route is gestart
@@ -185,7 +184,7 @@ namespace Bewegingsapp
                         {
                             RouteGestart = false;
                             Start_Route.Text = "Einde!";
-                            Tekst.Text = String.Format("De {0} route is afgelopen, u gaat nu terug naar het hoofdmenu", route.NaamRoute); //app navigeert naar startmenu (poptorootasync)
+                            Tekst.Text = String.Format("De {0} route is afgelopen, u gaat nu terug naar het hoofdmenu.", route.NaamRoute); //app navigeert naar startmenu (poptorootasync)
                             await TextToSpeech.SpeakAsync(Tekst.Text);
                             await Task.Delay(4000);
                             await Navigation.PopToRootAsync();

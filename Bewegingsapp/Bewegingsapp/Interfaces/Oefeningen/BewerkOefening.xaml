@@ -28,11 +28,11 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Text="Naam" FontSize="33" FontAttributes="Bold"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
-            <Editor x:Name="BewerkNaam"  Placeholder="Naam van de oefening." BackgroundColor="WhiteSmoke" Grid.Row="2" Text="{Binding NaamOefening}"/>
+            <Editor x:Name="BewerkNaam"  Placeholder="Naam van de oefening." BackgroundColor="WhiteSmoke" Grid.Row="2" Text="{Binding NaamOefening}" PropertyChanged="BewerkNaam_PropertyChanged"/>
             <Label Grid.Row="4"  Text="Omschrijving" FontSize="33" FontAttributes="Bold"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
             <Editor x:Name="BewerkOmschrijving"  Placeholder="Beschrijf hier wat er moet gebeuren tijdens de oefening." BackgroundColor="WhiteSmoke" Grid.Row="6" Text="{Binding OmschrijvingOefening}"/>
-            <local:CustomButton x:Name="Oefening_update" Grid.Row="8" Text="Opslaan" FontSize="33" FontAttributes="Bold"
+            <local:CustomButton x:Name="Oefening_update" Grid.Row="8" Text="OPSLAAN" FontSize="33" FontAttributes="Bold"
                    TextColor="Black" BackgroundColor="Yellow" Clicked="Oefening_update_Clicked"/>
         </Grid>
     </ContentPage.Content>

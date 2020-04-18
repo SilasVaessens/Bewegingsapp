@@ -39,7 +39,8 @@ namespace Bewegingsapp
             var coördinaat1 = (Coördinaat)BindingContext;
             if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == true) //geen omschrijving en geen oefening
             {
-                bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", "Weet u zeker dat u dit als een onzichtbaar punt?", "ja", "nee");
+                string OnzichtbaarPunt = string.Format("Weet u zeker dat u punt {0} als een onzichtbaar punt wilt opslaan?", coördinaat1.Nummer.ToString());
+                bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", OnzichtbaarPunt , "JA", "NEE");
                 if (Onzichtbaar == true) //onzichtbare pin, voor het tekenen van polylines
                 {
                     coördinaat1.IDOEfening = null;
@@ -72,10 +73,10 @@ namespace Bewegingsapp
         private async void Info_Clicked(object sender, EventArgs e) //informatie knop, hoe de punten werken
         {
             await DisplayAlert("Soorten punten", "Er zijn 3 soorten punten: navigatie-punten, oefening-punten en onzichtbare punten.\n \n" +
-                     "Navigatie-punten hebben altijd een routeomschrijving en geen oefening, ze zijn bedoeld als aanwijzingen voor de slechtzienden.\n \n" +
-                     "Oefening-punten zijn bedoeld als optionele oefeningen tijdens het lopen, deze hebben altijd een oefening  en een routebeschrijving, zodat verder gelopen kan worden na de oefening.\n \n" +
-                     "Onzichtbare punten zijn bedoeld om de route goed laten lopen, want deze volgt niet de straten, deze hebben geen oefening of routebeschrijving.",
-                     "OK");
+                    "Navigatie-punten hebben altijd een routeomschrijving en geen oefening, ze zijn bedoeld als aanwijzingen voor de slechtzienden.\n \n" +
+                    "Oefening-punten zijn bedoeld als optionele oefeningen voor tijdens het lopen, deze hebben altijd een oefening en een routebeschrijving.\n \n" +
+                    "Onzichtbare punten zijn bedoeld om de routelijnen te goed laten lopen, want deze volgen niet de straten, deze hebben geen oefening of routebeschrijving.",
+                    "OK");
         }
     }
 }

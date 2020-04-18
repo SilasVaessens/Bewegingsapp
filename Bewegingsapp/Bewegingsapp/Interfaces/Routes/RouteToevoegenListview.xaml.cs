@@ -36,15 +36,14 @@ namespace Bewegingsapp
 
         private async void Klaar_Clicked(object sender, EventArgs e) //navigatie naar instellingen menu
         {
-            bool KlaarBewerken = await DisplayAlert("Route opslaan", "Bent u klaar met het bewerken van de route?", "ja", "nee");
+            string OpslaanRoute = string.Format("Bent u klaar met het bewerken van de {0} route?", AlleRoutes.Last().NaamRoute);
+            bool KlaarBewerken = await DisplayAlert("Route opslaan", OpslaanRoute , "JA", "NEE");
             if (KlaarBewerken == true)
             {
                 if (EindeIsBegin.IsChecked == true)
                 {
                     Route route = AlleRoutes.Find(route1 => route1.IDRoute == IDRoute);
-                    Console.WriteLine("Voor verandering : " + route.EindeIsBegin);
                     route.EindeIsBegin = true;
-                    Console.WriteLine("Na verandering : " + route.EindeIsBegin);
                     await App.Database.UpdateRoute(route);
                 }
                 var VorigePage = Navigation.NavigationStack.LastOrDefault();

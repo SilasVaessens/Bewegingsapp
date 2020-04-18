@@ -34,13 +34,13 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Text="Naam" FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="3"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
-            <Editor x:Name="Naam_Route_toevoegen" Placeholder="Naam van de route" BackgroundColor="WhiteSmoke" Grid.Row="2" Grid.ColumnSpan="3" FontSize="25"/>
+            <Editor x:Name="Naam_Route_toevoegen" Placeholder="Naam van de route" BackgroundColor="WhiteSmoke" Grid.Row="2" Grid.ColumnSpan="3" FontSize="25" PropertyChanged="Naam_Route_toevoegen_PropertyChanged"/>
             <Label Grid.Row="4" Text="Route punten" FontSize="33" FontAttributes="Bold" Grid.ColumnSpan="3"
                    TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="Yellow"/>
             <maps:Map x:Name="Map_Route_Toevoegen" Grid.Row="6" Grid.ColumnSpan="3" IsShowingUser="True" MapClicked="Map_Route_Toevoegen_MapClicked"/>
-            <Button x:Name="Route_opslaan" Grid.Row="8" Grid.Column="0" Text="Opslaan" FontSize="30" FontAttributes="Bold"
+            <Button x:Name="Route_opslaan" Grid.Row="8" Grid.Column="0" Text="OPSLAAN" FontSize="30" FontAttributes="Bold"
                    TextColor="Black" BackgroundColor="Yellow" Clicked="Route_opslaan_Clicked"/>
-            <local:CustomButton x:Name="Route_Punt_Verwijderen" Grid.Row="8"  Grid.Column="2" Text="Verwijder punt" FontSize="30" FontAttributes="Bold"
+            <local:CustomButton x:Name="Route_Punt_Verwijderen" Grid.Row="8"  Grid.Column="2" Text="VERWIJDER PUNT" FontSize="30" FontAttributes="Bold"
                    TextColor="Black" BackgroundColor="Yellow" Clicked="Route_Punt_Verwijderen_Clicked"/>
         </Grid>
     </ContentPage.Content>

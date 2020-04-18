@@ -14,9 +14,9 @@
                 <RowDefinition Height="1"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="Route" Grid.Row="0" Text="Start route" FontSize="57" FontAttributes="Bold"
+            <Button x:Name="Route" Grid.Row="0" Text="START ROUTE" FontSize="57" FontAttributes="Bold"
                     TextColor="Black" BackgroundColor="Yellow" Clicked="Route_Clicked"/>
-            <Button x:Name="Instellingen" Grid.Row="2" Text="Instellingen" FontSize="57" FontAttributes="Bold"
+            <Button x:Name="Instellingen" Grid.Row="2" Text="INSTELLINGEN" FontSize="57" FontAttributes="Bold"
                     TextColor="Black" BackgroundColor="WhiteSmoke" Clicked="Instellingen_Clicked"/>
         </Grid>
         

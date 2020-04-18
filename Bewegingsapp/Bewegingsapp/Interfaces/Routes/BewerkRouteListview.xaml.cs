@@ -10,6 +10,9 @@ namespace Bewegingsapp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BewerkRouteListview : ContentPage
     {
+
+        public string NaamRoute;
+
         public BewerkRouteListview()
         {
             InitializeComponent();
@@ -19,7 +22,7 @@ namespace Bewegingsapp
         {
             base.OnAppearing();
             var BindingRoute = (Route)BindingContext; //ophalen van geselecteerde route
-            Title = BindingRoute.NaamRoute;
+            NaamRoute = BindingRoute.NaamRoute;
             NaamRouteBewerk.Text = BindingRoute.NaamRoute;
             if (BindingRoute.EindeIsBegin == false)
             {
@@ -49,34 +52,44 @@ namespace Bewegingsapp
         private async void Klaar_Bewerk_Clicked(object sender, System.EventArgs e)
         {
             var UpdateRoute = (Route)BindingContext;
-            bool KlaarBewerken = await DisplayAlert("Route opslaan", "Bent u klaar met het bewerken van de route?", "ja", "nee");
+            string OpslaanNaam = string.Format("Bent u klaar met het bewerken van de {0} route?", NaamRouteBewerk.Text);
+            bool KlaarBewerken = await DisplayAlert("Route opslaan", OpslaanNaam, "JA", "NEE");
             if (KlaarBewerken == true)
             {
                 List<Route> routes = await App.Database.LijstRoutes();
                 if (routes.Exists(route1 => route1.NaamRoute == UpdateRoute.NaamRoute & route1.IDRoute != UpdateRoute.IDRoute))
                 {
-                    await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze route wordt al gebruikt voor een andere route", "ok");
+                    await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze route wordt al gebruikt door een andere route.", "OK");
                 }
                 else
                 {
-                    UpdateRoute.NaamRoute = NaamRouteBewerk.Text;
-                    if (EindeIsBegin.IsChecked == true)
+                    if (string.IsNullOrWhiteSpace(NaamRouteBewerk.Text) == true)
                     {
-                        UpdateRoute.EindeIsBegin = true;
+                        await DisplayAlert("Geen naam", "De route heeft geen naam meer.", "OK");
                     }
-                    if (EindeIsBegin.IsChecked == false)
+                    else
                     {
-                        UpdateRoute.EindeIsBegin = false;
+                        UpdateRoute.NaamRoute = NaamRouteBewerk.Text;
+                        if (EindeIsBegin.IsChecked == true)
+                        {
+                            UpdateRoute.EindeIsBegin = true;
+                        }
+                        if (EindeIsBegin.IsChecked == false)
+                        {
+                            UpdateRoute.EindeIsBegin = false;
+                        }
+                        await App.Database.UpdateRoute(UpdateRoute);
+                        await Navigation.PopAsync(); //navigatie naar instellingen menu
+
                     }
-                    await App.Database.UpdateRoute(UpdateRoute);
-                    await Navigation.PopAsync(); //navigatie naar instellingen menu
                 }
             }
         }
 
         private async void Delete_Clicked(object sender, System.EventArgs e) //verwijderen van route
         {
-            bool VerwijderenRoute = await DisplayAlert("Route verwijderen", "Weet u zeker dat u deze route wilt verwijderen?", "ja", "nee");
+            string StringVerwijder = string.Format("Weet u zeker dat u de {0} route wilt verwijderen?", NaamRouteBewerk.Text);
+            bool VerwijderenRoute = await DisplayAlert("Route verwijderen", StringVerwijder , "JA", "NEE");
             if (VerwijderenRoute == true)
             {
                 var VerwijderRoute = (Route)BindingContext;
@@ -94,6 +107,18 @@ namespace Bewegingsapp
                 BindingContext = Add
             };
             await Navigation.PushAsync(bewerkRouteToevoegen);
+        }
+
+        private void NaamRouteBewerk_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(NaamRouteBewerk.Text) == true || NaamRouteBewerk.Text == NaamRoute)
+            {
+                Title = NaamRoute;
+            }
+            if (string.IsNullOrWhiteSpace(NaamRouteBewerk.Text) == false)
+            {
+                Title = NaamRouteBewerk.Text;
+            }
         }
     }
 }

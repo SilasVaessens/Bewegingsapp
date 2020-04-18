@@ -17,7 +17,7 @@ namespace Bewegingsapp
         Route route;                            // niet verwijderen, dit zorgt ervoor dat alle functies die een route het hebben over hetzelfde route object, 
                                                 // als het route object in iedere functie zelf wordt aangemaakt, dan crasht deze pagina bij het verlaten van deze pagina
         bool opgeslagen = false;                // controle of de bestaande route al eens opgeslagen is na het aanmaken van de route
-        bool bugfix = true;                     // niet aankomen, voorkomt bug
+        bool bugfix = true;                     // false als je hier bent gekomen vanuit het LijstRoutes interface, true als je hier bent gekomen vanuit het RouteToevoegenListview interface
         public List<Pin> PinsLijst = new List<Pin>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van pins op de map
         public List<Polyline> PolylinesLijst = new List<Polyline>(); // lijst met alle aangemaakte pins, is nodig voor het verwijderen van polylines op de map 
         Coördinaat coördinaat;
@@ -77,7 +77,7 @@ namespace Bewegingsapp
         protected override async void OnDisappearing()
         {
             base.OnDisappearing();
-            if (opgeslagen == false) // deze bool controleert of de route al eens opgeslagen is, zo niet dan wordt de route verwijdert
+            if (opgeslagen == false) // deze bool is om te controleren of de route al eens opgeslagen is, zo niet dan wordt de route verwijdert
             {
                 await App.Database.VerwijderRoute(route);
             }
@@ -112,7 +112,7 @@ namespace Bewegingsapp
                         }
                         else
                         {
-                            if (bugfix == true)
+                            if (bugfix == true) // gekomen vanuit LijstRoutes interface, update de lege route die aangemaakt is bij OnAppearing()
                             {
                                 opgeslagen = true;
                                 foreach (Coördinaat coördinaat in CoördinatenRoute) //alle neergezette punten(coördinaten) opslaan in de database
@@ -125,25 +125,25 @@ namespace Bewegingsapp
                                 route.EindeIsBegin = false;
                                 await App.Database.UpdateRoute(route);
                             }
-                            if (bugfix == false)
+                            if (bugfix == false) // teruggekomen vanuit RouteToevoegenListview, haalt ID op van de eerder gemaakte en opgegeslagen route om deze opniew te kunnen opslaan
                             {
-                                opgeslagen = true;
-                                await App.Database.VerwijderRoute(route);
+                                opgeslagen = true; // voorkomt dubbel verwijderen van route
+                                await App.Database.VerwijderRoute(route); // verwijder de route die aangemaakt is bij OnAppearing, is nu immers niet nodig
                                 List<Route> Routes = await App.Database.LijstRoutes();
-                                Route UpdateRoute = Routes.Last();
+                                Route UpdateRoute = Routes.Last(); // haalt het juiste route object uit de lijst met alle routes (aangezien dit het toevoegen is, is het altijd de laatste)
                                 await App.Database.VerwijderCoördinatenRoute(UpdateRoute.IDRoute);
 
-                                foreach (Coördinaat coördinaat1 in CoördinatenRoute)
+                                foreach (Coördinaat coördinaat1 in CoördinatenRoute) //alle neergezette punten(coördinaten) opslaan in de database
                                 {
                                     coördinaat1.IDRoute = UpdateRoute.IDRoute;
                                     await App.Database.ToevoegenCoördinaat(coördinaat1);
                                     await Task.Delay(5);
                                 }
-                                UpdateRoute.NaamRoute = Naam_Route_toevoegen.Text;
-                                UpdateRoute.Coördinaten = CoördinatenRoute;
+                                UpdateRoute.NaamRoute = Naam_Route_toevoegen.Text; // onject krijgt nieuwe naam
+                                UpdateRoute.Coördinaten = CoördinatenRoute; // coördinaten lijst wordt geupdate
                                 await App.Database.UpdateRoute(UpdateRoute);
                             }
-                            await Navigation.PushAsync(new RouteToevoegenListview());
+                            await Navigation.PushAsync(new RouteToevoegenListview()); // is misschien te verbeteren met een BindingContext in de toekomst
                         }
                     }
                 }
@@ -230,7 +230,7 @@ namespace Bewegingsapp
             };
         }
 
-        private async void Info_Clicked(object sender, EventArgs e)
+        private async void Info_Clicked(object sender, EventArgs e) // info voor gebruikers die moeite hebben met het toevoegen van een route
         {
             await DisplayAlert("Route toevoegen", "Een route heeft altijd een naam en route punten, zonder deze kan de route niet opgeslagen worden. \n \n" +
                 "Een route kan geen naam hebben die een andere route al heeft, dan kan de route niet opgeslagen worden. \n \n" +
@@ -240,12 +240,15 @@ namespace Bewegingsapp
                 "Klik op VERWIJDER PUNT om de route punten te verwijderen in de volgorde zoals u ze heeft neergezet.", "OK");
         }
 
+        // verandert de title van de page als de editor Naam_Route_toevoegen.Text verandert 
         private void Naam_Route_toevoegen_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            // Title is de eigenlijke naam van de route (die van de BindingContext) als de editor leeg is of gelijk is aan de eigenlijke naam
             if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) == true)
             {
                 Title = "Nieuwe route toevoegen";
             }
+            // Als de editor niet leeg is, dan is de title gelijk aan de text in de editor Naam_Route_toevoegen
             if (string.IsNullOrWhiteSpace(Naam_Route_toevoegen.Text) == false)
             {
                 Title = Naam_Route_toevoegen.Text;

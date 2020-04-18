@@ -55,13 +55,15 @@ namespace Bewegingsapp
                 }
             }
         }
-
+        // verandert de title van de page als de editor NaamEditor.Text verandert 
         private void NaamEditor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            // Title is de eigenlijke naam van de oefening (die van de BindingContext) als de editor leeg is of gelijk is aan de eigenlijke naam
             if (string.IsNullOrWhiteSpace(NaamEditor.Text) == true)
             {
                 Title = "Nieuwe oefening toevoegen";
             }
+            // Als de editor niet leeg is, dan is de title gelijk aan de text in de editor NaamEditor
             if (string.IsNullOrWhiteSpace(NaamEditor.Text) == false)
             {
                 Title = NaamEditor.Text;

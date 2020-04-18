@@ -15,8 +15,7 @@ namespace Bewegingsapp
         public List<Coördinaat> CoördinatenRoute = new List<Coördinaat>(); // lijst met alle aangemaakte coördinaten, nodig voor het maken van polylines en het opslaan in de database van de coördinaten
         Coördinaat coördinaat;
         Polyline polyline;
-        public List<Pin> NieuwPunt = new List<Pin>();
-        public List<Pin> PinsLijst = new List<Pin>();
+        public List<Pin> NieuwPunt = new List<Pin>(); // hier hoort maar 1 pin in te zitten
 
         public BewerkRouteToevoegen()
         {
@@ -48,9 +47,7 @@ namespace Bewegingsapp
                     args.HideInfoWindow = true;
                 };
                 Map_Route_Bewerken.Pins.Add(pin); //pin toevoegen aan de map
-                PinsLijst.Add(pin); //lijst van pins om polylines te tekenen
-
-                if (PinsLijst.Count >= 2) //als er 2 of meer pins zijn
+                if (Map_Route_Bewerken.Pins.Count >= 2) //als er 2 of meer pins zijn
                 {
                     Polyline polyline = new Polyline
                     {
@@ -58,11 +55,10 @@ namespace Bewegingsapp
                         StrokeWidth = 10,
                         Geopath =
                         {
-                            new Position(CoördinatenRoute[PinsLijst.Count - 1].Locatie1, CoördinatenRoute[PinsLijst.Count - 1].Locatie2), // pakt longitude en latitude van voorlaatste item in de list
-                            new Position(CoördinatenRoute[PinsLijst.Count - 2].Locatie1, CoördinatenRoute[PinsLijst.Count - 2].Locatie2) // pakt longitude en latitude van laatste item in de list
+                            new Position(CoördinatenRoute[Map_Route_Bewerken.Pins.Count - 1].Locatie1, CoördinatenRoute[Map_Route_Bewerken.Pins.Count - 1].Locatie2), // pakt longitude en latitude van voorlaatste item in de list
+                            new Position(CoördinatenRoute[Map_Route_Bewerken.Pins.Count - 2].Locatie1, CoördinatenRoute[Map_Route_Bewerken.Pins.Count - 2].Locatie2) // pakt longitude en latitude van laatste item in de list
                         }
                     };
-
                     Map_Route_Bewerken.MapElements.Add(polyline); //polyline tekenen
                 }
 
@@ -72,11 +68,11 @@ namespace Bewegingsapp
 
         private async void Toevoegen_Clicked(object sender, EventArgs e) //opslaan van nieuw toegevoegde coördinaat
         {
-            if (NieuwPunt.Count == 0)
+            if (NieuwPunt.Count == 0) // opslaan niet mogelijk als er geen nieuwe pin is
             {
                 await DisplayAlert("Geen punt toegevoegd", "U heeft geen nieuw punt toegevoegd, dus opslaan is niet mogelijk.", "OK");
             }
-            else
+            else // opslaan wel mogelijk als er wel een nieuwe pin is
             {
                 Route UpdateCoördinatenRoute = (Route)BindingContext;
                 await App.Database.ToevoegenCoördinaat(coördinaat);

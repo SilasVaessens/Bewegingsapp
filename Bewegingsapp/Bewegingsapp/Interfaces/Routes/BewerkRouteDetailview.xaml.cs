@@ -22,7 +22,7 @@ namespace Bewegingsapp
         {
             base.OnAppearing();
             Coördinaat coördinaat = (Coördinaat)BindingContext;
-            Title = coördinaat.Nummer.ToString();
+            Title = coördinaat.Nummer.ToString(); // Title is nummer attribuut coördinaat
             Oefeningen_Picker.ItemsSource = await App.Database.LijstOefeningen(); // itemsource == alle oefeningen die ooit aangemaakt zijn
             var BindingCoördinaat = (Coördinaat)BindingContext;
             if (BindingCoördinaat.IDOEfening != null) // voorkomt dat bij iedere coördinaat standaard de eerste oefening wordt toegevoegd
@@ -59,7 +59,7 @@ namespace Bewegingsapp
             if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Routeomschrijving.Text) == true) //geen oefening en geen omschrijving
             {
                 string OnzichtbaarPunt = string.Format("Weet u zeker dat u punt {0} als een onzichtbaar punt wilt opslaan?", coördinaat1.Nummer.ToString());
-                bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", OnzichtbaarPunt, "JA", "NEE");
+                bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", OnzichtbaarPunt, "JA", "NEE"); // controle om per ongeluk opslaan tegen te gaan
                 if (Onzichtbaar == true)
                 {
                     coördinaat1.IDOEfening = null;
@@ -93,11 +93,11 @@ namespace Bewegingsapp
         {
             var coördinaat2 = (Coördinaat)BindingContext;
             string VerwijderPunt = string.Format("Weet u zeker dat u punt {0} wilt verwijderen?", coördinaat2.Nummer.ToString());
-            bool Verwijderen = await DisplayAlert("Punt verwijderen", VerwijderPunt, "JA", "NEE");
+            bool Verwijderen = await DisplayAlert("Punt verwijderen", VerwijderPunt, "JA", "NEE"); // om per ongeluk verwijderen tegen te gaan
             if (Verwijderen == true)
             {
-                await App.Database.VerwijderCoördinaat(coördinaat2);
-                await App.Database.TeUpdatenCoördinatenRoute(coördinaat2.IDRoute);
+                await App.Database.VerwijderCoördinaat(coördinaat2); // verwijdert coördinaat
+                await App.Database.TeUpdatenCoördinatenRoute(coördinaat2.IDRoute); // update nummer attribuut van alle coördinaten met hetzelfde IDRoute
                 await Navigation.PopAsync();
             }
         }

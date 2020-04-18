@@ -34,7 +34,7 @@ namespace Bewegingsapp
                     Type = PinType.Place,
                     Position = new Position(location1, location2)
                 };
-                pin.MarkerClicked += (s, args) =>
+                pin.MarkerClicked += (s, args) => // disabled het infowindow als je op de pin klikt
                 {
                     args.HideInfoWindow = true;
                 };
@@ -61,11 +61,11 @@ namespace Bewegingsapp
                 }
 
             }
-            if (route.EindeIsBegin == true)
+            if (route.EindeIsBegin == true) // tekent polyline tussen eerste en laatste pin als de bool true is
             {
                 Polyline polyline1 = new Polyline
                 {
-                    StrokeColor = Color.Blue,
+                    StrokeColor = Color.Red, // om aan te geven dat deze eigenlijk niet bij de route hoort
                     StrokeWidth = 10,
                     Geopath =
                     {
@@ -128,7 +128,7 @@ namespace Bewegingsapp
                 Start_Route.Text = "Onderweg"; //button tekst veranderd
                 if (HuidigCoördinaat == 0)
                 {
-                    Tekst.Text = String.Format("U bent begonnen aan het lopen van de {0} route.", route.NaamRoute);
+                    Tekst.Text = String.Format("U bent begonnen aan het lopen van de {0} route.", route.NaamRoute); //aanduiding voor de gebruiker dat deze de route gestart is
                     await TextToSpeech.SpeakAsync(Tekst.Text);
                 }
                 List<Oefening> Oefeningen = await App.Database.LijstOefeningen();
@@ -148,7 +148,7 @@ namespace Bewegingsapp
                     Location Coördinaat = new Location(GekozenRoute[HuidigCoördinaat].Locatie1, GekozenRoute[HuidigCoördinaat].Locatie2); //locatie volgende punt in route
                     double Afstand = Location.CalculateDistance(Gebruiker, Coördinaat, DistanceUnits.Kilometers); //afstand berekenen tussen gebruiker en volgende punt
 
-                    if (Afstand < 0.015) //als de afstand kleiner is dan 15 meter
+                    if (Afstand < 0.015) //als de afstand kleiner is dan 15 meter (mogelijk dit te verbeteren met geofencing in de toekomst)
                     {
                         if (GekozenRoute[HuidigCoördinaat].RouteBeschrijving != null || GekozenRoute[HuidigCoördinaat].IDOEfening != null) //als een punt een routebeschrijving heeft of een oefening heeft
                         {
@@ -180,14 +180,15 @@ namespace Bewegingsapp
                         {
                             HuidigCoördinaat++; //voor het indexen van het volgende punt in de route
                         }
+                        // Een idee voor de toekomst is om als EindeIsBegin = true het geval is, de route pas te beïndigen bij het startpunt van de route ipv het eindpunt
                         if (HuidigCoördinaat == GekozenRoute.Count) //route is aan het einde
                         {
                             RouteGestart = false;
                             Start_Route.Text = "Einde!";
-                            Tekst.Text = String.Format("De {0} route is afgelopen, u gaat nu terug naar het hoofdmenu.", route.NaamRoute); //app navigeert naar startmenu (poptorootasync)
+                            Tekst.Text = String.Format("De {0} route is afgelopen, u gaat nu terug naar het hoofdmenu.", route.NaamRoute); // aanduiding voor gebruiker dat deze klaar is met het lopen van de route 
                             await TextToSpeech.SpeakAsync(Tekst.Text);
                             await Task.Delay(4000);
-                            await Navigation.PopToRootAsync();
+                            await Navigation.PopToRootAsync(); //app navigeert naar startmenu, voorkomt problemen met de text-to-speech (pages verschijnen niet, dus text-to-speech wordt niet gebruikt)
                         }
                     }
                 }

@@ -40,7 +40,7 @@ namespace Bewegingsapp
             if (Oefeningen_Picker.SelectedIndex == -1 & string.IsNullOrEmpty(Richtingsaanwijzing.Text) == true) //geen omschrijving en geen oefening
             {
                 string OnzichtbaarPunt = string.Format("Weet u zeker dat u punt {0} als een onzichtbaar punt wilt opslaan?", coördinaat1.Nummer.ToString());
-                bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", OnzichtbaarPunt , "JA", "NEE");
+                bool Onzichtbaar = await DisplayAlert("Opslaan onzichtbaar punt", OnzichtbaarPunt , "JA", "NEE"); // waarschuwing dat de gebruiker een coördinaat geen routeomschrijving of oefening heeft gegeven
                 if (Onzichtbaar == true) //onzichtbare pin, voor het tekenen van polylines
                 {
                     coördinaat1.IDOEfening = null;

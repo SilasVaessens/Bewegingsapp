@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 using Bewegingsapp.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -57,8 +58,9 @@ namespace Bewegingsapp
             if (KlaarBewerken == true)
             {
                 List<Route> routes = await App.Database.LijstRoutes(); 
-                if (routes.Exists(route1 => route1.NaamRoute == UpdateRoute.NaamRoute & route1.IDRoute != UpdateRoute.IDRoute)) //naam wordt al gebruikt, wordt niet opgeslagen
+                if (routes.Exists(route1 => route1.NaamRoute == NaamRouteBewerk.Text & route1.IDRoute != UpdateRoute.IDRoute)) //naam wordt al gebruikt, wordt niet opgeslagen
                 {
+                    
                     await DisplayAlert("Al in gebruik", "De naam die u hebt gekozen voor deze route wordt al gebruikt door een andere route.", "OK");
                 }
                 else
